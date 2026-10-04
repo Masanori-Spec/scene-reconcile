@@ -1,0 +1,27 @@
+name: Native OBS first gate
+on:
+  push:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install official hash-pinned OBS consumer
+        run: bash native/install-obs.sh
+      - name: Genuine native baseline, prepared Import, edit, save and reopen
+        run: |
+          dbus-run-session -- xvfb-run -a -s '-screen 0 1600x1000x24' bash -c 'openbox > /tmp/scene-reconcile-openbox.log 2>&1 & /usr/bin/python3 native/obs_gate.py prepare --out evidence/native-prepare --fixtures tests/fixtures/native'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scenereconcile-native-first-gate
+          path: |
+            evidence/native-prepare/
+            tests/fixtures/native/
+          if-no-files-found: error
