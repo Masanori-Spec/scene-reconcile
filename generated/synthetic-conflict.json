@@ -1,0 +1,453 @@
+{
+  "name": "Workshop incoming",
+  "version": 1,
+  "resolution": {
+    "x": 1280,
+    "y": 720
+  },
+  "sources": [
+    {
+      "uuid": "10000000-0000-4000-8000-000000000001",
+      "name": "Main",
+      "id": "scene",
+      "versioned_id": "scene",
+      "settings": {
+        "id_counter": 2,
+        "custom_size": false,
+        "items": [
+          {
+            "id": 1,
+            "name": "Background",
+            "source_uuid": "10000000-0000-4000-8000-000000000004",
+            "visible": true,
+            "locked": false,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_align": 0,
+            "bounds_crop": false,
+            "crop_left": 0,
+            "crop_top": 0,
+            "crop_right": 0,
+            "crop_bottom": 0,
+            "group_item_backup": false,
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal",
+            "show_transition": {
+              "duration": 0
+            },
+            "hide_transition": {
+              "duration": 0
+            },
+            "private_settings": {}
+          },
+          {
+            "id": 2,
+            "name": "LowerThird",
+            "source_uuid": "10000000-0000-4000-8000-000000000003",
+            "visible": true,
+            "locked": false,
+            "pos": {
+              "x": 120,
+              "y": 140
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_align": 0,
+            "bounds_crop": false,
+            "crop_left": 0,
+            "crop_top": 0,
+            "crop_right": 0,
+            "crop_bottom": 0,
+            "group_item_backup": false,
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal",
+            "show_transition": {
+              "duration": 0
+            },
+            "hide_transition": {
+              "duration": 0
+            },
+            "private_settings": {}
+          }
+        ]
+      },
+      "private_settings": {},
+      "filters": []
+    },
+    {
+      "uuid": "10000000-0000-4000-8000-000000000002",
+      "name": "Break",
+      "id": "scene",
+      "versioned_id": "scene",
+      "settings": {
+        "id_counter": 2,
+        "custom_size": false,
+        "items": [
+          {
+            "id": 1,
+            "name": "Background",
+            "source_uuid": "10000000-0000-4000-8000-000000000004",
+            "visible": true,
+            "locked": false,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_align": 0,
+            "bounds_crop": false,
+            "crop_left": 0,
+            "crop_top": 0,
+            "crop_right": 0,
+            "crop_bottom": 0,
+            "group_item_backup": false,
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal",
+            "show_transition": {
+              "duration": 0
+            },
+            "hide_transition": {
+              "duration": 0
+            },
+            "private_settings": {}
+          },
+          {
+            "id": 2,
+            "name": "LowerThird",
+            "source_uuid": "10000000-0000-4000-8000-000000000003",
+            "visible": true,
+            "locked": false,
+            "pos": {
+              "x": 40,
+              "y": 30
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_align": 0,
+            "bounds_crop": false,
+            "crop_left": 0,
+            "crop_top": 0,
+            "crop_right": 0,
+            "crop_bottom": 0,
+            "group_item_backup": false,
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal",
+            "show_transition": {
+              "duration": 0
+            },
+            "hide_transition": {
+              "duration": 0
+            },
+            "private_settings": {}
+          }
+        ]
+      },
+      "private_settings": {},
+      "filters": []
+    },
+    {
+      "uuid": "10000000-0000-4000-8000-000000000003",
+      "name": "LowerThird",
+      "id": "scene",
+      "versioned_id": "scene",
+      "settings": {
+        "id_counter": 2,
+        "custom_size": false,
+        "items": [
+          {
+            "id": 1,
+            "name": "Banner",
+            "source_uuid": "10000000-0000-4000-8000-000000000005",
+            "visible": true,
+            "locked": false,
+            "pos": {
+              "x": 0,
+              "y": 0
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_align": 0,
+            "bounds_crop": false,
+            "crop_left": 0,
+            "crop_top": 0,
+            "crop_right": 0,
+            "crop_bottom": 0,
+            "group_item_backup": false,
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal",
+            "show_transition": {
+              "duration": 0
+            },
+            "hide_transition": {
+              "duration": 0
+            },
+            "private_settings": {}
+          },
+          {
+            "id": 2,
+            "name": "Title",
+            "source_uuid": "10000000-0000-4000-8000-000000000006",
+            "visible": true,
+            "locked": false,
+            "pos": {
+              "x": 24,
+              "y": 30
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_align": 0,
+            "bounds_crop": false,
+            "crop_left": 0,
+            "crop_top": 0,
+            "crop_right": 0,
+            "crop_bottom": 0,
+            "group_item_backup": false,
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal",
+            "show_transition": {
+              "duration": 0
+            },
+            "hide_transition": {
+              "duration": 0
+            },
+            "private_settings": {}
+          }
+        ]
+      },
+      "private_settings": {},
+      "filters": []
+    },
+    {
+      "uuid": "10000000-0000-4000-8000-000000000004",
+      "name": "Background",
+      "id": "color_source",
+      "versioned_id": "color_source_v3",
+      "settings": {
+        "color": 4278190080,
+        "width": 1280,
+        "height": 720
+      },
+      "filters": []
+    },
+    {
+      "uuid": "10000000-0000-4000-8000-000000000005",
+      "name": "Banner",
+      "id": "color_source",
+      "versioned_id": "color_source_v3",
+      "settings": {
+        "color": 4291669810,
+        "width": 650,
+        "height": 110
+      },
+      "filters": []
+    },
+    {
+      "uuid": "10000000-0000-4000-8000-000000000006",
+      "name": "Title",
+      "id": "text_ft2_source",
+      "versioned_id": "text_ft2_source_v2",
+      "settings": {
+        "text": "Workshop begins at 18:30",
+        "font": {
+          "face": "DejaVu Sans",
+          "size": 32
+        },
+        "color1": 4294967295,
+        "color2": 4294967295
+      },
+      "filters": []
+    },
+    {
+      "uuid": "10000000-0000-4000-8000-000000000007",
+      "name": "Thanks",
+      "id": "scene",
+      "versioned_id": "scene",
+      "settings": {
+        "id_counter": 2,
+        "custom_size": false,
+        "items": [
+          {
+            "id": 1,
+            "name": "LowerThird",
+            "source_uuid": "10000000-0000-4000-8000-000000000003",
+            "visible": true,
+            "locked": false,
+            "pos": {
+              "x": 100,
+              "y": 100
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_align": 0,
+            "bounds_crop": false,
+            "crop_left": 0,
+            "crop_top": 0,
+            "crop_right": 0,
+            "crop_bottom": 0,
+            "group_item_backup": false,
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal",
+            "show_transition": {
+              "duration": 0
+            },
+            "hide_transition": {
+              "duration": 0
+            },
+            "private_settings": {}
+          },
+          {
+            "id": 2,
+            "name": "ThanksText",
+            "source_uuid": "10000000-0000-4000-8000-000000000008",
+            "visible": true,
+            "locked": false,
+            "pos": {
+              "x": 100,
+              "y": 280
+            },
+            "scale": {
+              "x": 1,
+              "y": 1
+            },
+            "bounds": {
+              "x": 0,
+              "y": 0
+            },
+            "rot": 0,
+            "align": 5,
+            "bounds_type": 0,
+            "bounds_align": 0,
+            "bounds_crop": false,
+            "crop_left": 0,
+            "crop_top": 0,
+            "crop_right": 0,
+            "crop_bottom": 0,
+            "group_item_backup": false,
+            "scale_filter": "disable",
+            "blend_method": "default",
+            "blend_type": "normal",
+            "show_transition": {
+              "duration": 0
+            },
+            "hide_transition": {
+              "duration": 0
+            },
+            "private_settings": {}
+          }
+        ]
+      },
+      "private_settings": {},
+      "filters": []
+    },
+    {
+      "uuid": "10000000-0000-4000-8000-000000000008",
+      "name": "ThanksText",
+      "id": "text_ft2_source",
+      "versioned_id": "text_ft2_source_v2",
+      "settings": {
+        "text": "Thanks for joining",
+        "font": {
+          "face": "DejaVu Sans",
+          "size": 40
+        },
+        "color1": 4294967295,
+        "color2": 4294967295
+      },
+      "filters": []
+    }
+  ],
+  "groups": [],
+  "canvases": [],
+  "scene_order": [
+    {
+      "name": "Main"
+    },
+    {
+      "name": "Break"
+    },
+    {
+      "name": "LowerThird"
+    },
+    {
+      "name": "Thanks"
+    }
+  ],
+  "current_scene": "Main",
+  "current_program_scene": "Main",
+  "modules": {}
+}

@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "obsVersion": "32.2.2",
+  "nativeUiImport": true,
+  "baselineCreatedViaNativeApi": true,
+  "allBranchesSavedAndReopened": true,
+  "fixtures": {
+    "identities.json": "1694e5246ae3111f6a2a32ef1e164d00b6b88b8ca79b74331cf6e688060670ab",
+    "incoming-conflict.json": "bb173461892683d23d4dc7cbcb2bb14d0ebf557ee2b5139e98653bc70b968d00",
+    "incoming.json": "7e639055d8db1f2567ab8f1891eda5ec5e86575c34bd1a4d5428c4ca0d501101",
+    "operator.json": "82d6bcc02690f1eda6309e38cffca19ee71f4b38334f58748053efb69635cfeb",
+    "baseline.json": "961de05f198e245dd43ae3db0c7c1bd3499a88374ec06e089770cec4912e350e"
+  }
+}

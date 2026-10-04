@@ -1,0 +1,11 @@
+{
+  "sourceCount": 8,
+  "sceneCount": 4,
+  "uuidIdentity": "exact",
+  "orderedMembership": "exact",
+  "transformAtoms": "exact",
+  "semanticManifest": "pass",
+  "hashes": "pass",
+  "hiddenTransitiveImpact": "pass",
+  "addedDependencyReceipt": "pass"
+}

@@ -1,0 +1,20 @@
+{
+  "baseline": {
+    "Main": "bd3e4125-1b2b-4533-a7cb-ca855b38286e",
+    "Break": "2d4cf1c8-d60f-4bb7-8270-653c72fcaf73",
+    "LowerThird": "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0",
+    "Banner": "d99603e0-a723-4719-b522-af1569db7e89",
+    "Title": "ee920227-32db-4b31-8a1b-d051bd704bee",
+    "Background": "dd72dc0e-bdec-41c3-b38e-ba48dede9568"
+  },
+  "incoming": {
+    "Main": "bd3e4125-1b2b-4533-a7cb-ca855b38286e",
+    "Break": "2d4cf1c8-d60f-4bb7-8270-653c72fcaf73",
+    "Thanks": "036c07c6-4d11-4a4b-ba64-7e165e17b4e9",
+    "LowerThird": "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0",
+    "Banner": "d99603e0-a723-4719-b522-af1569db7e89",
+    "Title": "ee920227-32db-4b31-8a1b-d051bd704bee",
+    "Background": "dd72dc0e-bdec-41c3-b38e-ba48dede9568",
+    "ThanksText": "7f32cbcc-170c-4cc6-b812-9ca117cd2bcd"
+  }
+}

@@ -17,3 +17,6 @@ SceneReconcile's narrow difference is reconciling operator scene layout and inco
 - [Native import behavior](https://raw.githubusercontent.com/obsproject/obs-studio/32.2.2/frontend/importers/studio.cpp)
 - [Scene item identity and relative transforms](https://raw.githubusercontent.com/obsproject/obs-studio/32.2.2/libobs/obs-scene.c)
 - [Official OBS WebSocket protocol](https://github.com/obsproject/obs-websocket/blob/5.6.3/docs/generated/protocol.md)
+- [Pinned main-canvas identity](https://raw.githubusercontent.com/obsproject/obs-studio/32.2.2/libobs/obs-canvas.c): a source canvas_uuid must point to the fixed main canvas in this one-canvas profile
+- [Color source settings and bounds](https://raw.githubusercontent.com/obsproject/obs-studio/32.2.2/plugins/image-source/color-source.c)
+- [Linux FreeType text settings](https://raw.githubusercontent.com/obsproject/obs-studio/32.2.2/plugins/text-freetype2/text-freetype2.c)

@@ -23,3 +23,7 @@ Every supported one-sided edit can be accepted. Equal edits are retained once. D
 Compatibility is gated by native consumer tests, not by JSON readability. The independent oracle/expected.json manifest was fixed before application implementation. Native fixture generation, prepared-copy Import/save/reopen, actual browser downloads, a separate Python reader, and a fresh OBS Import/save/reopen must all pass. Every scene is inspected via the official runtime API and rendered for review. Unrun stages are explicitly unverified.
 
 This project does not claim universal OBS compatibility or patent novelty.
+
+New additions are stricter than preserved existing sources: new scene settings must use the supported native keys, added source metadata must use checked native defaults, and new item metadata must use normal blending/no transition/no custom metadata. Unsupported additions block the merge rather than entering unnoticed. Source versioned IDs and serialized transition/global-source objects are validated too. Built-in output-timer and auto-scene-switcher data remain operator-owned; scripts and nonempty custom module data are rejected.
+
+Editable source settings are type-checked against the pinned native color/FreeType text profile. Color dimensions are 1–4096 pixels; text custom width 0–4096, log lines 1–1000, font size 1–65535 and native font flags 0–15. Values with wrong types, unrecognized setting/font keys, extra vector fields or malformed serialized-source objects block export. These are explicit prototype bounds, not universal OBS settings support.

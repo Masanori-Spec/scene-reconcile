@@ -1,0 +1,231 @@
+[
+  {
+    "file": "evidence/native-prepare/operator-2-process.log",
+    "semanticFailures": [],
+    "toleratedEnvironmentDiagnostics": [
+      "warning: Failed to initialize module 'decklink.so'"
+    ],
+    "otherDiagnosticsForReview": [
+      "warning: Get on org.freedesktop.portal.Settings returned an invalid reply",
+      "warning: Unable to open DRM render node.",
+      "info: P010 texture support not available",
+      "warning: Failed to load 'en-US' text for module: 'decklink-captions.so'",
+      "warning: Failed to load 'en-US' text for module: 'decklink-output-ui.so'",
+      "warning: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed",
+      "error: os_dlopen(libnvidia-encode.so.1->libnvidia-encode.so.1): libnvidia-encode.so.1: cannot open shared object file: No such file or directory",
+      "warning: Failed to initialize module 'obs-nvenc.so'",
+      "error: os_dlopen(libvlc.so.5->libvlc.so.5): libvlc.so.5: cannot open shared object file: No such file or directory",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "error: No crash sentinel location set for crash handler",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!"
+    ]
+  },
+  {
+    "file": "evidence/native-prepare/incoming-1-process.log",
+    "semanticFailures": [],
+    "toleratedEnvironmentDiagnostics": [
+      "warning: Failed to initialize module 'decklink.so'"
+    ],
+    "otherDiagnosticsForReview": [
+      "warning: Get on org.freedesktop.portal.Settings returned an invalid reply",
+      "warning: Unable to open DRM render node.",
+      "info: P010 texture support not available",
+      "warning: Failed to load 'en-US' text for module: 'decklink-captions.so'",
+      "warning: Failed to load 'en-US' text for module: 'decklink-output-ui.so'",
+      "warning: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed",
+      "error: os_dlopen(libnvidia-encode.so.1->libnvidia-encode.so.1): libnvidia-encode.so.1: cannot open shared object file: No such file or directory",
+      "warning: Failed to initialize module 'obs-nvenc.so'",
+      "error: os_dlopen(libvlc.so.5->libvlc.so.5): libvlc.so.5: cannot open shared object file: No such file or directory",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "error: No crash sentinel location set for crash handler",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!"
+    ]
+  },
+  {
+    "file": "evidence/native-prepare/operator-1-process.log",
+    "semanticFailures": [],
+    "toleratedEnvironmentDiagnostics": [
+      "warning: Failed to initialize module 'decklink.so'"
+    ],
+    "otherDiagnosticsForReview": [
+      "warning: Get on org.freedesktop.portal.Settings returned an invalid reply",
+      "warning: Unable to open DRM render node.",
+      "info: P010 texture support not available",
+      "warning: Failed to load 'en-US' text for module: 'decklink-captions.so'",
+      "warning: Failed to load 'en-US' text for module: 'decklink-output-ui.so'",
+      "warning: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed",
+      "error: os_dlopen(libnvidia-encode.so.1->libnvidia-encode.so.1): libnvidia-encode.so.1: cannot open shared object file: No such file or directory",
+      "warning: Failed to initialize module 'obs-nvenc.so'",
+      "error: os_dlopen(libvlc.so.5->libvlc.so.5): libvlc.so.5: cannot open shared object file: No such file or directory",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "error: No crash sentinel location set for crash handler",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!"
+    ]
+  },
+  {
+    "file": "evidence/native-prepare/baseline-1-process.log",
+    "semanticFailures": [],
+    "toleratedEnvironmentDiagnostics": [
+      "warning: Failed to initialize module 'decklink.so'"
+    ],
+    "otherDiagnosticsForReview": [
+      "warning: Get on org.freedesktop.portal.Settings returned an invalid reply",
+      "warning: Unable to open DRM render node.",
+      "info: P010 texture support not available",
+      "warning: Failed to load 'en-US' text for module: 'decklink-captions.so'",
+      "warning: Failed to load 'en-US' text for module: 'decklink-output-ui.so'",
+      "warning: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed",
+      "error: os_dlopen(libnvidia-encode.so.1->libnvidia-encode.so.1): libnvidia-encode.so.1: cannot open shared object file: No such file or directory",
+      "warning: Failed to initialize module 'obs-nvenc.so'",
+      "error: os_dlopen(libvlc.so.5->libvlc.so.5): libvlc.so.5: cannot open shared object file: No such file or directory",
+      "info: P010 texture support not available",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "error: No crash sentinel location set for crash handler",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!"
+    ]
+  },
+  {
+    "file": "evidence/native-prepare/baseline-2-process.log",
+    "semanticFailures": [],
+    "toleratedEnvironmentDiagnostics": [
+      "warning: Failed to initialize module 'decklink.so'"
+    ],
+    "otherDiagnosticsForReview": [
+      "warning: Get on org.freedesktop.portal.Settings returned an invalid reply",
+      "warning: Unable to open DRM render node.",
+      "info: P010 texture support not available",
+      "warning: Failed to load 'en-US' text for module: 'decklink-captions.so'",
+      "warning: Failed to load 'en-US' text for module: 'decklink-output-ui.so'",
+      "warning: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed",
+      "error: os_dlopen(libnvidia-encode.so.1->libnvidia-encode.so.1): libnvidia-encode.so.1: cannot open shared object file: No such file or directory",
+      "warning: Failed to initialize module 'obs-nvenc.so'",
+      "error: os_dlopen(libvlc.so.5->libvlc.so.5): libvlc.so.5: cannot open shared object file: No such file or directory",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "error: No crash sentinel location set for crash handler",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!"
+    ]
+  },
+  {
+    "file": "evidence/native-prepare/incoming-conflict-1-process.log",
+    "semanticFailures": [],
+    "toleratedEnvironmentDiagnostics": [
+      "warning: Failed to initialize module 'decklink.so'"
+    ],
+    "otherDiagnosticsForReview": [
+      "warning: Get on org.freedesktop.portal.Settings returned an invalid reply",
+      "warning: Unable to open DRM render node.",
+      "info: P010 texture support not available",
+      "warning: Failed to load 'en-US' text for module: 'decklink-captions.so'",
+      "warning: Failed to load 'en-US' text for module: 'decklink-output-ui.so'",
+      "warning: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed",
+      "error: os_dlopen(libnvidia-encode.so.1->libnvidia-encode.so.1): libnvidia-encode.so.1: cannot open shared object file: No such file or directory",
+      "warning: Failed to initialize module 'obs-nvenc.so'",
+      "error: os_dlopen(libvlc.so.5->libvlc.so.5): libvlc.so.5: cannot open shared object file: No such file or directory",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "error: No crash sentinel location set for crash handler",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!"
+    ]
+  },
+  {
+    "file": "evidence/native-prepare/incoming-conflict-2-process.log",
+    "semanticFailures": [],
+    "toleratedEnvironmentDiagnostics": [
+      "warning: Failed to initialize module 'decklink.so'"
+    ],
+    "otherDiagnosticsForReview": [
+      "warning: Get on org.freedesktop.portal.Settings returned an invalid reply",
+      "warning: Unable to open DRM render node.",
+      "info: P010 texture support not available",
+      "warning: Failed to load 'en-US' text for module: 'decklink-captions.so'",
+      "warning: Failed to load 'en-US' text for module: 'decklink-output-ui.so'",
+      "warning: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed",
+      "error: os_dlopen(libnvidia-encode.so.1->libnvidia-encode.so.1): libnvidia-encode.so.1: cannot open shared object file: No such file or directory",
+      "warning: Failed to initialize module 'obs-nvenc.so'",
+      "error: os_dlopen(libvlc.so.5->libvlc.so.5): libvlc.so.5: cannot open shared object file: No such file or directory",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "error: No crash sentinel location set for crash handler",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!"
+    ]
+  },
+  {
+    "file": "evidence/native-prepare/incoming-2-process.log",
+    "semanticFailures": [],
+    "toleratedEnvironmentDiagnostics": [
+      "warning: Failed to initialize module 'decklink.so'"
+    ],
+    "otherDiagnosticsForReview": [
+      "warning: Get on org.freedesktop.portal.Settings returned an invalid reply",
+      "warning: Unable to open DRM render node.",
+      "info: P010 texture support not available",
+      "warning: Failed to load 'en-US' text for module: 'decklink-captions.so'",
+      "warning: Failed to load 'en-US' text for module: 'decklink-output-ui.so'",
+      "warning: A DeckLink iterator could not be created.  The DeckLink drivers may not be installed",
+      "error: os_dlopen(libnvidia-encode.so.1->libnvidia-encode.so.1): libnvidia-encode.so.1: cannot open shared object file: No such file or directory",
+      "warning: Failed to initialize module 'obs-nvenc.so'",
+      "error: os_dlopen(libvlc.so.5->libvlc.so.5): libvlc.so.5: cannot open shared object file: No such file or directory",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "warning: QMetaMethod::invoke: Unable to handle unregistered datatype 'std::string'",
+      "error: No crash sentinel location set for crash handler",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!",
+      "error: Tried to call obs_frontend_remove_event_callback with no callbacks!"
+    ]
+  }
+]

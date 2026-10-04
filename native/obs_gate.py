@@ -24,8 +24,11 @@ import tempfile
 import time
 
 OBS_VERSION = '32.2.2'
-MANIFEST = Path(__file__).resolve().parents[1] / 'oracle' / 'expected.json'
 PNG_MAGIC = b'\x89PNG\r\n\x1a\n'
+
+
+def progress(event, **fields):
+    print(json.dumps({'nativeGate': event, 'time': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), **fields}), flush=True)
 
 
 def write_json(path, value):
@@ -47,6 +50,69 @@ def check_ci():
     for command in ('obs', 'xdotool', 'import', 'tesseract'):
         if not shutil.which(command):
             raise RuntimeError(f'Missing native-gate dependency: {command}')
+
+
+SEMANTIC_FAILURES = (
+    r"\[scene_load_item\].*(?:not found|Could not add)",
+    r"Source ID '.+' not found",
+    r"Failed to create source",
+    r"obs_source_create failed",
+    r"Failed to load source",
+    r"duplicate UUID",
+    r"Not all sources were cleared",
+    r"Missing Files",
+)
+# These are optional-hardware/renderer diagnostics, never source-load errors.
+# Everything else remains explicitly listed for artifact review.
+ENVIRONMENT_DIAGNOSTICS = (
+    r"Failed to initialize module '(?:aja|decklink)\.so'",
+    r"Failed to load module '(?:aja|decklink)\.so'",
+    r"Failed to open VDPAU backend",
+    r"libEGL warning: DRI2: failed to authenticate",
+    r"Failed to create avahi client",
+)
+
+
+def inspect_log(text):
+    lines = text.splitlines()
+    semantic = [line for line in lines if any(re.search(p, line, re.I) for p in SEMANTIC_FAILURES)]
+    environmental = [line for line in lines if any(re.search(p, line, re.I) for p in ENVIRONMENT_DIAGNOSTICS)]
+    diagnostic = [line for line in lines if re.search(r'warning|error|failed|not found|not available|not loaded', line, re.I)]
+    return {'semanticFailures': semantic, 'toleratedEnvironmentDiagnostics': environmental,
+            'otherDiagnosticsForReview': [line for line in diagnostic if line not in semantic and line not in environmental]}
+
+
+def check_fixture_file(path):
+    """Prevent an accidental app regression from loading device/script sources."""
+    value = json.loads(Path(path).read_text())
+    allowed = {'scene', 'color_source', 'text_ft2_source'}
+    if any(key.startswith(('DesktopAudioDevice', 'AuxAudioDevice')) for key in value):
+        raise AssertionError('The native fixture gate cannot import global audio devices')
+    if value.get('groups') or value.get('canvases'):
+        raise AssertionError('The native fixture gate expects no groups or extra canvases')
+    scripts = value.get('modules', {}).get('scripts-tool', [])
+    if scripts:
+        raise AssertionError('The native fixture gate cannot import executable OBS scripts')
+    permitted_names = {'Main', 'Break', 'LowerThird', 'Background', 'Banner', 'Title', 'Thanks', 'ThanksText'}
+    if any(source.get('name') not in permitted_names for source in value['sources']):
+        raise AssertionError('Unexpected source name outside this fixed native fixture')
+    for source in value['sources']:
+        native_kind = re.sub(r'_v\d+$', '', source.get('versioned_id', source['id']))
+        if source['id'] not in allowed or native_kind != source['id'] or source.get('filters'):
+            raise AssertionError(f'Unexpected source kind/filter in native fixture: {source.get("name")}')
+        if source['id'] == 'text_ft2_source' and source.get('settings', {}).get('from_file'):
+            raise AssertionError('File-backed text is outside the native fixture gate')
+    return value
+
+
+def runtime_semantics(observation):
+    """Comparable native readings only, excluding phase and UI-current-scene state."""
+    return {
+        'video': observation['video'],
+        'inputs': sorted(observation['inputs'], key=lambda x: x['inputUuid']),
+        'scenes': sorted([{'sceneName': scene['sceneName'], 'sceneUuid': scene['sceneUuid'],
+            'items': sorted(scene['items'], key=lambda x: x['sceneItemIndex'])}
+            for scene in observation['scenes']], key=lambda x: x['sceneUuid'])}
 
 
 class RPC:
@@ -119,7 +185,7 @@ class NativeOBS:
             '[General]\nLanguage=en-US\nLastVersion=537001986\nEnableAutoUpdates=false\n'
         )
         (self.config / 'user.ini').write_text(
-            '[General]\nFirstRun=true\nAutoSearchPrompt=true\nAutomaticCollectionSearch=false\n'
+            '[General]\nLanguage=en-US\nFirstRun=true\nAutoSearchPrompt=true\nAutomaticCollectionSearch=false\n'
             '[Basic]\nProfile=Fixture\nProfileDir=Fixture\nSceneCollection=SceneReconcileBaseline\nSceneCollectionFile=Bootstrap\n'
             '[BasicWindow]\nStudioMode=false\nPreviewEnabled=true\nWarnBeforeStartingStream=true\n'
         )
@@ -145,12 +211,20 @@ class NativeOBS:
         self.rpc = None
         self.launch_count = 0
 
-    def cmd(self, *args, check=True):
-        return subprocess.run(args, env=self.env, check=check, capture_output=True, text=True).stdout.strip()
+    def cmd(self, *args, check=True, timeout=10):
+        progress('command-start', command=args[0], action=args[1] if len(args) > 1 else '', timeoutSeconds=timeout)
+        try:
+            result = subprocess.run(args, env=self.env, check=check, capture_output=True, text=True, timeout=timeout)
+        except subprocess.TimeoutExpired:
+            progress('command-timeout', command=args[0], action=args[1] if len(args) > 1 else '', timeoutSeconds=timeout)
+            raise
+        return result.stdout.strip()
 
     def start(self):
         self.launch_count += 1
+        progress('obs-start', label=self.label, launch=self.launch_count)
         log = self.evidence / f'{self.label}-{self.launch_count}-process.log'
+        self.process_log = log
         self.log_handle = log.open('w')
         self.proc = subprocess.Popen(['obs', '--multi', '--disable-updater',
             '--websocket_ipv4_only'], env=self.env, stdout=self.log_handle, stderr=subprocess.STDOUT)
@@ -161,20 +235,26 @@ class NativeOBS:
                 raise RuntimeError(f'OBS exited with {self.proc.returncode}; inspect {log}')
             try:
                 self.rpc = RPC(self.port, self.password)
+                # Identify can succeed before OBS FINISHED_LOADING. An actual
+                # request is the readiness probe; NotReady is retried boundedly.
+                version = self.rpc.call('GetVersion')
                 break
             except Exception as exc:
                 last_error = str(exc)
+                if self.rpc is not None:
+                    self.rpc.close()
+                    self.rpc = None
                 time.sleep(1)
         else:
             self.desktop(f'{self.label}-{self.launch_count}-startup-failure')
             raise RuntimeError(f'OBS websocket not ready: {last_error}; inspect {log}')
-        version = self.rpc.call('GetVersion')
         if version['obsVersion'] != OBS_VERSION:
             raise AssertionError(f'Expected official OBS {OBS_VERSION}; got {version}')
         special = self.rpc.call('GetSpecialInputs')
         if any(value is not None for value in special.values()):
             raise AssertionError(f'Unexpected audio capture source(s): {special}')
         self.assert_outputs_off()
+        progress('obs-ready', label=self.label, launch=self.launch_count, obsVersion=version['obsVersion'])
         self.desktop(f'{self.label}-{self.launch_count}-started')
 
     def assert_outputs_off(self):
@@ -184,19 +264,20 @@ class NativeOBS:
             raise AssertionError('Unexpected active stream/record/virtual camera output')
         return outputs
 
-    def desktop(self, label):
+    def desktop(self, label, timeout=10):
         path = self.evidence / f'{label}.png'
-        self.cmd('import', '-window', 'root', str(path))
+        self.cmd('import', '-window', 'root', str(path), timeout=timeout)
         if not path.read_bytes().startswith(PNG_MAGIC):
             raise AssertionError(f'Invalid desktop screenshot: {path}')
         return path
 
     def windows(self, title):
-        result = subprocess.run(['xdotool', 'search', '--onlyvisible', '--pid', str(self.proc.pid),
-            '--name', title], env=self.env, capture_output=True, text=True)
+        result = subprocess.run(['xdotool', 'search', '--all', '--onlyvisible', '--pid', str(self.proc.pid),
+            '--name', title], env=self.env, capture_output=True, text=True, timeout=5)
         return result.stdout.split()
 
     def wait_window(self, title, timeout=12):
+        progress('window-wait', title=title, timeoutSeconds=timeout)
         deadline = time.monotonic() + timeout
         while time.monotonic() < deadline:
             windows = self.windows(title)
@@ -211,25 +292,45 @@ class NativeOBS:
         time.sleep(.15)
 
     def click_text(self, text, label):
-        """Locate a real rendered button; keep the pre-action pixels as evidence."""
-        screenshot = self.desktop(label)
-        result = self.cmd('tesseract', str(screenshot), 'stdout', '--psm', '11', 'tsv')
-        rows = list(csv.DictReader(io.StringIO(result), delimiter='\t'))
-        candidates = [r for r in rows if r.get('text', '').rstrip('.…').lower() == text.lower()
-                      and float(r.get('conf', '-1')) >= 35]
-        if not candidates:
-            raise RuntimeError(f'Native UI button {text!r} not found in {screenshot}')
-        # Dialog buttons are below window-title words with the same spelling.
-        word = max(candidates, key=lambda r: int(r['top']))
-        x = int(word['left']) + int(word['width']) // 2
-        y = int(word['top']) + int(word['height']) // 2
-        self.cmd('xdotool', 'mousemove', '--sync', str(x), str(y), 'click', '1')
-        time.sleep(.4)
+        """Bounded, screenshot-driven polling; click at most once after finding it."""
+        progress('native-button-wait', text=text, label=label, timeoutSeconds=15)
+        deadline = time.monotonic() + 15
+        attempt = 0
+        while time.monotonic() < deadline:
+            attempt += 1
+            screenshot = self.desktop(f'{label}-{attempt}', timeout=max(.2, min(5, deadline - time.monotonic())))
+            result = self.cmd('tesseract', str(screenshot), 'stdout', '--psm', '11', 'tsv',
+                              timeout=max(.2, min(8, deadline - time.monotonic())))
+            rows = list(csv.DictReader(io.StringIO(result), delimiter='\t'))
+            candidates = [r for r in rows if r.get('text', '').rstrip('.…').lower() == text.lower()
+                          and float(r.get('conf', '-1')) >= 35]
+            if candidates:
+                # Dialog buttons are below title words with the same spelling.
+                word = max(candidates, key=lambda r: int(r['top']))
+                x = int(word['left']) + int(word['width']) // 2
+                y = int(word['top']) + int(word['height']) // 2
+                self.cmd('xdotool', 'mousemove', '--sync', str(x), str(y), 'click', '1')
+                progress('native-button-clicked', text=text, label=label)
+                time.sleep(.3)
+                return
+            time.sleep(.3)
+        raise RuntimeError(f'Native UI button {text!r} not found within 15 seconds; inspect {label} screenshots')
+
+    def wait_window_closed(self, title, timeout=12):
+        progress('window-close-wait', title=title, timeoutSeconds=timeout)
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            if not self.windows(title):
+                return
+            time.sleep(.2)
+        self.desktop(f'{self.label}-window-did-not-close')
+        raise RuntimeError(f'Native UI window did not close: {title}')
 
     def import_collection(self, path, label):
         path = Path(path).resolve()
+        progress('native-import-start', label=label, file=path.name)
         before_hash = digest(path)
-        original = json.loads(path.read_text())
+        original = check_fixture_file(path)
         before = set(self.rpc.call('GetSceneCollectionList')['sceneCollections'])
         main = self.wait_window('^OBS ')
         self.focus(main)
@@ -247,7 +348,8 @@ class NativeOBS:
         self.cmd('xdotool', 'type', '--clearmodifiers', '--delay', '1', str(path))
         self.desktop(f'{label}-file-selected')
         self.cmd('xdotool', 'key', 'Return')
-        time.sleep(.6)
+        self.wait_window_closed('^Select a Scene Collection$')
+        self.focus(dialog)
         self.click_text('Import', f'{label}-ready-to-import')
         deadline = time.monotonic() + 12
         added = set()
@@ -273,6 +375,7 @@ class NativeOBS:
         write_json(self.evidence / f'{label}-import-proof.json', {'route': 'native UI Scene Collection > Import',
             'inputFile': path.name, 'inputSha256': before_hash, 'collection': collection,
             'sourceUuidsPreserved': True, 'sourceIdentities': imported_uuids})
+        progress('native-import-verified', label=label, collection=collection, sources=len(imported_uuids))
         return collection
 
     def source_identities(self):
@@ -285,6 +388,7 @@ class NativeOBS:
         return result
 
     def observe(self, label):
+        progress('observation-start', label=label)
         folder = self.evidence / label
         folder.mkdir(parents=True, exist_ok=True)
         result = {'observationVersion': 1, 'phase': label, 'obsVersion': self.rpc.call('GetVersion'),
@@ -298,6 +402,7 @@ class NativeOBS:
         for scene in self.rpc.call('GetSceneList')['scenes']:
             value = dict(scene)
             name, uuid = scene['sceneName'], scene['sceneUuid']
+            progress('scene-observe', label=label, scene=name)
             self.rpc.call('SetCurrentProgramScene', sceneUuid=uuid)
             time.sleep(.45)
             active = self.rpc.call('GetCurrentProgramScene')
@@ -326,6 +431,7 @@ class NativeOBS:
             self.desktop(f'{label}-{name}-native-preview')
             result['scenes'].append(value)
         write_json(self.evidence / f'{label}.json', result)
+        progress('observation-complete', label=label, scenes=len(result['scenes']), inputs=len(result['inputs']))
         return result
 
     def export_saved(self, target):
@@ -347,6 +453,7 @@ class NativeOBS:
     def stop(self):
         if not self.proc or self.proc.poll() is not None:
             return
+        progress('obs-close-start', label=self.label, launch=self.launch_count)
         self.assert_outputs_off()
         self.rpc.close()
         self.rpc = None
@@ -362,6 +469,11 @@ class NativeOBS:
         self.log_handle.close()
         if self.proc.returncode != 0:
             raise RuntimeError(f'OBS exited nonzero: {self.proc.returncode}')
+        diagnostics = inspect_log(self.process_log.read_text(errors='replace'))
+        write_json(self.evidence / f'{self.label}-{self.launch_count}-diagnostics.json', diagnostics)
+        progress('obs-closed', label=self.label, launch=self.launch_count, semanticFailures=len(diagnostics['semanticFailures']))
+        if diagnostics['semanticFailures']:
+            raise AssertionError(f'Native source/load diagnostics: {diagnostics["semanticFailures"]}')
 
     def cleanup(self):
         if self.proc and self.proc.poll() is None:
@@ -389,6 +501,13 @@ def obs_session(evidence, label):
     try:
         app.start()
         yield app
+    except BaseException as exc:
+        progress('gate-failure', label=label, errorType=type(exc).__name__, error=str(exc))
+        try:
+            app.desktop(f'{label}-exception', timeout=5)
+        except Exception as screenshot_error:
+            progress('failure-screenshot-unavailable', label=label, error=str(screenshot_error))
+        raise
     finally:
         app.cleanup()
 
@@ -530,6 +649,43 @@ def consume(args):
         'semanticValidation': 'separate independent oracle required; no semantic pass asserted here'})
 
 
+def prepared(args):
+    """Verify a real application-prepared download without modifying fixtures."""
+    source = Path(args.input).resolve()
+    original_path = Path(args.original).resolve()
+    reference_path = Path(args.reference_observation).resolve()
+    downloaded = check_fixture_file(source)
+    original = check_fixture_file(original_path)
+    name = downloaded.pop('name')
+    original_name = original.pop('name')
+    if downloaded != original:
+        raise AssertionError('Prepared download changed native data beyond the collection name')
+    if not name or name == original_name:
+        raise AssertionError('Prepared working-copy collection requires a distinct name')
+    reference = runtime_semantics(json.loads(reference_path.read_text()))
+    out = Path(args.out).resolve()
+    input_hash = digest(source)
+    with obs_session(out, 'prepared') as app:
+        app.import_collection(source, 'prepared')
+        first = app.observe('first-load')
+        if runtime_semantics(first) != reference:
+            raise AssertionError('Prepared native first-load semantics differ from original native fixture')
+        app.stop()
+        app.export_saved(out / 'native-saved-first.json')
+        app.start()
+        reopened = app.observe('reopened')
+        if runtime_semantics(reopened) != reference:
+            raise AssertionError('Prepared native reopened semantics differ from original native fixture')
+        app.stop()
+        app.export_saved(out / 'native-saved.json')
+    if digest(source) != input_hash:
+        raise AssertionError('Prepared input changed during native verification')
+    write_json(out / 'prepared-result.json', {'status': 'passed', 'obsVersion': OBS_VERSION,
+        'inputSha256': input_hash, 'originalSha256': digest(original_path),
+        'referenceObservationSha256': digest(reference_path), 'onlyCollectionNameChanged': True,
+        'nativeUiImport': True, 'savedAndReopened': True, 'nativeRuntimeUnchanged': True})
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest='command', required=True)
@@ -539,9 +695,14 @@ def main():
     p = commands.add_parser('consume')
     p.add_argument('--out', default='evidence/native-consumer')
     p.add_argument('--input', required=True)
+    p = commands.add_parser('prepared')
+    p.add_argument('--out', required=True)
+    p.add_argument('--input', required=True)
+    p.add_argument('--original', required=True)
+    p.add_argument('--reference-observation', required=True)
     args = parser.parse_args()
     check_ci()
-    (prepare if args.command == 'prepare' else consume)(args)
+    {'prepare': prepare, 'consume': consume, 'prepared': prepared}[args.command](args)
 
 
 if __name__ == '__main__':

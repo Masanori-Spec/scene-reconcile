@@ -1,0 +1,1276 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101b21">
+  <meta name="description" content="A local-first, three-way review workspace for parallel OBS Studio scene collection edits.">
+  <title>SceneReconcile · OBS scene collaboration</title>
+  <style>:root{color-scheme:dark;--bg:#101b21;--panel:#17252b;--panel-dark:#132027;--line:#2b3a40;--muted:#97abae;--text:#edf2ef;--teal:#98d6c6;--orange:#f3b387;--ink:#12262a;--radius:10px;--font:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;font-family:var(--font);font-synthesis:none}*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}body{margin:0;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}button,input{font:inherit}button,a,input{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.38}a{color:inherit}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--teal);outline-offset:4px}input[type=radio]{accent-color:var(--teal)}[hidden]{display:none!important}.topbar{height:98px;padding:0 5.2%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:20px}.brand{display:flex;align-items:center;gap:13px;text-decoration:none;font-size:24px;font-weight:650;letter-spacing:-1px;line-height:1.1}.brand-light{font-weight:400}.brand small{display:block;font-size:8px;letter-spacing:2.15px;font-weight:500;margin-top:8px;color:var(--muted)}.brand-mark{position:relative;width:35px;height:34px;display:block}.brand-mark i{position:absolute;width:22px;height:22px;border:1.5px solid var(--teal);border-radius:3px}.brand-mark i:nth-child(1){top:0;left:0;opacity:.35}.brand-mark i:nth-child(2){top:6px;left:6px;opacity:.65}.brand-mark i:nth-child(3){top:12px;left:12px;background:var(--bg)}.topbar-tools{display:flex;align-items:center;gap:24px}.local-pill{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.status-dot{width:6px;height:6px;background:var(--teal);border-radius:50%;display:inline-block;flex:none;box-shadow:0 0 0 4px #98d6c608}.language-switch{display:flex;border:1px solid var(--line);padding:3px;border-radius:6px;gap:2px}.language-switch button{border:0;border-radius:3px;padding:5px 10px;background:none;color:var(--muted);font-size:11px;font-weight:650}.language-switch button[aria-pressed=true]{background:#314448;color:var(--text)}main{max-width:1480px;margin:auto;padding:0 5.2%}.intro{display:grid;grid-template-columns:1.25fr 1fr;gap:7%;padding:58px 0 54px;align-items:center}.eyebrow,.overline,.section-index{font-size:10px;letter-spacing:1.45px;font-weight:650;color:var(--muted)}.eyebrow{display:flex;align-items:center;gap:9px;color:var(--teal)}.tiny-line{width:23px;height:1px;background:var(--teal)}h1{font-size:clamp(36px,4vw,58px);line-height:1.35;letter-spacing:-2px;font-weight:550;margin:19px 0 17px}h1 span{color:var(--teal)}.intro-description{max-width:480px;color:var(--muted);line-height:1.95;font-size:14px;margin:0}.intro-actions{display:flex;align-items:center;gap:23px;margin-top:25px}.button{display:inline-flex;align-items:center;justify-content:center;gap:11px;padding:11px 17px;border-radius:5px;min-height:42px;border:1px solid transparent;font-size:12px;font-weight:650;transition:background .15s,border-color .15s,transform .15s}.button:not(:disabled):active{transform:translateY(1px)}.primary{background:var(--teal);color:var(--ink);border-color:var(--teal)}.primary:not(:disabled):hover{background:#b4eadc}.secondary{background:#223339;color:var(--text);border-color:#3b4d50}.secondary:not(:disabled):hover{background:#2b4146;border-color:#647b7c}.quiet{background:transparent;color:var(--muted);padding:7px 12px}.quiet:hover{color:var(--text);background:#ffffff06}.text-link{text-decoration:none;font-size:11px;color:var(--muted)}.text-link:hover{color:var(--teal)}.workflow-card{border:1px solid var(--line);background:linear-gradient(135deg,#1c2b31,#142229);border-radius:var(--radius);padding:21px 24px 0}.workflow-caption{display:flex;justify-content:space-between;gap:10px;padding-bottom:19px;border-bottom:1px solid var(--line)}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:10px;letter-spacing:.4px;color:var(--muted)}.workflow{list-style:none;padding:0;margin:0}.workflow li{display:flex;align-items:center;gap:16px;padding:19px 0;border-bottom:1px solid var(--line)}.workflow li:last-child{border:0}.workflow-number{color:#638284;font-family:ui-monospace,monospace;font-size:12px}.workflow strong{font-size:13px;font-weight:550}.workflow p{font-size:11px;color:var(--muted);margin:3px 0 0}.workflow-symbol{margin-left:auto;color:var(--teal);font-size:23px}.workflow-bottom{margin:0 -24px;display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:#ffffff03;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}.workspace{border:1px solid #34464b;border-radius:var(--radius);overflow:hidden;background:var(--panel)}.workspace-heading{padding:23px 25px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}.workspace-heading .overline{font-size:9px}h2{font-size:22px;font-weight:550;letter-spacing:-.5px;margin:5px 0}.workspace-controls{display:flex;gap:7px}.mode-tabs{display:flex;align-items:center;border-top:1px solid var(--line);border-bottom:1px solid #34464b;background:var(--panel-dark);padding:0 24px;gap:21px}.mode-tabs [role=tab]{position:relative;padding:17px 2px;border:0;background:transparent;color:var(--muted);font-size:12px;font-weight:600;display:flex;align-items:center;gap:8px;min-height:56px}.mode-tabs [role=tab][aria-selected=true]{color:var(--teal)}.mode-tabs [role=tab][aria-selected=true]:after{position:absolute;content:"";height:2px;background:var(--teal);bottom:-1px;left:0;right:0}.tab-number{font-family:ui-monospace,monospace;font-size:10px;opacity:.65}.profile-badge{margin-left:auto;font-family:ui-monospace,monospace;letter-spacing:1px;font-size:9px;color:#819a9c;border:1px solid var(--line);padding:4px 8px;border-radius:4px}.reconcile-panel{display:grid;grid-template-columns:315px minmax(0,1fr)}.input-panel{padding:24px;background:#142127;border-right:1px solid var(--line)}.panel-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.section-index{font-family:ui-monospace,monospace;font-size:10px;letter-spacing:1.3px}.small-counter{font-family:ui-monospace,monospace;font-size:10px;color:var(--muted)}.panel-description{font-size:12px;color:var(--muted);margin:15px 0 19px;line-height:1.8}.file-card{position:relative;display:block;border:1px solid #3a4a4f;border-radius:6px;padding:13px 13px 11px;margin-bottom:11px;background:#1c2b32;cursor:pointer;transition:background .2s,border-color .2s;overflow:hidden;min-width:0}.file-card:hover{background:#25383e;border-color:#708d8d}.file-card:focus-within{outline:3px solid var(--teal);outline-offset:3px}.file-card.loaded{border-color:#497369;background:#1a312f}.file-card.loading{opacity:.65}.file-card input[type=file]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.file-top{display:flex;align-items:center;gap:9px;margin-bottom:12px}.file-icon{font-size:18px;color:#a1b7b8;width:21px;line-height:1}.file-role{font-size:11px;font-weight:600}.file-state{margin-left:auto;font-family:ui-monospace,monospace;font-size:9px;color:#799495}.file-card.loaded .file-state{color:var(--teal)}.file-card strong{display:block;font-weight:500;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.file-help{font-size:10px;color:#819a9e;display:block;margin-top:5px}.operator-card .file-icon{color:var(--teal)}.incoming-card .file-icon{color:var(--orange)}.full{width:100%}.input-panel>.button{margin-top:6px;justify-content:space-between}.input-footnote{font-size:10px;color:#789195;display:flex;gap:7px;justify-content:center;margin:13px 0 0}.review-panel{padding:24px;min-width:0;position:relative;min-height:534px}.review-state{font-size:10px;color:var(--muted);display:flex;align-items:center;gap:6px}.review-state:before{content:"";width:5px;height:5px;background:#638082;border-radius:50%}.review-state.ready:before{background:var(--teal)}.empty-review{max-width:390px;margin:45px auto 30px;text-align:center}.merge-illustration{position:relative;height:116px;width:190px;margin:0 auto 23px}.merge-node{position:absolute;background:#213239;border:1px solid #527b78;width:38px;height:38px;border-radius:7px;display:grid;place-items:center;font-size:12px;color:var(--teal);font-family:ui-monospace,monospace;z-index:1}.merge-node.left{left:18px;top:0}.merge-node.right{right:18px;top:0;color:var(--orange);border-color:#806c58}.merge-node.final{left:76px;bottom:0;width:42px;height:42px;background:#25463f;border-color:#5c9183;font-size:23px}.merge-line{position:absolute;width:63px;height:56px;border-bottom:1px solid #567773;top:16px}.merge-line.left{left:35px;border-left:1px solid #567773;border-bottom-left-radius:16px}.merge-line.right{right:35px;border-right:1px solid #726b5b;border-bottom-right-radius:16px;border-bottom-color:#726b5b}.empty-review>.overline{font-size:8px;letter-spacing:1.5px;color:#759392}.empty-review h3{font-size:20px;letter-spacing:-.5px;font-weight:500;margin:12px 0}.empty-review p{font-size:12px;color:var(--muted);line-height:1.9;max-width:340px;margin:0 auto}.empty-legend{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;border-top:1px solid var(--line);margin-top:27px;padding-top:18px;color:#8ca2a5;font-size:9px}.empty-legend>span{display:flex;align-items:center;gap:6px}.legend-dot{width:5px;height:5px;border-radius:50%}.teal{background:var(--teal)}.orange{background:var(--orange)}.grey{background:#799194}.notice{margin:18px 24px 0;padding:12px 15px;border:1px solid #567d75;background:#24433b;color:#caeee0;border-radius:5px;font-size:12px;overflow-wrap:anywhere}.notice.error{border-color:#986552;background:#432d2b;color:#ffd6c1}.notice.info{border-color:#49636d;background:#263a42;color:#d1e5e9}.prepare-panel{display:grid;grid-template-columns:1fr 1fr;gap:8%;padding:35px}.prepare-explainer h3{font-size:27px;line-height:1.5;font-weight:500;letter-spacing:-.7px;margin:15px 0}.prepare-explainer>p{font-size:13px;color:var(--muted);line-height:1.9}.inline-warning{display:flex;gap:12px;align-items:flex-start;background:#6b442719;border:1px solid #6b5442;border-radius:6px;padding:13px;margin-top:23px}.inline-warning>span{border:1px solid var(--orange);border-radius:50%;width:18px;height:18px;display:grid;place-items:center;flex:none;color:var(--orange);font-family:ui-monospace,monospace}.inline-warning p{margin:0;color:#ddbd9e;font-size:11px;line-height:1.8}.prepare-source{padding:18px;min-height:115px}.prepare-source .file-top{margin-bottom:19px}.field-label{display:block;color:var(--muted);font-size:10px;font-weight:600;margin:17px 0 7px}.text-input{display:block;width:100%;background:#142229;border:1px solid #46575b;color:var(--text);border-radius:5px;padding:11px 13px;min-height:42px;font-size:12px}.prepare-form>.button{margin-top:16px;justify-content:space-between}.prepared-list{display:grid;gap:7px;margin-top:20px}.prepared-list .button{justify-content:space-between}.prepared-hint{color:var(--teal);font-size:11px;margin:15px 0 0}.review-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:23px 0 17px}.summary-card{border:1px solid var(--line);background:#152229;border-radius:6px;padding:13px}.summary-card strong{display:block;font-family:ui-monospace,monospace;font-size:25px;font-weight:500;line-height:1.3;color:var(--teal)}.summary-card.attention strong{color:var(--orange)}.summary-card span{color:var(--muted);font-size:10px}.review-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--line)}.review-filters{display:flex;gap:5px}.review-filters button{border:1px solid transparent;background:none;color:var(--muted);border-radius:4px;font-size:10px;padding:6px 10px}.review-filters button[aria-pressed=true]{border-color:#49635f;color:var(--teal);background:#263b37}.muted{color:var(--muted)}.small{font-size:10px}.unit-list{display:grid;gap:10px}.unit{border:1px solid #35494e;border-radius:6px;background:#142229;overflow:hidden}.unit.needs-decision{border-color:#766148}.unit.decided{border-color:#436d63}.unit-summary{list-style:none;cursor:pointer;padding:15px;display:flex;gap:10px;align-items:flex-start}.unit-summary::-webkit-details-marker{display:none}.unit-summary:after{content:"+";margin-left:auto;font-size:18px;line-height:1;color:#8fa7a9}.unit[open]>.unit-summary:after{content:"−"}.unit-title{font-size:12px;font-weight:550;overflow-wrap:anywhere}.unit-source{display:block;font-size:10px;color:var(--muted);margin-top:4px;overflow-wrap:anywhere}.status-tag{display:inline-flex;white-space:nowrap;align-items:center;gap:5px;font-size:9px;padding:3px 6px;border-radius:4px;background:#24423a;color:var(--teal);flex:none;margin-top:1px}.status-tag.conflict,.status-tag.unsupported{background:#4d3b2b;color:var(--orange)}.status-tag.unchanged{background:#28383f;color:var(--muted)}.unit-body{padding:0 15px 16px;border-top:1px solid #293d42}.impact-line{font-size:10px;line-height:1.8;color:var(--muted);padding:11px 0;margin:0;overflow-wrap:anywhere}.impact-line strong{color:#c6d8d7;font-weight:500}.decision-choices{margin:0;padding:0;border:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}.decision-choices legend{font-size:11px;color:var(--orange);margin-bottom:9px}.decision-choice{position:relative;display:flex;align-items:flex-start;gap:8px;padding:10px;border:1px solid #536052;border-radius:5px;cursor:pointer;font-size:11px;background:#263027}.decision-choice:has(input:checked){background:#244b41;border-color:var(--teal);color:var(--teal)}.decision-choice input{margin:3px 0 0}.decision-choice small{display:block;font-size:9px;color:var(--muted);margin-top:3px}.decision-choice.single{grid-column:1/-1}.value-details{margin-top:13px;border-top:1px solid var(--line);padding-top:11px}.value-details>summary{font-size:10px;cursor:pointer;color:#9fb9b9}.value-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:12px}.value-column{min-width:0}.value-column h4{font-size:9px;font-weight:600;color:var(--muted);margin:0 0 6px}.value-column pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:240px;overflow:auto;font:9px/1.7 ui-monospace,Consolas,monospace;background:#0e1b21;border:1px solid #263940;border-radius:4px;padding:9px;margin:0;color:#b8cdcb}.review-empty-filter{padding:35px 18px;text-align:center;border:1px dashed #416358;border-radius:6px;color:var(--teal);font-size:12px}.review-empty-filter span{display:block;color:var(--muted);font-size:10px;margin-top:8px}.export-panel{border-top:1px solid #385148;padding:25px;display:grid;grid-template-columns:1fr 1.2fr;gap:35px;background:#1a302d}.export-heading{display:flex;align-items:flex-start;gap:14px;padding-top:12px}.export-icon{flex:none;border:1px solid #537669;background:#27493f;width:39px;height:39px;border-radius:7px;display:grid;place-items:center;font-size:23px;color:var(--teal)}.export-heading h3{font-size:17px;font-weight:500;margin:7px 0}.export-heading p{font-size:11px;margin:0}.export-controls>.field-label{margin-top:0}.output-name-row{display:flex;gap:8px}.output-name-row>.text-input{flex:1;min-width:0}.output-name-row>.button{white-space:nowrap}.download-buttons{display:flex;gap:8px;margin-top:15px;flex-wrap:wrap}.download-buttons>.button{font-size:10px;flex:1}.hash-label{font-size:8px;letter-spacing:.8px;color:#91b4a8;margin:14px 0 0}.hash-label code{display:block;overflow-wrap:anywhere;color:#adc9be;font:9px/1.5 ui-monospace,monospace;letter-spacing:0;margin-top:4px}.export-note{font-size:10px;color:#b0c7bf;margin-bottom:0}.profile-section{display:grid;grid-template-columns:.8fr 1.8fr;gap:7%;padding:52px 0 48px}.profile-intro .overline{font-size:9px}.profile-intro h2{margin:13px 0;font-size:24px}.profile-intro p{font-size:11px;color:var(--muted);line-height:1.9;max-width:290px}.profile-details{display:grid;grid-template-columns:1fr 1fr;gap:29px 33px}.profile-details>div{position:relative;padding-left:30px}.profile-detail-number{position:absolute;left:0;top:2px;font-size:9px;font-family:ui-monospace,monospace;color:#628a82}.profile-details h3{font-size:12px;font-weight:600;margin:0 0 8px}.profile-details p{font-size:10px;color:var(--muted);line-height:1.9;margin:0}footer{border-top:1px solid var(--line);padding:26px 5.2%;display:flex;align-items:center;justify-content:space-between;gap:20px}.footer-brand{font-size:15px;letter-spacing:-.5px;color:#b3c5c5}footer p{font-size:10px;color:#789094;margin:0}.skip-link{position:fixed;top:10px;left:10px;z-index:20;transform:translateY(-200%);background:var(--teal);color:var(--ink);padding:10px 20px;border-radius:4px}.skip-link:focus{transform:translateY(0)}body[aria-busy=true] #analyze-button span:first-child:before,body[aria-busy=true] #build-button:before{content:"";display:inline-block;width:10px;height:10px;border:1px solid currentColor;border-top-color:transparent;border-radius:50%;margin-right:8px;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}@media(min-width:1450px){.intro{padding-top:70px;padding-bottom:66px}.workflow-card{max-width:520px;justify-self:end;width:100%}.reconcile-panel{grid-template-columns:350px minmax(0,1fr)}.input-panel,.review-panel{padding:28px}.empty-review{margin-top:62px}}@media(max-width:1000px){.topbar{padding:0 4%;height:85px}main{padding:0 4%}.intro{gap:5%;padding-top:39px}.workflow-card{padding:17px 18px 0}.workflow-bottom{margin:0 -18px}.workflow li{gap:12px;padding:17px 0}.workflow strong{font-size:12px}.workflow p{font-size:10px}.workflow-caption .overline{font-size:8px}.reconcile-panel{grid-template-columns:280px minmax(0,1fr)}.input-panel,.review-panel{padding:20px}.empty-legend{gap:12px}.profile-badge{font-size:8px;letter-spacing:.5px}.mode-tabs{padding:0 20px;gap:17px}.mode-tabs [role=tab]{font-size:11px}.unit-summary{flex-wrap:wrap}.unit-title-wrap{order:1;width:100%}.unit-summary:after{order:0}.unit-summary .status-tag{order:0}.export-panel{gap:22px;grid-template-columns:.9fr 1.2fr}.value-grid{grid-template-columns:1fr}.value-column pre{max-height:140px}}@media(max-width:720px){.topbar{height:78px}.brand{font-size:20px;gap:11px}.brand small{font-size:6px;letter-spacing:1.7px}.brand-mark{transform:scale(.85);transform-origin:left;width:29px}.topbar-tools{gap:11px}.local-pill{font-size:0;gap:0}.local-pill .status-dot{width:5px;height:5px}.language-switch button{padding:5px 8px;font-size:10px}.intro{grid-template-columns:1fr;padding:33px 0 31px;gap:29px}.eyebrow{font-size:9px;letter-spacing:.8px}h1{font-size:42px;margin-top:17px;letter-spacing:-1.8px}.intro-description{font-size:12px;max-width:500px}.intro-actions{margin-top:20px;gap:20px}.intro-actions .button{font-size:11px;padding:10px 14px}.workflow-card{display:none}.workspace-heading{padding:19px}.workspace-heading h2{font-size:19px}.workspace-heading .overline{font-size:8px}.workspace-controls{gap:0}.workspace-controls .button{font-size:10px;padding:6px 8px}.mode-tabs{padding:0 18px;gap:21px}.mode-tabs [role=tab]{font-size:11px;gap:6px;padding:15px 1px;min-height:53px}.profile-badge{display:none}.reconcile-panel{grid-template-columns:1fr}.input-panel{border-right:0;border-bottom:1px solid var(--line);padding:20px}.panel-description{margin:12px 0 16px}.file-card{padding:12px;margin-bottom:9px}.file-top{margin-bottom:8px}.file-help{margin-top:3px}.input-panel>.button{min-height:43px}.input-footnote{font-size:9px}.review-panel{min-height:340px;padding:20px}.empty-review{margin:25px auto 20px}.merge-illustration{height:88px;transform:scale(.85);transform-origin:top;margin-bottom:7px}.merge-node.final{bottom:-6px}.merge-line{height:38px}.empty-review h3{font-size:18px}.empty-review p{font-size:11px;max-width:285px}.empty-legend{margin-top:21px;padding-top:16px;font-size:8px;gap:17px}.notice{margin:15px 18px 0;font-size:11px}.prepare-panel{grid-template-columns:1fr;padding:24px 20px;gap:23px}.prepare-explainer h3{font-size:25px;margin:12px 0}.prepare-explainer>p{font-size:12px}.inline-warning{margin-top:17px}.review-summary{margin-top:18px;gap:7px}.summary-card{padding:11px}.summary-card strong{font-size:23px}.summary-card span{font-size:9px}.unit-summary{flex-wrap:nowrap;padding:13px;gap:8px}.unit-title-wrap{order:0;width:auto;flex:1}.unit-title{font-size:11px}.unit-source{font-size:9px}.unit-summary .status-tag{font-size:8px}.unit-body{padding:0 13px 13px}.decision-choices{grid-template-columns:1fr}.decision-choice{font-size:11px}.unit-count{font-size:9px}.export-panel{padding:22px 20px;grid-template-columns:1fr;gap:20px}.export-heading{padding:0}.export-heading h3{font-size:18px}.export-controls .field-label{font-size:10px}.output-name-row>.button{padding:10px 12px;font-size:11px}.download-buttons>.button{font-size:10px;padding:10px 9px}.profile-section{grid-template-columns:1fr;padding:36px 0;gap:21px}.profile-intro h2{font-size:23px;margin:10px 0}.profile-intro p{max-width:500px}.profile-details{gap:23px 20px}.profile-details>div{padding-left:24px}.profile-details h3{font-size:11px}.profile-details p{font-size:10px}footer{padding:23px 5%;flex-wrap:wrap;gap:9px}.footer-brand{font-size:14px}footer p{font-size:9px}footer>.mono{width:100%;font-size:8px;margin-top:2px}.text-link{font-size:10px}}@media(max-width:380px){h1{font-size:38px}.brand{font-size:18px}.brand small{letter-spacing:1.3px}.mode-tabs{gap:14px;padding:0 14px}.mode-tabs [role=tab]{font-size:10px}.review-panel,.input-panel{padding:17px}.unit-summary{flex-wrap:wrap}.unit-title-wrap{order:1;flex-basis:100%}.profile-details{grid-template-columns:1fr}.download-buttons{flex-direction:column}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+  <a href="#workspace" class="skip-link" data-i18n="skip">ワークスペースへ移動</a>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="SceneReconcile home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Scene<span class="brand-light">Reconcile</span><small>SCENE COLLECTION WORKSPACE</small></span></a>
+    <div class="topbar-tools"><span class="local-pill"><span class="status-dot"></span><span data-i18n="local">ブラウザ内で処理</span></span><div class="language-switch" role="group" aria-label="言語" data-i18n-aria="languageLabel"><button type="button" id="lang-ja" lang="ja" aria-pressed="true">JA</button><button type="button" id="lang-en" lang="en" aria-pressed="false">EN</button></div></div>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div class="intro-copy"><div class="eyebrow"><span class="tiny-line"></span><span data-i18n="eyebrow">並行した編集を、ひとつのコレクションへ</span></div><h1 id="page-title" data-i18n-html="headline">ふたつの編集。<br><span>ひとつの本番。</span></h1><p class="intro-description" data-i18n="intro">OBSのシーンを別々に編集し、変更を比較。ぶつかった箇所を自分で選び、判断の記録とともに持ち帰れます。</p><div class="intro-actions"><button type="button" id="sample-button" class="button secondary"><span aria-hidden="true">↗</span> <span data-i18n="sample">サンプルで試す</span></button><a href="#profile" class="text-link" data-i18n="profileLink">対応範囲を確認 ↓</a></div></div>
+      <div class="workflow-card" aria-label="作業の流れ" data-i18n-aria="workflowLabel"><div class="workflow-caption"><span class="overline" data-i18n="workflow">YOUR HANDOFF, MADE EXPLICIT</span><span class="mono">01 → 03</span></div><ol class="workflow"><li><span class="workflow-number">01</span><div><strong data-i18n="flow1">共通の出発点を準備</strong><p data-i18n="flow1p">IDを保った作業用コピーを作成</p></div><span class="workflow-symbol" aria-hidden="true">▱</span></li><li><span class="workflow-number">02</span><div><strong data-i18n="flow2">OBSでそれぞれ編集</strong><p data-i18n="flow2p">「インポート」で開き、編集後にエクスポート</p></div><span class="workflow-symbol" aria-hidden="true">⑂</span></li><li><span class="workflow-number">03</span><div><strong data-i18n="flow3">比較・判断・書き出し</strong><p data-i18n="flow3p">変更内容と影響するシーンを確認</p></div><span class="workflow-symbol" aria-hidden="true">↗</span></li></ol><div class="workflow-bottom"><span class="status-dot"></span><span data-i18n="privacy">ファイルはアップロードされません</span></div></div>
+    </section>
+    <section id="workspace" class="workspace" aria-labelledby="workspace-title">
+      <div class="workspace-heading"><div><span class="overline" data-i18n="workspaceLabel">WORKSPACE</span><h2 id="workspace-title" data-i18n="workspaceTitle">編集の合流地点</h2></div><div class="workspace-controls"><button type="button" id="cancel-button" class="button quiet" hidden data-i18n="cancel">キャンセル</button><button type="button" id="clear-button" class="button quiet" data-i18n="clear">すべてクリア</button></div></div>
+      <div class="mode-tabs" role="tablist" aria-label="ワークスペースのモード" data-i18n-aria="modeLabel"><button type="button" id="tab-prepare" role="tab" aria-controls="prepare-panel" aria-selected="false" tabindex="-1"><span class="tab-number">01</span> <span data-i18n="prepareTab">作業用コピーを準備</span></button><button type="button" id="tab-reconcile" role="tab" aria-controls="reconcile-panel" aria-selected="true"><span class="tab-number">02</span> <span data-i18n="reconcileTab">編集結果を統合</span></button><span class="profile-badge">OBS 32.2.2 · LINUX</span></div>
+      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+      <div id="prepare-panel" class="prepare-panel" role="tabpanel" aria-labelledby="tab-prepare" hidden>
+        <div class="prepare-explainer"><span class="section-index">01 / PREPARE</span><h3 data-i18n="prepareTitle">同じIDから、編集を始める</h3><p data-i18n="prepareDescription">元のコレクションから、基準と2つの作業用コピーを作成します。名前は別々でも、ソースのIDは共通です。</p><div class="inline-warning"><span aria-hidden="true">!</span><p data-i18n="importWarning">OBSでは「シーンコレクション → インポート」を使用してください。「複製」はIDを変更するため使えません。</p></div></div>
+        <div class="prepare-form"><label class="file-card prepare-source" for="prepare-file"><span class="file-top"><span class="file-icon" aria-hidden="true">↥</span><span class="file-role" data-i18n="sourceCollection">元のコレクション</span><span class="file-state" id="prepare-file-state">JSON</span></span><strong id="prepare-file-name" data-empty-i18n="chooseFile">JSONファイルを選択</strong><span class="file-help" data-i18n="chooseHint">クリックしてファイルを選択</span><input type="file" id="prepare-file" accept=".json,application/json" aria-describedby="prepare-file-name"></label><label class="field-label" for="prepare-name" data-i18n="projectName">コレクション名の接頭辞</label><input class="text-input" id="prepare-name" type="text" maxlength="100" value="Studio" autocomplete="off"><button type="button" id="prepare-button" class="button primary full" disabled><span data-i18n="prepareAction">3つのコピーを作成</span><span aria-hidden="true">→</span></button><div id="prepared-files" hidden></div></div>
+      </div>
+      <div id="reconcile-panel" class="reconcile-panel" role="tabpanel" aria-labelledby="tab-reconcile">
+        <aside class="input-panel" aria-label="入力コレクション" data-i18n-aria="inputsLabel"><div class="panel-heading"><span class="section-index">01 / INPUTS</span><span id="input-counter" class="small-counter">0 / 3</span></div><p class="panel-description" data-i18n="inputDescription">共通の基準と、編集後の2つのコレクションを選択してください。</p>
+          <label class="file-card" for="baseline-file"><span class="file-top"><span class="file-icon" aria-hidden="true">⌑</span><span class="file-role" data-i18n="baseline">基準</span><span class="file-state" id="baseline-file-state">01</span></span><strong id="baseline-file-name" data-empty-i18n="chooseFile">JSONファイルを選択</strong><span class="file-help" data-i18n="baselineHint">編集前の共通コレクション</span><input type="file" id="baseline-file" accept=".json,application/json" aria-describedby="baseline-file-name"></label>
+          <label class="file-card operator-card" for="operator-file"><span class="file-top"><span class="file-icon" aria-hidden="true">↗</span><span class="file-role" data-i18n="operator">オペレーター</span><span class="file-state" id="operator-file-state">02</span></span><strong id="operator-file-name" data-empty-i18n="chooseFile">JSONファイルを選択</strong><span class="file-help" data-i18n="operatorHint">本番環境を管理する側の編集</span><input type="file" id="operator-file" accept=".json,application/json" aria-describedby="operator-file-name"></label>
+          <label class="file-card incoming-card" for="incoming-file"><span class="file-top"><span class="file-icon" aria-hidden="true">↙</span><span class="file-role" data-i18n="incoming">共同編集者</span><span class="file-state" id="incoming-file-state">03</span></span><strong id="incoming-file-name" data-empty-i18n="chooseFile">JSONファイルを選択</strong><span class="file-help" data-i18n="incomingHint">取り込みたいもう一方の編集</span><input type="file" id="incoming-file" accept=".json,application/json" aria-describedby="incoming-file-name"></label>
+          <button type="button" id="analyze-button" class="button primary full" disabled><span data-i18n="analyze">変更を比較</span><span aria-hidden="true">→</span></button><p class="input-footnote"><span aria-hidden="true">⌁</span><span data-i18n="sameStart">同じ基準から準備したコピーが必要です</span></p>
+        </aside>
+        <div class="review-panel"><div class="panel-heading"><span class="section-index">02 / REVIEW</span><span class="review-state" id="review-state" data-i18n="awaitingFiles">ファイル待機中</span></div>
+          <div id="empty-review" class="empty-review"><div class="merge-illustration" aria-hidden="true"><span class="merge-line left"></span><span class="merge-line right"></span><span class="merge-node left">A</span><span class="merge-node right">B</span><span class="merge-node final">↳</span></div><span class="overline" data-i18n="emptyEyebrow">REVIEW BEFORE YOU RECONCILE</span><h3 data-i18n="emptyTitle">変わったところを、見える形に。</h3><p data-i18n="emptyDescription">3つのファイルを比較すると、取り込める変更と、あなたの判断が必要な変更がここに表示されます。</p><div class="empty-legend"><span><i class="legend-dot teal"></i><span data-i18n="oneSided">片側の変更</span></span><span><i class="legend-dot orange"></i><span data-i18n="conflicts">競合</span></span><span><i class="legend-dot grey"></i><span data-i18n="impact">影響するシーン</span></span></div></div>
+          <div id="review-content" hidden><div id="review-summary" class="review-summary"></div><div class="review-toolbar"><div class="review-filters" role="group" aria-label="変更のフィルター" data-i18n-aria="filterLabel"><button type="button" id="filter-attention" aria-pressed="true" data-i18n="attention">要確認</button><button type="button" id="filter-all" aria-pressed="false" data-i18n="allChanges">すべて</button></div><span id="unit-count" class="muted small"></span></div><div id="unit-list" class="unit-list"></div></div>
+        </div>
+      </div>
+      <div id="export-panel" class="export-panel" hidden><div class="export-heading"><div class="export-icon" aria-hidden="true">↧</div><div><span class="section-index">03 / EXPORT</span><h3 data-i18n="exportTitle">判断を確かめて、持ち帰る</h3><p id="export-status" class="muted"></p></div></div><div class="export-controls"><label class="field-label" for="output-name" data-i18n="outputName">出力コレクション名</label><div class="output-name-row"><input type="text" id="output-name" class="text-input" maxlength="100" value="Studio · Reconciled" autocomplete="off"><button type="button" id="build-button" class="button primary" disabled data-i18n="build">出力を検証</button></div><div id="download-area" hidden><div class="download-buttons"><button type="button" id="download-collection" class="button primary"><span aria-hidden="true">↓</span> <span data-i18n="downloadCollection">コレクション JSON</span></button><button type="button" id="download-receipt" class="button secondary"><span aria-hidden="true">↓</span> <span data-i18n="downloadReceipt">判断の記録 JSON</span></button></div><p class="hash-label"><span data-i18n="outputHash">出力 SHA-256</span><code id="output-hash"></code></p><p class="export-note" data-i18n="exportReminder">OBSのインポートで新しいコレクションとして開き、本番前に確認してください。</p></div></div></div>
+    </section>
+    <section id="profile" class="profile-section" aria-labelledby="profile-title"><div class="profile-intro"><span class="overline">BUILT WITH BOUNDARIES</span><h2 id="profile-title" data-i18n="profileTitle">対応範囲を、明確に。</h2><p data-i18n="profileIntro">OBS Studio 32.2.2 / Linux 向けの限定プロファイルです。すべてのOBSコレクションには対応していません。</p></div><div class="profile-details"><div><span class="profile-detail-number">01</span><h3 data-i18n="scopeTitle">小さな制作環境に</h3><p data-i18n="scopeDescription">最大20シーン・200ソース・1,000アイテム。カラー、Linux FreeTypeテキスト、通常の入れ子シーンに対応。</p></div><div><span class="profile-detail-number">02</span><h3 data-i18n="identityTitle">共通のIDと座標を保持</h3><p data-i18n="identityDescription">準備したコピーはOBSの「インポート」で開きます。同じ解像度と座標モードが必要です。「複製」は使わないでください。</p></div><div><span class="profile-detail-number">03</span><h3 data-i18n="ownershipTitle">本番環境の設定を保護</h3><p data-i18n="ownershipDescription">キャプチャーとメディアの設定はオペレーター側を保持。非対応の変更は明示的に除外します。素材はアップロードも同梱もしません。</p></div><div><span class="profile-detail-number">04</span><h3 data-i18n="limitsTitle">黙って変更を捨てない</h3><p data-i18n="limitsDescription">グループ、フィルター、スクリプト、カスタムプラグイン、ソースの削除・改名、複数キャンバスは対象外。未判断の競合があると書き出せません。</p></div></div></section>
+  </main>
+  <footer><span class="footer-brand">SceneReconcile</span><p data-i18n="footer">ローカルで比較。明示的に判断。記録とともに書き出し。</p><span class="mono">OBS COLLECTION TOOL · v0.1</span></footer>
+  <script>(() => {
+  // <define:SCENE_SAMPLE>
+  var define_SCENE_SAMPLE_default = { baseline: { name: "SceneReconcileBaseline", sources: [{ prev_ver: 537001986, name: "Banner", uuid: "d99603e0-a723-4719-b522-af1569db7e89", id: "color_source", versioned_id: "color_source_v3", settings: { color: 4291669810, width: 650, height: 110 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "Title", uuid: "ee920227-32db-4b31-8a1b-d051bd704bee", id: "text_ft2_source", versioned_id: "text_ft2_source_v2", settings: { from_file: false, text: "Workshop begins at 18:00", font: { face: "DejaVu Sans", flags: 0, size: 36, style: "Book" }, outline: false, drop_shadow: false, color1: 4294967295, color2: 4294967295 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "Background", uuid: "dd72dc0e-bdec-41c3-b38e-ba48dede9568", id: "color_source", versioned_id: "color_source_v3", settings: { color: 4278190080, width: 1280, height: 720 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "Main", uuid: "bd3e4125-1b2b-4533-a7cb-ca855b38286e", id: "scene", versioned_id: "scene", settings: { id_counter: 2, custom_size: false, items: [{ name: "Background", source_uuid: "dd72dc0e-bdec-41c3-b38e-ba48dede9568", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 0, y: 0 }, pos_rel: { x: -1.7777777910232544, y: -1 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "LowerThird", source_uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 100, y: 100 }, pos_rel: { x: -1.5, y: -0.7222222089767456 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }, { prev_ver: 537001986, name: "Break", uuid: "2d4cf1c8-d60f-4bb7-8270-653c72fcaf73", id: "scene", versioned_id: "scene", settings: { id_counter: 2, custom_size: false, items: [{ name: "Background", source_uuid: "dd72dc0e-bdec-41c3-b38e-ba48dede9568", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 0, y: 0 }, pos_rel: { x: -1.7777777910232544, y: -1 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "LowerThird", source_uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 20, y: 20 }, pos_rel: { x: -1.7222222089767456, y: -0.9444444179534912 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }, { prev_ver: 537001986, name: "LowerThird", uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", id: "scene", versioned_id: "scene", settings: { id_counter: 2, custom_size: false, items: [{ name: "Banner", source_uuid: "d99603e0-a723-4719-b522-af1569db7e89", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 0, y: 0 }, pos_rel: { x: -1.7777777910232544, y: -1 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "Title", source_uuid: "ee920227-32db-4b31-8a1b-d051bd704bee", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 24, y: 30 }, pos_rel: { x: -1.711111068725586, y: -0.9166666865348816 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }], groups: [], scene_order: [{ name: "LowerThird" }, { name: "Break" }, { name: "Main" }], current_scene: "LowerThird", current_program_scene: "LowerThird", canvases: [], current_transition: "Fade", transition_duration: 300, transitions: [], quick_transitions: [], saved_projectors: [], preview_locked: false, scaling_enabled: false, scaling_level: -5, scaling_off_x: 0, scaling_off_y: 0, "virtual-camera": { type2: 3 }, modules: { "scripts-tool": [], "output-timer": { streamTimerHours: 0, streamTimerMinutes: 0, streamTimerSeconds: 0, recordTimerHours: 0, recordTimerMinutes: 0, recordTimerSeconds: 0, autoStartStreamTimer: false, autoStartRecordTimer: false, pauseRecordTimer: false }, "auto-scene-switcher": { interval: 300, non_matching_scene: "", switch_if_not_matching: false, active: false, switches: [] } }, resolution: { x: 1280, y: 720 }, version: 2 }, operator: { name: "SceneReconcile-operator", sources: [{ prev_ver: 537001986, name: "Banner", uuid: "d99603e0-a723-4719-b522-af1569db7e89", id: "color_source", versioned_id: "color_source_v3", settings: { color: 4291669810, width: 650, height: 110 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "Title", uuid: "ee920227-32db-4b31-8a1b-d051bd704bee", id: "text_ft2_source", versioned_id: "text_ft2_source_v2", settings: { from_file: false, text: "Workshop begins at 18:00", font: { face: "DejaVu Sans", flags: 0, size: 36, style: "Book" }, outline: false, drop_shadow: false, color1: 4294967295, color2: 4294967295 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "Background", uuid: "dd72dc0e-bdec-41c3-b38e-ba48dede9568", id: "color_source", versioned_id: "color_source_v3", settings: { color: 4281541135, width: 1280, height: 720 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "Main", uuid: "bd3e4125-1b2b-4533-a7cb-ca855b38286e", id: "scene", versioned_id: "scene", settings: { custom_size: false, id_counter: 2, items: [{ name: "Background", source_uuid: "dd72dc0e-bdec-41c3-b38e-ba48dede9568", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 0, y: 0 }, pos_rel: { x: -1.7777777910232544, y: -1 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "LowerThird", source_uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 240, y: 80 }, pos_rel: { x: -1.1111111640930176, y: -0.7777777910232544 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }, { prev_ver: 537001986, name: "Break", uuid: "2d4cf1c8-d60f-4bb7-8270-653c72fcaf73", id: "scene", versioned_id: "scene", settings: { custom_size: false, id_counter: 2, items: [{ name: "Background", source_uuid: "dd72dc0e-bdec-41c3-b38e-ba48dede9568", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 0, y: 0 }, pos_rel: { x: -1.7777777910232544, y: -1 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "LowerThird", source_uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", visible: false, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 20, y: 20 }, pos_rel: { x: -1.7222222089767456, y: -0.9444444179534912 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }, { prev_ver: 537001986, name: "LowerThird", uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", id: "scene", versioned_id: "scene", settings: { custom_size: false, id_counter: 2, items: [{ name: "Banner", source_uuid: "d99603e0-a723-4719-b522-af1569db7e89", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 0, y: 0 }, pos_rel: { x: -1.7777777910232544, y: -1 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "Title", source_uuid: "ee920227-32db-4b31-8a1b-d051bd704bee", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 24, y: 30 }, pos_rel: { x: -1.711111068725586, y: -0.9166666865348816 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }], groups: [], scene_order: [{ name: "LowerThird" }, { name: "Break" }, { name: "Main" }], current_scene: "LowerThird", current_program_scene: "LowerThird", canvases: [], current_transition: "Fade", transition_duration: 300, transitions: [], quick_transitions: [], saved_projectors: [], preview_locked: false, scaling_enabled: false, scaling_level: -5, scaling_off_x: 0, scaling_off_y: 0, "virtual-camera": { type2: 3 }, modules: { "auto-scene-switcher": { interval: 300, non_matching_scene: "", switch_if_not_matching: false, active: false, switches: [] }, "output-timer": { streamTimerHours: 0, streamTimerMinutes: 0, streamTimerSeconds: 0, recordTimerHours: 0, recordTimerMinutes: 0, recordTimerSeconds: 0, autoStartStreamTimer: false, autoStartRecordTimer: false, pauseRecordTimer: false }, "scripts-tool": [] }, resolution: { x: 1280, y: 720 }, version: 2 }, incoming: { name: "SceneReconcile-incoming", sources: [{ prev_ver: 537001986, name: "Banner", uuid: "d99603e0-a723-4719-b522-af1569db7e89", id: "color_source", versioned_id: "color_source_v3", settings: { color: 4291669810, width: 650, height: 110 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "Title", uuid: "ee920227-32db-4b31-8a1b-d051bd704bee", id: "text_ft2_source", versioned_id: "text_ft2_source_v2", settings: { from_file: false, text: "Workshop begins at 18:30", font: { face: "DejaVu Sans", flags: 0, size: 36, style: "Book" }, outline: false, drop_shadow: false, color1: 4294967295, color2: 4294967295 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "Background", uuid: "dd72dc0e-bdec-41c3-b38e-ba48dede9568", id: "color_source", versioned_id: "color_source_v3", settings: { color: 4278190080, width: 1280, height: 720 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "ThanksText", uuid: "7f32cbcc-170c-4cc6-b812-9ca117cd2bcd", id: "text_ft2_source", versioned_id: "text_ft2_source_v2", settings: { from_file: false, text: "Thanks for joining", font: { face: "DejaVu Sans", flags: 0, size: 40, style: "Book" }, outline: false, drop_shadow: false, color1: 4294967295, color2: 4294967295 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "Main", uuid: "bd3e4125-1b2b-4533-a7cb-ca855b38286e", id: "scene", versioned_id: "scene", settings: { custom_size: false, id_counter: 2, items: [{ name: "Background", source_uuid: "dd72dc0e-bdec-41c3-b38e-ba48dede9568", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 0, y: 0 }, pos_rel: { x: -1.7777777910232544, y: -1 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "LowerThird", source_uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 100, y: 100 }, pos_rel: { x: -1.5, y: -0.7222222089767456 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }, { prev_ver: 537001986, name: "Break", uuid: "2d4cf1c8-d60f-4bb7-8270-653c72fcaf73", id: "scene", versioned_id: "scene", settings: { custom_size: false, id_counter: 2, items: [{ name: "Background", source_uuid: "dd72dc0e-bdec-41c3-b38e-ba48dede9568", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 0, y: 0 }, pos_rel: { x: -1.7777777910232544, y: -1 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "LowerThird", source_uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 40, y: 30 }, pos_rel: { x: -1.6666666269302368, y: -0.9166666865348816 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }, { prev_ver: 537001986, name: "LowerThird", uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", id: "scene", versioned_id: "scene", settings: { custom_size: false, id_counter: 2, items: [{ name: "Banner", source_uuid: "d99603e0-a723-4719-b522-af1569db7e89", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 0, y: 0 }, pos_rel: { x: -1.7777777910232544, y: -1 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "Title", source_uuid: "ee920227-32db-4b31-8a1b-d051bd704bee", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 24, y: 30 }, pos_rel: { x: -1.711111068725586, y: -0.9166666865348816 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }, { prev_ver: 537001986, name: "Thanks", uuid: "036c07c6-4d11-4a4b-ba64-7e165e17b4e9", id: "scene", versioned_id: "scene", settings: { id_counter: 2, custom_size: false, items: [{ name: "LowerThird", source_uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 100, y: 100 }, pos_rel: { x: -1.5, y: -0.7222222089767456 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "ThanksText", source_uuid: "7f32cbcc-170c-4cc6-b812-9ca117cd2bcd", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 100, y: 280 }, pos_rel: { x: -1.5, y: -0.2222222089767456 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }], groups: [], scene_order: [{ name: "LowerThird" }, { name: "Thanks" }, { name: "Break" }, { name: "Main" }], current_scene: "LowerThird", current_program_scene: "LowerThird", canvases: [], current_transition: "Fade", transition_duration: 300, transitions: [], quick_transitions: [], saved_projectors: [], preview_locked: false, scaling_enabled: false, scaling_level: -5, scaling_off_x: 0, scaling_off_y: 0, "virtual-camera": { type2: 3 }, modules: { "auto-scene-switcher": { interval: 300, non_matching_scene: "", switch_if_not_matching: false, active: false, switches: [] }, "output-timer": { streamTimerHours: 0, streamTimerMinutes: 0, streamTimerSeconds: 0, recordTimerHours: 0, recordTimerMinutes: 0, recordTimerSeconds: 0, autoStartStreamTimer: false, autoStartRecordTimer: false, pauseRecordTimer: false }, "scripts-tool": [] }, resolution: { x: 1280, y: 720 }, version: 2 }, conflict: { name: "SceneReconcile-incoming-conflict", sources: [{ prev_ver: 537001986, name: "Banner", uuid: "d99603e0-a723-4719-b522-af1569db7e89", id: "color_source", versioned_id: "color_source_v3", settings: { color: 4291669810, width: 650, height: 110 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "Title", uuid: "ee920227-32db-4b31-8a1b-d051bd704bee", id: "text_ft2_source", versioned_id: "text_ft2_source_v2", settings: { from_file: false, text: "Workshop begins at 18:30", font: { face: "DejaVu Sans", flags: 0, size: 36, style: "Book" }, outline: false, drop_shadow: false, color1: 4294967295, color2: 4294967295 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "Background", uuid: "dd72dc0e-bdec-41c3-b38e-ba48dede9568", id: "color_source", versioned_id: "color_source_v3", settings: { color: 4278190080, width: 1280, height: 720 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "ThanksText", uuid: "7f32cbcc-170c-4cc6-b812-9ca117cd2bcd", id: "text_ft2_source", versioned_id: "text_ft2_source_v2", settings: { from_file: false, text: "Thanks for joining", font: { face: "DejaVu Sans", flags: 0, size: 40, style: "Book" }, outline: false, drop_shadow: false, color1: 4294967295, color2: 4294967295 }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: {}, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {} }, { prev_ver: 537001986, name: "Main", uuid: "bd3e4125-1b2b-4533-a7cb-ca855b38286e", id: "scene", versioned_id: "scene", settings: { custom_size: false, id_counter: 2, items: [{ name: "Background", source_uuid: "dd72dc0e-bdec-41c3-b38e-ba48dede9568", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 0, y: 0 }, pos_rel: { x: -1.7777777910232544, y: -1 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "LowerThird", source_uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 120, y: 140 }, pos_rel: { x: -1.4444444179534912, y: -0.6111111044883728 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }, { prev_ver: 537001986, name: "Break", uuid: "2d4cf1c8-d60f-4bb7-8270-653c72fcaf73", id: "scene", versioned_id: "scene", settings: { custom_size: false, id_counter: 2, items: [{ name: "Background", source_uuid: "dd72dc0e-bdec-41c3-b38e-ba48dede9568", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 0, y: 0 }, pos_rel: { x: -1.7777777910232544, y: -1 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "LowerThird", source_uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 40, y: 30 }, pos_rel: { x: -1.6666666269302368, y: -0.9166666865348816 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }, { prev_ver: 537001986, name: "LowerThird", uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", id: "scene", versioned_id: "scene", settings: { custom_size: false, id_counter: 2, items: [{ name: "Banner", source_uuid: "d99603e0-a723-4719-b522-af1569db7e89", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 0, y: 0 }, pos_rel: { x: -1.7777777910232544, y: -1 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "Title", source_uuid: "ee920227-32db-4b31-8a1b-d051bd704bee", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 24, y: 30 }, pos_rel: { x: -1.711111068725586, y: -0.9166666865348816 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }, { prev_ver: 537001986, name: "Thanks", uuid: "036c07c6-4d11-4a4b-ba64-7e165e17b4e9", id: "scene", versioned_id: "scene", settings: { custom_size: false, id_counter: 2, items: [{ name: "LowerThird", source_uuid: "6a94ecc9-fe9b-4b34-90f4-0c56ab93f5b0", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 1, group_item_backup: false, pos: { x: 100, y: 100 }, pos_rel: { x: -1.5, y: -0.7222222089767456 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }, { name: "ThanksText", source_uuid: "7f32cbcc-170c-4cc6-b812-9ca117cd2bcd", visible: true, locked: false, rot: 0, scale_ref: { x: 1280, y: 720 }, align: 5, bounds_type: 0, bounds_align: 0, bounds_crop: false, crop_left: 0, crop_top: 0, crop_right: 0, crop_bottom: 0, id: 2, group_item_backup: false, pos: { x: 100, y: 280 }, pos_rel: { x: -1.5, y: -0.2222222089767456 }, scale: { x: 1, y: 1 }, scale_rel: { x: 1, y: 1 }, bounds: { x: 0, y: 0 }, bounds_rel: { x: 0, y: 0 }, scale_filter: "disable", blend_method: "default", blend_type: "normal", show_transition: { duration: 0 }, hide_transition: { duration: 0 }, private_settings: {} }] }, mixers: 0, sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, hotkeys: { "OBSBasic.SelectScene": [], "libobs.show_scene_item.1": [], "libobs.hide_scene_item.1": [], "libobs.show_scene_item.2": [], "libobs.hide_scene_item.2": [] }, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, canvas_uuid: "6c69626f-6273-4c00-9d88-c5136d61696e", private_settings: {} }], groups: [], scene_order: [{ name: "LowerThird" }, { name: "Thanks" }, { name: "Break" }, { name: "Main" }], current_scene: "LowerThird", current_program_scene: "LowerThird", canvases: [], current_transition: "Fade", transition_duration: 300, transitions: [], quick_transitions: [], saved_projectors: [], preview_locked: false, scaling_enabled: false, scaling_level: -5, scaling_off_x: 0, scaling_off_y: 0, "virtual-camera": { type2: 3 }, modules: { "auto-scene-switcher": { interval: 300, non_matching_scene: "", switch_if_not_matching: false, active: false, switches: [] }, "output-timer": { streamTimerHours: 0, streamTimerMinutes: 0, streamTimerSeconds: 0, recordTimerHours: 0, recordTimerMinutes: 0, recordTimerSeconds: 0, autoStartStreamTimer: false, autoStartRecordTimer: false, pauseRecordTimer: false }, "scripts-tool": [] }, resolution: { x: 1280, y: 720 }, version: 2 } };
+
+  // src/core.mjs
+  var LIMITS = Object.freeze({ bytes: 10 * 1024 * 1024, scenes: 20, sources: 200, items: 1e3 });
+  var TRANSFORM_FIELDS = Object.freeze(["pos", "pos_rel", "scale", "scale_rel", "scale_ref", "bounds", "bounds_rel", "rot", "align", "bounds_type", "bounds_align", "bounds_crop", "crop_left", "crop_top", "crop_right", "crop_bottom"]);
+  var EDITABLE = /* @__PURE__ */ new Set(["color_source", "text_ft2_source"]);
+  var OWNED = /* @__PURE__ */ new Set(["ffmpeg_source", "image_source", "slideshow", "xshm_input", "xcomposite_input", "v4l2_input", "pulse_input_capture", "pulse_output_capture", "alsa_input_capture", "pipewire-screen-capture-source"]);
+  var MAIN_CANVAS_UUID = "6c69626f-6273-4c00-9d88-c5136d61696e";
+  var TRANSITIONS = /* @__PURE__ */ new Set(["fade_transition", "cut_transition", "swipe_transition", "slide_transition", "fade_to_color_transition", "wipe_transition", "obs_stinger_transition"]);
+  var SOURCE_KEYS = /* @__PURE__ */ new Set(["settings", "uuid", "name", "id", "versioned_id"]);
+  var ITEM_KEYS = /* @__PURE__ */ new Set(["id", "source_uuid", "name", "visible", "locked", ...TRANSFORM_FIELDS]);
+  var UI_KEYS = /* @__PURE__ */ new Set(["name", "sources", "scene_order", "current_scene", "current_program_scene", "preview_locked", "scaling_enabled", "scaling_level", "scaling_off_x", "scaling_off_y"]);
+  var UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  var clone = (value) => value === void 0 ? void 0 : structuredClone(value);
+  var canonical = (value) => value === void 0 ? "@undefined" : value === null || typeof value !== "object" ? JSON.stringify(value) : Array.isArray(value) ? "[" + value.map(canonical).join(",") + "]" : "{" + Object.keys(value).sort().map((k) => JSON.stringify(k) + ":" + canonical(value[k])).join(",") + "}";
+  var equal = (a, b) => canonical(a) === canonical(b);
+  var pick = (obj, keys) => Object.fromEntries(keys.filter((k) => Object.hasOwn(obj, k)).map((k) => [k, clone(obj[k])]));
+  var rest = (obj, keys) => Object.fromEntries(Object.keys(obj).filter((k) => !keys.has(k)).map((k) => [k, clone(obj[k])]));
+  var assert = (ok, code, detail = "") => {
+    if (!ok) throw new Error(`${code}${detail ? ": " + detail : ""}`);
+  };
+  var object = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+  function safeTree(value, depth = 0) {
+    assert(depth <= 60, "DEPTH_LIMIT");
+    if (typeof value === "number") assert(Number.isFinite(value), "NONFINITE_NUMBER");
+    if (value && typeof value === "object") for (const [key, child] of Object.entries(value)) {
+      assert(!["__proto__", "constructor", "prototype"].includes(key), "UNSAFE_KEY", key);
+      safeTree(child, depth + 1);
+    }
+  }
+  function rejectDuplicateKeys(text) {
+    let offset = 0;
+    const ws = () => {
+      while (/\s/.test(text[offset] || "x")) offset++;
+    };
+    function string() {
+      const start = offset++;
+      while (offset < text.length) {
+        if (text[offset] === "\\") {
+          offset += 2;
+          continue;
+        }
+        if (text[offset++] === '"') break;
+      }
+      return JSON.parse(text.slice(start, offset));
+    }
+    function value() {
+      ws();
+      const token = text[offset];
+      if (token === "{" || token === "[") {
+        const obj = token === "{", end = obj ? "}" : "]", keys = /* @__PURE__ */ new Set();
+        offset++;
+        ws();
+        if (text[offset] === end) {
+          offset++;
+          return;
+        }
+        while (offset < text.length) {
+          if (obj) {
+            ws();
+            const key = string();
+            assert(!keys.has(key), "DUPLICATE_JSON_KEY", key);
+            keys.add(key);
+            ws();
+            offset++;
+          }
+          value();
+          ws();
+          if (text[offset++] === end) break;
+        }
+        return;
+      }
+      if (token === '"') {
+        string();
+        return;
+      }
+      while (offset < text.length && !/[\s,}\]]/.test(text[offset])) offset++;
+    }
+    value();
+  }
+  function parseCollection(text) {
+    assert(typeof text === "string", "TEXT_REQUIRED");
+    assert(new TextEncoder().encode(text).length <= LIMITS.bytes, "FILE_TOO_LARGE", "10 MiB maximum");
+    const jsonText = text.charCodeAt(0) === 65279 ? text.slice(1) : text;
+    let doc;
+    try {
+      doc = JSON.parse(jsonText);
+    } catch {
+      throw new Error("INVALID_JSON");
+    }
+    rejectDuplicateKeys(jsonText);
+    validateCollection(doc);
+    return doc;
+  }
+  function sourceMap(doc) {
+    return new Map(doc.sources.map((s) => [s.uuid, s]));
+  }
+  function membership(source) {
+    return source.settings.items.map((x) => ({ id: x.id, source_uuid: x.source_uuid, name: x.name }));
+  }
+  function itemMap(source) {
+    return new Map(source.settings.items.map((x) => [`${x.id}:${x.source_uuid}`, x]));
+  }
+  var itemKey = (x) => `${x.id}:${x.source_uuid}`;
+  function transform(item) {
+    return pick(item, TRANSFORM_FIELDS);
+  }
+  function setFields(obj, keys, value) {
+    for (const key of keys) delete obj[key];
+    Object.assign(obj, clone(value));
+  }
+  function validVector(value) {
+    return object(value) && Object.keys(value).length === 2 && Object.keys(value).every((k) => k === "x" || k === "y") && typeof value.x === "number" && typeof value.y === "number" && Number.isFinite(value.x) && Number.isFinite(value.y);
+  }
+  function validateKind(source) {
+    if (Object.hasOwn(source, "canvas_uuid")) assert(source.canvas_uuid === MAIN_CANVAS_UUID, "CANVAS_REFERENCE_UNSUPPORTED", source.name || source.id);
+    assert(source.id === "scene" || EDITABLE.has(source.id) || OWNED.has(source.id) || TRANSITIONS.has(source.id), "SOURCE_KIND_UNSUPPORTED", String(source.id));
+    const allowed = source.id === "color_source" ? ["color_source", "color_source_v3"] : source.id === "text_ft2_source" ? ["text_ft2_source", "text_ft2_source_v2"] : [source.id];
+    assert(allowed.includes(source.versioned_id), "SOURCE_VERSION_UNSUPPORTED", `${source.name || source.id}/${source.versioned_id}`);
+  }
+  function validateEmbeddedSources(value) {
+    if (!value || typeof value !== "object") return;
+    if (object(value) && (typeof value.id === "string" || Object.hasOwn(value, "versioned_id"))) {
+      assert(object(value.settings), "EMBEDDED_SOURCE_SETTINGS_REQUIRED", value.name || value.id);
+      validateKind(value);
+      assert(!value.filters || Array.isArray(value.filters) && value.filters.length === 0, "FILTERS_UNSUPPORTED", value.name || value.id);
+      if (value.id === "text_ft2_source") assert(!value.settings.from_file, "TEXT_FILE_UNSUPPORTED", value.name);
+    }
+    for (const child of Object.values(value)) validateEmbeddedSources(child);
+  }
+  function validateSettings(source) {
+    assert(object(source.settings), "SETTINGS_REQUIRED", source.name);
+    if (source.id === "text_ft2_source") assert(!source.settings.from_file, "TEXT_FILE_UNSUPPORTED", source.name);
+    const keys = source.id === "color_source" ? /* @__PURE__ */ new Set(["color", "width", "height"]) : source.id === "text_ft2_source" ? /* @__PURE__ */ new Set(["font", "text", "color1", "color2", "custom_width", "word_wrap", "from_file", "text_file", "log_mode", "log_lines", "antialiasing", "drop_shadow", "outline"]) : null;
+    if (keys) for (const key of Object.keys(source.settings)) assert(keys.has(key), "SOURCE_SETTING_UNSUPPORTED", `${source.name}/${key}`);
+    if (source.id === "text_ft2_source" && source.settings.font) for (const key of Object.keys(source.settings.font)) assert(["face", "style", "size", "flags"].includes(key), "FONT_SETTING_UNSUPPORTED", key);
+    const range = (value, min, max) => Number.isSafeInteger(value) && value >= min && value <= max;
+    const settings = source.settings;
+    if (source.id === "color_source") {
+      for (const key of ["width", "height"]) if (Object.hasOwn(settings, key)) assert(range(settings[key], 1, 4096), "COLOR_DIMENSION_RANGE", `${source.name}/${key}`);
+      if (Object.hasOwn(settings, "color")) assert(range(settings.color, 0, 4294967295), "COLOR_VALUE_RANGE", source.name);
+    }
+    if (source.id === "text_ft2_source") {
+      for (const key of ["text", "text_file"]) if (Object.hasOwn(settings, key)) assert(typeof settings[key] === "string", "TEXT_SETTING_TYPE", key);
+      for (const key of ["from_file", "log_mode", "word_wrap", "antialiasing", "drop_shadow", "outline"]) if (Object.hasOwn(settings, key)) assert(typeof settings[key] === "boolean", "TEXT_SETTING_TYPE", key);
+      for (const key of ["color1", "color2"]) if (Object.hasOwn(settings, key)) assert(range(settings[key], 0, 4294967295), "COLOR_VALUE_RANGE", key);
+      if (Object.hasOwn(settings, "custom_width")) assert(range(settings.custom_width, 0, 4096), "TEXT_WIDTH_RANGE");
+      if (Object.hasOwn(settings, "log_lines")) assert(range(settings.log_lines, 1, 1e3), "TEXT_LOG_RANGE");
+      if (Object.hasOwn(settings, "font")) {
+        assert(object(settings.font), "FONT_SETTING_TYPE");
+        for (const key of ["face", "style"]) if (Object.hasOwn(settings.font, key)) assert(typeof settings.font[key] === "string", "FONT_SETTING_TYPE", key);
+        if (Object.hasOwn(settings.font, "size")) assert(range(settings.font.size, 1, 65535), "FONT_SIZE_RANGE");
+        if (Object.hasOwn(settings.font, "flags")) assert(range(settings.font.flags, 0, 15), "FONT_FLAGS_RANGE");
+      }
+    }
+    assert(!source.filters || Array.isArray(source.filters) && source.filters.length === 0, "FILTERS_UNSUPPORTED", source.name);
+  }
+  function validateCollection(doc) {
+    safeTree(doc);
+    assert(object(doc), "COLLECTION_REQUIRED");
+    validateEmbeddedSources(doc);
+    assert(typeof doc.name === "string" && doc.name.trim().length > 0 && doc.name.length <= 255, "COLLECTION_NAME");
+    assert(doc.version === 1 || doc.version === 2, "COORDINATE_VERSION", "supported native coordinate versions: 1, 2");
+    assert(object(doc.resolution) && validVector(doc.resolution) && doc.resolution.x > 0 && doc.resolution.y > 0, "RESOLUTION_REQUIRED");
+    if (doc.migration_resolution !== void 0) assert(validVector(doc.migration_resolution) && doc.migration_resolution.x > 0 && doc.migration_resolution.y > 0, "MIGRATION_RESOLUTION");
+    if (doc.transitions !== void 0) {
+      assert(Array.isArray(doc.transitions), "TRANSITIONS_REQUIRED");
+      for (const transition of doc.transitions) {
+        assert(object(transition) && typeof transition.id === "string" && object(transition.settings), "TRANSITION_SOURCE_REQUIRED");
+        validateKind(transition);
+      }
+    }
+    for (const key of ["groups", "canvases"]) assert(doc[key] === void 0 || Array.isArray(doc[key]) && doc[key].length === 0, key.toUpperCase() + "_UNSUPPORTED");
+    if (doc.modules) {
+      for (const [key, value] of Object.entries(doc.modules)) if (!["output-timer", "auto-scene-switcher"].includes(key)) assert(value === null || Array.isArray(value) && !value.length || object(value) && !Object.keys(value).length, /script/i.test(key) ? "SCRIPTS_UNSUPPORTED" : "MODULES_UNSUPPORTED", key);
+    }
+    assert(Array.isArray(doc.sources) && doc.sources.length > 0 && doc.sources.length <= LIMITS.sources, "SOURCE_LIMIT");
+    const names = /* @__PURE__ */ new Set(), ids = /* @__PURE__ */ new Set();
+    let sceneCount = 0, itemCount = 0;
+    for (const source of doc.sources) {
+      assert(object(source) && typeof source.uuid === "string" && UUID.test(source.uuid), "SOURCE_UUID");
+      assert(!ids.has(source.uuid), "DUPLICATE_UUID", source.uuid);
+      ids.add(source.uuid);
+      assert(typeof source.name === "string" && source.name.trim().length > 0 && source.name.length <= 255, "SOURCE_NAME");
+      assert(!names.has(source.name), "DUPLICATE_NAME", source.name);
+      names.add(source.name);
+      assert(source.id === "scene" || EDITABLE.has(source.id) || OWNED.has(source.id), "SOURCE_KIND_UNSUPPORTED", String(source.id));
+      validateKind(source);
+      validateSettings(source);
+      if (source.id === "scene") {
+        sceneCount++;
+        assert(!source.settings.custom_size, "CUSTOM_CANVAS_UNSUPPORTED", source.name);
+        assert(Array.isArray(source.settings.items), "ITEMS_REQUIRED", source.name);
+        itemCount += source.settings.items.length;
+        const itemIds = /* @__PURE__ */ new Set();
+        for (const item of source.settings.items) {
+          assert(object(item) && Number.isSafeInteger(item.id) && item.id > 0 && !itemIds.has(item.id), "ITEM_ID", source.name);
+          itemIds.add(item.id);
+          assert(typeof item.source_uuid === "string" && UUID.test(item.source_uuid), "ITEM_UUID", source.name);
+          assert(typeof item.visible === "boolean" && typeof item.locked === "boolean", "ITEM_FLAGS", source.name);
+          assert(!item.group_item_backup, "GROUP_UNSUPPORTED", source.name);
+          assert(typeof item.bounds_crop === "boolean", "BOUNDS_CROP_FLAG", source.name);
+          for (const edge of ["crop_left", "crop_top", "crop_right", "crop_bottom"]) assert(Number.isSafeInteger(item[edge]) && item[edge] >= 0, "CROP_RANGE", edge);
+          for (const key of ["align", "bounds_align"]) assert([0, 1, 2, 4, 5, 6, 8, 9, 10].includes(item[key]), "ALIGNMENT_RANGE", key);
+          assert(Number.isInteger(item.bounds_type) && item.bounds_type >= 0 && item.bounds_type <= 6, "BOUNDS_TYPE_RANGE");
+          for (const key of ["pos", "scale", "bounds"]) assert(validVector(item[key]), "TRANSFORM_VECTOR", `${source.name}/${item.id}/${key}`);
+          for (const key of ["pos_rel", "scale_rel", "scale_ref", "bounds_rel"]) if (Object.hasOwn(item, key)) assert(validVector(item[key]), "TRANSFORM_VECTOR", key);
+          for (const key of ["rot", "align", "bounds_type", "bounds_align", "crop_left", "crop_top", "crop_right", "crop_bottom"]) assert(typeof item[key] === "number" && Number.isFinite(item[key]), "TRANSFORM_FIELD", `${source.name}/${item.id}/${key}`);
+          if (doc.version === 2) for (const key of ["pos_rel", "scale_rel", "scale_ref", "bounds_rel"]) assert(validVector(item[key]), "RELATIVE_TRANSFORM_REQUIRED", `${source.name}/${item.id}/${key}`);
+          if (doc.version === 1) assert(!["pos_rel", "scale_rel", "bounds_rel"].some((k) => Object.hasOwn(item, k)), "MIXED_COORDINATES", source.name);
+        }
+        assert(Number.isSafeInteger(source.settings.id_counter) && source.settings.id_counter >= Math.max(0, ...itemIds), "ITEM_COUNTER", source.name);
+      }
+    }
+    assert(sceneCount > 0 && sceneCount <= LIMITS.scenes, "SCENE_LIMIT");
+    assert(itemCount <= LIMITS.items, "ITEM_LIMIT");
+    const map = sourceMap(doc);
+    for (const source of doc.sources) if (source.id === "scene") for (const item of source.settings.items) {
+      assert(map.has(item.source_uuid), "MISSING_REFERENCE", `${source.name}/${item.id}`);
+      assert(map.get(item.source_uuid).name === item.name, "REFERENCE_NAME_MISMATCH", `${source.name}/${item.id}`);
+    }
+    const visited = /* @__PURE__ */ new Set(), active = /* @__PURE__ */ new Set();
+    function visit(id) {
+      if (visited.has(id)) return;
+      assert(!active.has(id), "NESTING_CYCLE", map.get(id).name);
+      active.add(id);
+      const s = map.get(id);
+      if (s.id === "scene") {
+        for (const x of s.settings.items) if (map.get(x.source_uuid).id === "scene") visit(x.source_uuid);
+      }
+      active.delete(id);
+      visited.add(id);
+    }
+    for (const s of doc.sources) if (s.id === "scene") visit(s.uuid);
+    const scenes = doc.sources.filter((s) => s.id === "scene").map((s) => s.name);
+    assert(Array.isArray(doc.scene_order), "SCENE_ORDER_REQUIRED");
+    assert(equal([...doc.scene_order.map((x) => x.name)].sort(), [...scenes].sort()), "SCENE_ORDER_MEMBERSHIP");
+    for (const key of ["current_scene", "current_program_scene"]) if (doc[key] !== void 0) assert(scenes.includes(doc[key]), "CURRENT_SCENE_MISSING", key);
+    return { sources: doc.sources.length, scenes: sceneCount, items: itemCount };
+  }
+  function prepareCollection(doc, { name = doc.name } = {}) {
+    validateCollection(doc);
+    assert(typeof name === "string" && name.trim().length > 0 && name.length <= 210, "COLLECTION_NAME");
+    return Object.fromEntries(["baseline", "operator", "incoming"].map((role) => {
+      const next = clone(doc);
+      next.name = `${name.trim()} \xB7 ${role}`;
+      return [role, next];
+    }));
+  }
+  function affectedScenes(doc, uuid) {
+    const parents = /* @__PURE__ */ new Map();
+    for (const scene of doc.sources.filter((s) => s.id === "scene")) for (const item of scene.settings.items) {
+      if (!parents.has(item.source_uuid)) parents.set(item.source_uuid, /* @__PURE__ */ new Set());
+      parents.get(item.source_uuid).add(scene.uuid);
+    }
+    const map = sourceMap(doc), seen = /* @__PURE__ */ new Set(), queue = [uuid];
+    if (map.get(uuid)?.id === "scene") seen.add(uuid);
+    while (queue.length) for (const parent of parents.get(queue.shift()) || []) if (!seen.has(parent)) {
+      seen.add(parent);
+      queue.push(parent);
+    }
+    return [...seen].map((id) => map.get(id).name).sort();
+  }
+  function status(b, o, i) {
+    if (equal(o, i)) return equal(b, o) ? "unchanged" : "equal";
+    if (equal(b, i)) return "operator";
+    if (equal(b, o)) return "incoming";
+    return "conflict";
+  }
+  function validateAddedItem(item) {
+    const defaults = { group_item_backup: false, scale_filter: "disable", blend_method: "default", blend_type: "normal", private_settings: {} };
+    for (const [key, value] of Object.entries(rest(item, ITEM_KEYS))) {
+      if (["show_transition", "hide_transition"].includes(key)) {
+        assert(object(value) && Object.keys(value).every((k) => k === "duration") && (!Object.hasOwn(value, "duration") || value.duration === 0), "ADDED_ITEM_METADATA_UNSUPPORTED", key);
+        continue;
+      }
+      assert(Object.hasOwn(defaults, key) && equal(value, defaults[key]), "ADDED_ITEM_METADATA_UNSUPPORTED", key);
+    }
+  }
+  function validateAddedSource(source, baseline) {
+    const defaults = { mixers: [0, 63, 255], sync: 0, flags: 0, volume: 1, balance: 0.5, enabled: true, muted: false, "push-to-mute": false, "push-to-mute-delay": 0, "push-to-talk": false, "push-to-talk-delay": 0, deinterlace_mode: 0, deinterlace_field_order: 0, monitoring_type: 0, private_settings: {}, filters: [] };
+    const templates = baseline.sources.filter((s) => s.id === source.id);
+    for (const [key, value] of Object.entries(rest(source, SOURCE_KEYS))) {
+      if (["prev_ver", "canvas_uuid"].includes(key)) {
+        assert(templates.some((t2) => equal(t2[key], value)), "ADDED_SOURCE_METADATA_UNSUPPORTED", key);
+        continue;
+      }
+      if (key === "hotkeys") {
+        assert(object(value) && Object.values(value).every((v) => Array.isArray(v) && v.length === 0), "ADDED_SOURCE_METADATA_UNSUPPORTED", key);
+        continue;
+      }
+      assert(Object.hasOwn(defaults, key) && (key === "mixers" ? defaults.mixers.includes(value) : equal(defaults[key], value)), "ADDED_SOURCE_METADATA_UNSUPPORTED", key);
+    }
+    if (source.id === "scene") {
+      for (const key of Object.keys(source.settings)) assert(["items", "id_counter", "custom_size"].includes(key), "ADDED_SCENE_SETTING_UNSUPPORTED", key);
+      source.settings.items.forEach(validateAddedItem);
+    }
+  }
+  function pathLabel(source, kind, item) {
+    return `${source?.name || "Collection"}${item ? " / item " + item.id : ""} / ${kind}`;
+  }
+  function analyze(baseline, operator, incoming) {
+    const errors = [];
+    let stats;
+    try {
+      for (const doc of [baseline, operator, incoming]) validateCollection(doc);
+      stats = validateCollection(operator);
+      for (const key of ["version", "resolution", "migration_resolution"]) assert(equal(baseline[key], operator[key]) && equal(baseline[key], incoming[key]), "PROFILE_MISMATCH", key);
+      const b2 = sourceMap(baseline), o2 = sourceMap(operator), i2 = sourceMap(incoming);
+      for (const [uuid, s] of b2) {
+        assert(o2.has(uuid) && i2.has(uuid), "ANCESTRY_OR_DELETION", s.name);
+        for (const branch of [o2, i2]) for (const key of ["name", "id", "versioned_id"]) assert(equal(s[key], branch.get(uuid)[key]), "IDENTITY_OR_RENAME", `${s.name}/${key}`);
+      }
+    } catch (error) {
+      return { units: [], errors: [error.message], stats: stats || { sources: 0, scenes: 0, items: 0 } };
+    }
+    const b = sourceMap(baseline), o = sourceMap(operator), i = sourceMap(incoming), units = [];
+    const plan = { baseline: clone(baseline), operator: clone(operator), incoming: clone(incoming), units, errors, stats };
+    function add(id, kind, source, bv, ov, iv, target, unsupported = false, forceConflict = false) {
+      let state2 = status(bv, ov, iv);
+      if (unsupported && !equal(bv, iv) && !equal(ov, iv)) state2 = "unsupported";
+      else if (forceConflict) state2 = "conflict";
+      if (state2 === "unchanged") return;
+      units.push({ id, kind, sourceName: source?.name || null, label: pathLabel(source, kind, target?.item), status: state2, baseline: clone(bv), operator: clone(ov), incoming: clone(iv), allowedChoices: state2 === "unsupported" ? ["exclude"] : state2 === "conflict" ? ["operator", "incoming"] : [], affectedScenes: source ? [.../* @__PURE__ */ new Set([...affectedScenes(operator, source.uuid), ...affectedScenes(incoming, source.uuid)])].sort() : [], target });
+    }
+    const extraKeys = new Set([...Object.keys(baseline), ...Object.keys(operator), ...Object.keys(incoming)].filter((k) => !UI_KEYS.has(k)));
+    for (const key of extraKeys) add(`collection:${key}`, "collection-metadata", null, baseline[key], operator[key], incoming[key], { type: "top", key }, true);
+    const opAdded = operator.sources.filter((s) => !b.has(s.uuid)), inAdded = incoming.sources.filter((s) => !b.has(s.uuid));
+    for (const s of [...opAdded, ...inAdded]) try {
+      assert(s.id === "scene" || EDITABLE.has(s.id), "ADDED_SOURCE_KIND_UNSUPPORTED", s.name);
+      validateAddedSource(s, baseline);
+    } catch (error) {
+      errors.push(error.message);
+    }
+    for (const branch of [operator, incoming]) for (const scene of branch.sources.filter((s) => s.id === "scene" && b.has(s.uuid))) {
+      const original = itemMap(b.get(scene.uuid));
+      for (const item of scene.settings.items) if (!original.has(itemKey(item))) try {
+        validateAddedItem(item);
+      } catch (error) {
+        errors.push(`${error.message}: ${scene.name}/${item.id}`);
+      }
+    }
+    const collision = inAdded.some((s) => o.has(s.uuid) && !equal(o.get(s.uuid), s));
+    if (inAdded.length || opAdded.length) {
+      add("sources:added", "added-source-closure", null, [], opAdded, inAdded, { type: "additions" }, false, collision);
+      if (!collision) {
+        const added = units.at(-1);
+        added.status = inAdded.length ? "incoming" : "operator";
+        added.allowedChoices = [];
+      }
+    }
+    for (const [uuid, bs] of b) {
+      const os = o.get(uuid), is = i.get(uuid);
+      add(`source:${uuid}:metadata`, "source-metadata", bs, rest(bs, SOURCE_KEYS), rest(os, SOURCE_KEYS), rest(is, SOURCE_KEYS), { type: "source-extras", uuid }, true);
+      if (bs.id !== "scene") {
+        add(`source:${uuid}:settings`, "source-settings", bs, bs.settings, os.settings, is.settings, { type: "source-settings", uuid }, !EDITABLE.has(bs.id));
+        continue;
+      }
+      add(`scene:${uuid}:settings`, "scene-metadata", bs, rest(bs.settings, /* @__PURE__ */ new Set(["items", "id_counter"])), rest(os.settings, /* @__PURE__ */ new Set(["items", "id_counter"])), rest(is.settings, /* @__PURE__ */ new Set(["items", "id_counter"])), { type: "scene-settings", uuid }, true);
+      const bm = itemMap(bs), om = itemMap(os), im = itemMap(is);
+      const removalEdit = [...bm].some(([key, x]) => !om.has(key) && im.has(key) && !equal(x, im.get(key)) || !im.has(key) && om.has(key) && !equal(x, om.get(key)));
+      if (removalEdit) {
+        add(`scene:${uuid}:structure`, "scene-removal-edit", bs, pick(bs.settings, ["items", "id_counter"]), pick(os.settings, ["items", "id_counter"]), pick(is.settings, ["items", "id_counter"]), { type: "whole-scene-settings", uuid }, false, true);
+        for (const [key, bi] of bm) {
+          const oi = om.get(key), ii = im.get(key);
+          if (!ii) continue;
+          if (!oi) {
+            if (!equal(rest(bi, ITEM_KEYS), rest(ii, ITEM_KEYS))) errors.push(`REMOVED_ITEM_METADATA_UNSUPPORTED: ${bs.name}/${bi.id}`);
+            continue;
+          }
+          add(`item:${uuid}:${bi.id}:metadata`, "item-metadata", bs, rest(bi, ITEM_KEYS), rest(oi, ITEM_KEYS), rest(ii, ITEM_KEYS), { uuid, item: { id: bi.id, source_uuid: bi.source_uuid }, type: "item-extras" }, true);
+        }
+        continue;
+      }
+      const parallelCollision = os.settings.items.some((x) => !bm.has(itemKey(x)) && is.settings.items.some((y) => y.id === x.id && !bm.has(itemKey(y)) && !equal(x, y)));
+      add(`scene:${uuid}:membership`, "membership-order", bs, membership(bs), membership(os), membership(is), { type: "membership", uuid }, false, parallelCollision);
+      for (const [key, bi] of bm) {
+        const oi = om.get(key), ii = im.get(key);
+        if (!oi || !ii) continue;
+        const target = { uuid, item: { id: bi.id, source_uuid: bi.source_uuid } };
+        add(`item:${uuid}:${bi.id}:transform`, "item-transform", bs, transform(bi), transform(oi), transform(ii), { ...target, type: "transform" });
+        for (const flag of ["visible", "locked"]) add(`item:${uuid}:${bi.id}:${flag}`, "item-" + flag, bs, bi[flag], oi[flag], ii[flag], { ...target, type: "flag", key: flag });
+        add(`item:${uuid}:${bi.id}:metadata`, "item-metadata", bs, rest(bi, ITEM_KEYS), rest(oi, ITEM_KEYS), rest(ii, ITEM_KEYS), { ...target, type: "item-extras" }, true);
+      }
+    }
+    add("collection:scene_order", "scene-order", null, baseline.scene_order, operator.scene_order, incoming.scene_order, { type: "scene-order" });
+    return plan;
+  }
+  function choiceFor(unit, decisions) {
+    const explicit = decisions[unit.id];
+    if (unit.status === "conflict" || unit.status === "unsupported") {
+      assert(unit.allowedChoices.includes(explicit), "UNRESOLVED_DECISION", unit.id);
+      return explicit;
+    }
+    return unit.status === "incoming" ? "incoming" : "operator";
+  }
+  function chosenValue(unit, choice) {
+    return clone(choice === "incoming" ? unit.incoming : unit.operator);
+  }
+  function resolve(plan, decisions = {}, { name = "SceneReconcile merged" } = {}) {
+    assert(plan.errors?.length === 0, "INVALID_INPUT", plan.errors?.join("; "));
+    assert(typeof name === "string" && name.trim() && name.length <= 255, "COLLECTION_NAME");
+    const unresolved = plan.units.filter((u) => u.allowedChoices.length && !u.allowedChoices.includes(decisions[u.id]));
+    assert(!unresolved.length, "UNRESOLVED_DECISION", unresolved.map((u) => u.id).join(", "));
+    const result = clone(plan.operator), changes = [], excluded = [];
+    result.name = name.trim();
+    const branchMaps = { operator: sourceMap(plan.operator), incoming: sourceMap(plan.incoming) };
+    const additions = plan.units.find((u) => u.target.type === "additions");
+    if (additions) {
+      const choice = choiceFor(additions, decisions);
+      const present = new Set(result.sources.map((s) => s.uuid));
+      if (additions.status === "conflict") {
+        if (choice === "incoming") {
+          const baselineIds2 = new Set(plan.baseline.sources.map((s) => s.uuid));
+          result.sources = result.sources.filter((s) => baselineIds2.has(s.uuid));
+          result.sources.push(...clone(additions.incoming));
+        }
+      } else for (const s of additions.incoming) if (!present.has(s.uuid)) {
+        result.sources.push(clone(s));
+        present.add(s.uuid);
+      }
+    }
+    let map = sourceMap(result);
+    for (const unit of plan.units) {
+      const choice = choiceFor(unit, decisions), value = chosenValue(unit, choice), t2 = unit.target;
+      if (choice === "exclude") excluded.push({ id: unit.id, kind: unit.kind, sourceName: unit.sourceName, reason: "Incoming unsupported change explicitly excluded; operator retained" });
+      const change = { id: unit.id, kind: unit.kind, sourceName: unit.sourceName, status: unit.status, decision: choice, affectedScenes: [] };
+      changes.push(change);
+      if (t2.type === "additions" || t2.type === "scene-order") continue;
+      if (t2.type === "top") {
+        if (value === void 0) delete result[t2.key];
+        else result[t2.key] = value;
+        continue;
+      }
+      const source = map.get(t2.uuid);
+      assert(source, "SELECTED_SOURCE_MISSING", t2.uuid);
+      if (t2.type === "source-settings") {
+        source.settings = value;
+        continue;
+      }
+      if (t2.type === "source-extras") {
+        for (const k of Object.keys(source)) if (!SOURCE_KEYS.has(k)) delete source[k];
+        Object.assign(source, value);
+        continue;
+      }
+      if (t2.type === "scene-settings") {
+        for (const k of Object.keys(source.settings)) if (!["items", "id_counter"].includes(k)) delete source.settings[k];
+        Object.assign(source.settings, value);
+        continue;
+      }
+      if (t2.type === "whole-scene-settings") {
+        source.settings.items = value.items;
+        source.settings.id_counter = value.id_counter;
+        continue;
+      }
+      if (t2.type === "membership") {
+        const selected = branchMaps[choice === "incoming" ? "incoming" : "operator"].get(t2.uuid);
+        const selectedItems = itemMap(selected), currentItems = itemMap(source);
+        const originalItems = itemMap(sourceMap(plan.baseline).get(t2.uuid));
+        source.settings.items = value.map((x) => clone(originalItems.has(itemKey(x)) ? currentItems.get(itemKey(x)) || selectedItems.get(itemKey(x)) : selectedItems.get(itemKey(x))));
+        continue;
+      }
+      const item = source.settings.items.find((x) => x.id === t2.item.id && x.source_uuid === t2.item.source_uuid);
+      if (!item) continue;
+      if (t2.type === "transform") setFields(item, TRANSFORM_FIELDS, value);
+      else if (t2.type === "flag") item[t2.key] = value;
+      else if (t2.type === "item-extras") {
+        for (const k of Object.keys(item)) if (!ITEM_KEYS.has(k)) delete item[k];
+        Object.assign(item, value);
+      }
+    }
+    const sceneNames = new Set(result.sources.filter((s) => s.id === "scene").map((s) => s.name));
+    const order = plan.units.find((u) => u.target.type === "scene-order");
+    let preferred = order ? chosenValue(order, choiceFor(order, decisions)) : clone(result.scene_order);
+    preferred = preferred.filter((x) => sceneNames.has(x.name));
+    const listed = new Set(preferred.map((x) => x.name));
+    for (const source of result.sources) if (source.id === "scene" && !listed.has(source.name)) {
+      preferred.push({ name: source.name });
+      listed.add(source.name);
+    }
+    result.scene_order = preferred;
+    for (const key of ["current_scene", "current_program_scene"]) if (!sceneNames.has(result[key])) result[key] = result.scene_order[0].name;
+    for (const s of result.sources) if (s.id === "scene") s.settings.id_counter = Math.max(s.settings.id_counter || 0, branchMaps.operator.get(s.uuid)?.settings.id_counter || 0, branchMaps.incoming.get(s.uuid)?.settings.id_counter || 0, ...s.settings.items.map((x) => x.id));
+    const stats = validateCollection(result);
+    for (const change of changes) {
+      const source = result.sources.find((s) => s.name === change.sourceName);
+      change.affectedScenes = source ? affectedScenes(result, source.uuid) : [];
+    }
+    const baselineIds = new Set(plan.baseline.sources.map((s) => s.uuid));
+    const addedSources = result.sources.filter((s) => !baselineIds.has(s.uuid)).map((s) => ({ uuid: s.uuid, name: s.name, kind: s.id, affectedScenes: affectedScenes(result, s.uuid) }));
+    return { collection: result, changes, addedSources, excluded, unresolved: [], stats };
+  }
+  async function sha256(text) {
+    const bytes = typeof text === "string" ? new TextEncoder().encode(text) : text;
+    const digest = await crypto.subtle.digest("SHA-256", bytes);
+    return [...new Uint8Array(digest)].map((x) => x.toString(16).padStart(2, "0")).join("");
+  }
+  async function buildReceipt(inputRecords, result, outputText) {
+    const inputs = {};
+    for (const role of ["baseline", "operator", "incoming"]) {
+      const record = inputRecords[role];
+      assert(record && typeof record.text === "string", "INPUT_HASH_SOURCE", role);
+      inputs[role] = { name: record.name || role, sha256: await sha256(record.text) };
+    }
+    return { format: "SceneReconcile decision receipt", version: 1, profile: "OBS Studio 32.2.2 Linux / one canvas / prepared UUID-preserving imports", inputs, output: { name: result.collection.name, sha256: await sha256(outputText) }, changes: clone(result.changes), addedSources: clone(result.addedSources), excluded: clone(result.excluded), unresolved: [], stats: clone(result.stats), limits: LIMITS, warning: "This receipt records the chosen configuration. It does not bundle assets or prove runtime compatibility for other OBS versions/platforms." };
+  }
+
+  // web/app.mjs
+  var $ = (id) => document.getElementById(id);
+  var roles = ["baseline", "operator", "incoming"];
+  var copy = {
+    ja: {
+      languageLabel: "\u8A00\u8A9E",
+      workflowLabel: "\u4F5C\u696D\u306E\u6D41\u308C",
+      modeLabel: "\u30EF\u30FC\u30AF\u30B9\u30DA\u30FC\u30B9\u306E\u30E2\u30FC\u30C9",
+      inputsLabel: "\u5165\u529B\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3",
+      filterLabel: "\u5909\u66F4\u306E\u30D5\u30A3\u30EB\u30BF\u30FC",
+      skip: "\u30EF\u30FC\u30AF\u30B9\u30DA\u30FC\u30B9\u3078\u79FB\u52D5",
+      local: "\u30D6\u30E9\u30A6\u30B6\u5185\u3067\u51E6\u7406",
+      eyebrow: "\u4E26\u884C\u3057\u305F\u7DE8\u96C6\u3092\u3001\u3072\u3068\u3064\u306E\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u3078",
+      headline: "\u3075\u305F\u3064\u306E\u7DE8\u96C6\u3002<br><span>\u3072\u3068\u3064\u306E\u672C\u756A\u3002</span>",
+      intro: "OBS\u306E\u30B7\u30FC\u30F3\u3092\u5225\u3005\u306B\u7DE8\u96C6\u3057\u3001\u5909\u66F4\u3092\u6BD4\u8F03\u3002\u3076\u3064\u304B\u3063\u305F\u7B87\u6240\u3092\u81EA\u5206\u3067\u9078\u3073\u3001\u5224\u65AD\u306E\u8A18\u9332\u3068\u3068\u3082\u306B\u6301\u3061\u5E30\u308C\u307E\u3059\u3002",
+      sample: "\u30B5\u30F3\u30D7\u30EB\u3067\u8A66\u3059",
+      profileLink: "\u5BFE\u5FDC\u7BC4\u56F2\u3092\u78BA\u8A8D \u2193",
+      workflow: "YOUR HANDOFF, MADE EXPLICIT",
+      flow1: "\u5171\u901A\u306E\u51FA\u767A\u70B9\u3092\u6E96\u5099",
+      flow1p: "ID\u3092\u4FDD\u3063\u305F\u4F5C\u696D\u7528\u30B3\u30D4\u30FC\u3092\u4F5C\u6210",
+      flow2: "OBS\u3067\u305D\u308C\u305E\u308C\u7DE8\u96C6",
+      flow2p: "\u300C\u30A4\u30F3\u30DD\u30FC\u30C8\u300D\u3067\u958B\u304D\u3001\u7DE8\u96C6\u5F8C\u306B\u30A8\u30AF\u30B9\u30DD\u30FC\u30C8",
+      flow3: "\u6BD4\u8F03\u30FB\u5224\u65AD\u30FB\u66F8\u304D\u51FA\u3057",
+      flow3p: "\u5909\u66F4\u5185\u5BB9\u3068\u5F71\u97FF\u3059\u308B\u30B7\u30FC\u30F3\u3092\u78BA\u8A8D",
+      privacy: "\u30D5\u30A1\u30A4\u30EB\u306F\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u3055\u308C\u307E\u305B\u3093",
+      workspaceLabel: "WORKSPACE",
+      workspaceTitle: "\u7DE8\u96C6\u306E\u5408\u6D41\u5730\u70B9",
+      cancel: "\u30AD\u30E3\u30F3\u30BB\u30EB",
+      clear: "\u3059\u3079\u3066\u30AF\u30EA\u30A2",
+      prepareTab: "\u4F5C\u696D\u7528\u30B3\u30D4\u30FC\u3092\u6E96\u5099",
+      reconcileTab: "\u7DE8\u96C6\u7D50\u679C\u3092\u7D71\u5408",
+      prepareTitle: "\u540C\u3058ID\u304B\u3089\u3001\u7DE8\u96C6\u3092\u59CB\u3081\u308B",
+      prepareDescription: "\u5143\u306E\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u304B\u3089\u3001\u57FA\u6E96\u30682\u3064\u306E\u4F5C\u696D\u7528\u30B3\u30D4\u30FC\u3092\u4F5C\u6210\u3057\u307E\u3059\u3002\u540D\u524D\u306F\u5225\u3005\u3067\u3082\u3001\u30BD\u30FC\u30B9\u306EID\u306F\u5171\u901A\u3067\u3059\u3002",
+      importWarning: "OBS\u3067\u306F\u300C\u30B7\u30FC\u30F3\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3 \u2192 \u30A4\u30F3\u30DD\u30FC\u30C8\u300D\u3092\u4F7F\u7528\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u300C\u8907\u88FD\u300D\u306FID\u3092\u5909\u66F4\u3059\u308B\u305F\u3081\u4F7F\u3048\u307E\u305B\u3093\u3002",
+      sourceCollection: "\u5143\u306E\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3",
+      chooseFile: "JSON\u30D5\u30A1\u30A4\u30EB\u3092\u9078\u629E",
+      chooseHint: "\u30AF\u30EA\u30C3\u30AF\u3057\u3066\u30D5\u30A1\u30A4\u30EB\u3092\u9078\u629E \xB7 \u6700\u592710 MiB",
+      projectName: "\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u540D\u306E\u63A5\u982D\u8F9E",
+      prepareAction: "3\u3064\u306E\u30B3\u30D4\u30FC\u3092\u4F5C\u6210",
+      inputDescription: "\u5171\u901A\u306E\u57FA\u6E96\u3068\u3001\u7DE8\u96C6\u5F8C\u306E2\u3064\u306E\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u3092\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+      baseline: "\u57FA\u6E96",
+      operator: "\u30AA\u30DA\u30EC\u30FC\u30BF\u30FC",
+      incoming: "\u5171\u540C\u7DE8\u96C6\u8005",
+      baselineHint: "\u7DE8\u96C6\u524D\u306E\u5171\u901A\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3",
+      operatorHint: "\u672C\u756A\u74B0\u5883\u3092\u7BA1\u7406\u3059\u308B\u5074\u306E\u7DE8\u96C6",
+      incomingHint: "\u53D6\u308A\u8FBC\u307F\u305F\u3044\u3082\u3046\u4E00\u65B9\u306E\u7DE8\u96C6",
+      analyze: "\u5909\u66F4\u3092\u6BD4\u8F03",
+      sameStart: "\u540C\u3058\u57FA\u6E96\u304B\u3089\u6E96\u5099\u3057\u305F\u30B3\u30D4\u30FC\u304C\u5FC5\u8981\u3067\u3059",
+      awaitingFiles: "\u30D5\u30A1\u30A4\u30EB\u5F85\u6A5F\u4E2D",
+      emptyEyebrow: "REVIEW BEFORE YOU RECONCILE",
+      emptyTitle: "\u5909\u308F\u3063\u305F\u3068\u3053\u308D\u3092\u3001\u898B\u3048\u308B\u5F62\u306B\u3002",
+      emptyDescription: "3\u3064\u306E\u30D5\u30A1\u30A4\u30EB\u3092\u6BD4\u8F03\u3059\u308B\u3068\u3001\u53D6\u308A\u8FBC\u3081\u308B\u5909\u66F4\u3068\u3001\u3042\u306A\u305F\u306E\u5224\u65AD\u304C\u5FC5\u8981\u306A\u5909\u66F4\u304C\u3053\u3053\u306B\u8868\u793A\u3055\u308C\u307E\u3059\u3002",
+      oneSided: "\u7247\u5074\u306E\u5909\u66F4",
+      conflicts: "\u7AF6\u5408",
+      impact: "\u5F71\u97FF\u3059\u308B\u30B7\u30FC\u30F3",
+      attention: "\u8981\u78BA\u8A8D",
+      allChanges: "\u3059\u3079\u3066",
+      exportTitle: "\u5224\u65AD\u3092\u78BA\u304B\u3081\u3066\u3001\u6301\u3061\u5E30\u308B",
+      outputName: "\u51FA\u529B\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u540D",
+      build: "\u51FA\u529B\u3092\u691C\u8A3C",
+      downloadCollection: "\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3 JSON",
+      downloadReceipt: "\u5224\u65AD\u306E\u8A18\u9332 JSON",
+      outputHash: "\u51FA\u529B SHA-256",
+      exportReminder: "OBS\u306E\u30A4\u30F3\u30DD\u30FC\u30C8\u3067\u65B0\u3057\u3044\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u3068\u3057\u3066\u958B\u304D\u3001\u672C\u756A\u524D\u306B\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+      profileTitle: "\u5BFE\u5FDC\u7BC4\u56F2\u3092\u3001\u660E\u78BA\u306B\u3002",
+      profileIntro: "OBS Studio 32.2.2 / Linux \u5411\u3051\u306E\u9650\u5B9A\u30D7\u30ED\u30D5\u30A1\u30A4\u30EB\u3067\u3059\u3002\u3059\u3079\u3066\u306EOBS\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u306B\u306F\u5BFE\u5FDC\u3057\u3066\u3044\u307E\u305B\u3093\u3002",
+      scopeTitle: "\u5C0F\u3055\u306A\u5236\u4F5C\u74B0\u5883\u306B",
+      scopeDescription: "\u6700\u592720\u30B7\u30FC\u30F3\u30FB200\u30BD\u30FC\u30B9\u30FB1,000\u30A2\u30A4\u30C6\u30E0\u3002\u30AB\u30E9\u30FC\u3001Linux FreeType\u30C6\u30AD\u30B9\u30C8\u3001\u901A\u5E38\u306E\u5165\u308C\u5B50\u30B7\u30FC\u30F3\u306B\u5BFE\u5FDC\u3002",
+      identityTitle: "\u5171\u901A\u306EID\u3068\u5EA7\u6A19\u3092\u4FDD\u6301",
+      identityDescription: "\u6E96\u5099\u3057\u305F\u30B3\u30D4\u30FC\u306FOBS\u306E\u300C\u30A4\u30F3\u30DD\u30FC\u30C8\u300D\u3067\u958B\u304D\u307E\u3059\u3002\u540C\u3058\u89E3\u50CF\u5EA6\u3068\u5EA7\u6A19\u30E2\u30FC\u30C9\u304C\u5FC5\u8981\u3067\u3059\u3002\u300C\u8907\u88FD\u300D\u306F\u4F7F\u308F\u306A\u3044\u3067\u304F\u3060\u3055\u3044\u3002",
+      ownershipTitle: "\u672C\u756A\u74B0\u5883\u306E\u8A2D\u5B9A\u3092\u4FDD\u8B77",
+      ownershipDescription: "\u30AD\u30E3\u30D7\u30C1\u30E3\u30FC\u3068\u30E1\u30C7\u30A3\u30A2\u306E\u8A2D\u5B9A\u306F\u30AA\u30DA\u30EC\u30FC\u30BF\u30FC\u5074\u3092\u4FDD\u6301\u3002\u975E\u5BFE\u5FDC\u306E\u5909\u66F4\u306F\u660E\u793A\u7684\u306B\u9664\u5916\u3057\u307E\u3059\u3002\u7D20\u6750\u306F\u30A2\u30C3\u30D7\u30ED\u30FC\u30C9\u3082\u540C\u68B1\u3082\u3057\u307E\u305B\u3093\u3002",
+      limitsTitle: "\u9ED9\u3063\u3066\u5909\u66F4\u3092\u6368\u3066\u306A\u3044",
+      limitsDescription: "\u30B0\u30EB\u30FC\u30D7\u3001\u30D5\u30A3\u30EB\u30BF\u30FC\u3001\u30B9\u30AF\u30EA\u30D7\u30C8\u3001\u30AB\u30B9\u30BF\u30E0\u30D7\u30E9\u30B0\u30A4\u30F3\u3001\u30BD\u30FC\u30B9\u306E\u524A\u9664\u30FB\u6539\u540D\u3001\u8907\u6570\u30AD\u30E3\u30F3\u30D0\u30B9\u306F\u5BFE\u8C61\u5916\u3002\u672A\u5224\u65AD\u306E\u7AF6\u5408\u304C\u3042\u308B\u3068\u66F8\u304D\u51FA\u305B\u307E\u305B\u3093\u3002",
+      footer: "\u30ED\u30FC\u30AB\u30EB\u3067\u6BD4\u8F03\u3002\u660E\u793A\u7684\u306B\u5224\u65AD\u3002\u8A18\u9332\u3068\u3068\u3082\u306B\u66F8\u304D\u51FA\u3057\u3002",
+      ready: "\u6BD4\u8F03\u6E08\u307F",
+      loading: "\u8AAD\u307F\u8FBC\u307F\u4E2D\u2026",
+      working: "\u51E6\u7406\u4E2D\u2026",
+      loaded: "\u8AAD\u8FBC\u6E08\u307F",
+      prepared: "ID\u3092\u4FDD\u6301\u3057\u305F3\u3064\u306E\u30B3\u30D4\u30FC\u3092\u4F5C\u6210\u3057\u307E\u3057\u305F\u3002\u5404\u30D5\u30A1\u30A4\u30EB\u3092\u4FDD\u5B58\u3057\u3001\u4F5C\u696D\u7528\u30B3\u30D4\u30FC\u306FOBS\u306E\u30A4\u30F3\u30DD\u30FC\u30C8\u3067\u958B\u3044\u3066\u304F\u3060\u3055\u3044\u3002",
+      preparedHint: "\u57FA\u6E96\u306F\u7DE8\u96C6\u305B\u305A\u306B\u4FDD\u7BA1\u3057\u307E\u3059\u30022\u3064\u306E\u4F5C\u696D\u7528\u30B3\u30D4\u30FC\u306F\u5225\u3005\u306B\u30A4\u30F3\u30DD\u30FC\u30C8\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+      cancelled: "\u51E6\u7406\u3092\u30AD\u30E3\u30F3\u30BB\u30EB\u3057\u307E\u3057\u305F\u3002\u672A\u5B8C\u4E86\u306E\u8AAD\u307F\u8FBC\u307F\u3068\u51FA\u529B\u306F\u7834\u68C4\u3057\u307E\u3057\u305F\u3002",
+      cleared: "\u30D5\u30A1\u30A4\u30EB\u3001\u5224\u65AD\u3001\u51FA\u529B\u3092\u30AF\u30EA\u30A2\u3057\u307E\u3057\u305F\u3002",
+      replaced: "\u5165\u529B\u304C\u5909\u308F\u308A\u307E\u3057\u305F\u3002\u5909\u66F4\u3092\u518D\u6BD4\u8F03\u3057\u3066\u304F\u3060\u3055\u3044\u3002\u4EE5\u524D\u306E\u5224\u65AD\u3068\u51FA\u529B\u306F\u7121\u52B9\u306B\u306A\u308A\u307E\u3057\u305F\u3002",
+      invalidFile: "\u30D5\u30A1\u30A4\u30EB\u3092\u8AAD\u307F\u8FBC\u3081\u307E\u305B\u3093\u3067\u3057\u305F\u3002",
+      invalidPlan: "\u3053\u306E\u7D44\u307F\u5408\u308F\u305B\u3067\u306F\u6BD4\u8F03\u3067\u304D\u307E\u305B\u3093\u3002",
+      invalidOutput: "\u51FA\u529B\u3092\u4F5C\u6210\u3067\u304D\u307E\u305B\u3093\u3067\u3057\u305F\u3002\u9078\u629E\u5185\u5BB9\u3068\u8A3A\u65AD\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+      sampleUnavailable: "\u30B5\u30F3\u30D7\u30EB\u306F\u3053\u306E\u30D3\u30EB\u30C9\u306B\u542B\u307E\u308C\u3066\u3044\u307E\u305B\u3093\u3002JSON\u30D5\u30A1\u30A4\u30EB\u3092\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+      sampleLoaded: "\u30B5\u30F3\u30D7\u30EB\u3092\u8AAD\u307F\u8FBC\u307F\u307E\u3057\u305F\u3002\u5B9F\u30C7\u30FC\u30BF\u3067\u306F\u306A\u304F\u3001\u52D5\u4F5C\u78BA\u8A8D\u7528\u306E\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u3067\u3059\u3002",
+      analyzed: "\u6BD4\u8F03\u304C\u5B8C\u4E86\u3057\u307E\u3057\u305F\u3002\u8981\u78BA\u8A8D\u306E\u5909\u66F4\u3092\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+      noDecisions: "\u8981\u78BA\u8A8D\u306E\u5909\u66F4\u306F\u3042\u308A\u307E\u305B\u3093\u3002\u3059\u3079\u3066\u306E\u5909\u66F4\u3092\u78BA\u8A8D\u3057\u3001\u51FA\u529B\u3092\u691C\u8A3C\u3067\u304D\u307E\u3059\u3002",
+      missing: "\u5024\u306A\u3057",
+      unitCount: (n) => `${n}\u4EF6\u306E\u5909\u66F4`,
+      pending: (n) => `${n}\u4EF6\u306E\u5224\u65AD\u304C\u5FC5\u8981\u3067\u3059`,
+      completed: "\u3059\u3079\u3066\u306E\u5224\u65AD\u304C\u305D\u308D\u3044\u307E\u3057\u305F\u3002\u51FA\u529B\u3092\u691C\u8A3C\u3067\u304D\u307E\u3059\u3002",
+      exportReady: "\u69CB\u9020\u30C1\u30A7\u30C3\u30AF\u6E08\u307F\u306E\u51FA\u529B\u3068\u5224\u65AD\u306E\u8A18\u9332\u3092\u4F5C\u6210\u3057\u307E\u3057\u305F\u3002OBS\u3067\u306E\u52D5\u4F5C\u306F\u5225\u9014\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+      changedUnits: "\u5909\u66F4\u306E\u5358\u4F4D",
+      pendingUnits: "\u672A\u5224\u65AD",
+      affectedCount: "\u5F71\u97FF\u3059\u308B\u30B7\u30FC\u30F3",
+      noAttention: "\u672A\u5224\u65AD\u306E\u5909\u66F4\u306F\u3042\u308A\u307E\u305B\u3093",
+      noAttentionHint: "\u300C\u3059\u3079\u3066\u300D\u304B\u3089\u3001\u53D6\u308A\u8FBC\u307E\u308C\u308B\u5909\u66F4\u3082\u78BA\u8A8D\u3067\u304D\u307E\u3059\u3002",
+      noChanges: "\u5909\u66F4\u306F\u3042\u308A\u307E\u305B\u3093",
+      noChangesHint: "3\u3064\u306E\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u306B\u3001\u5BFE\u5FDC\u7BC4\u56F2\u5185\u306E\u5DEE\u5206\u306F\u3042\u308A\u307E\u305B\u3093\u3002",
+      collection: "\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u5168\u4F53",
+      item: (n) => `\u30A2\u30A4\u30C6\u30E0 ${n}`,
+      choose: "\u3069\u3061\u3089\u306E\u7DE8\u96C6\u3092\u63A1\u7528\u3057\u307E\u3059\u304B\uFF1F",
+      excludeQuestion: "\u975E\u5BFE\u5FDC\u306E\u5909\u66F4\u3092\u78BA\u8A8D\u3057\u3066\u304F\u3060\u3055\u3044",
+      keepOperator: "\u30AA\u30DA\u30EC\u30FC\u30BF\u30FC\u3092\u63A1\u7528",
+      keepIncoming: "\u5171\u540C\u7DE8\u96C6\u8005\u3092\u63A1\u7528",
+      operatorChoice: "\u672C\u756A\u74B0\u5883\u5074\u306E\u5024\u3092\u4FDD\u6301",
+      incomingChoice: "\u5171\u540C\u7DE8\u96C6\u8005\u5074\u306E\u5024\u3092\u53D6\u308A\u8FBC\u3080",
+      exclude: "\u5171\u540C\u7DE8\u96C6\u8005\u306E\u5909\u66F4\u3092\u9664\u5916",
+      excludeHint: "\u30AA\u30DA\u30EC\u30FC\u30BF\u30FC\u5074\u306E\u5024\u3092\u4FDD\u6301\u3057\u3001\u9664\u5916\u3092\u8A18\u9332\u3057\u307E\u3059",
+      values: "3\u3064\u306E\u5165\u529B\u5024\u3092\u6BD4\u8F03\u3059\u308B",
+      notApplicable: "\u8A72\u5F53\u306A\u3057 / \u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u5168\u4F53",
+      stats: (s) => `${s.scenes} \u30B7\u30FC\u30F3 \xB7 ${s.sources} \u30BD\u30FC\u30B9 \xB7 ${s.items} \u30A2\u30A4\u30C6\u30E0`,
+      downloaded: "\u30D5\u30A1\u30A4\u30EB\u3092\u30C0\u30A6\u30F3\u30ED\u30FC\u30C9\u3057\u307E\u3057\u305F\u3002\u540C\u3058\u51FA\u529B\u306B\u5BFE\u5FDC\u3059\u308B\u5224\u65AD\u306E\u8A18\u9332\u3082\u4FDD\u5B58\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+      nameRequired: "\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u540D\u3092\u5165\u529B\u3057\u3066\u304F\u3060\u3055\u3044\u3002",
+      status: { operator: "\u30AA\u30DA\u30EC\u30FC\u30BF\u30FC", incoming: "\u5171\u540C\u7DE8\u96C6\u8005", equal: "\u540C\u3058\u5909\u66F4", unchanged: "\u5909\u66F4\u306A\u3057", conflict: "\u7AF6\u5408", unsupported: "\u5BFE\u8C61\u5916", resolved: "\u5224\u65AD\u6E08\u307F" },
+      kind: { "source-settings": "\u30BD\u30FC\u30B9\u8A2D\u5B9A", "source-metadata": "\u30BD\u30FC\u30B9\u306E\u30E1\u30BF\u30C7\u30FC\u30BF", "scene-metadata": "\u30B7\u30FC\u30F3\u306E\u30E1\u30BF\u30C7\u30FC\u30BF", "item-transform": "\u914D\u7F6E\u30FB\u30B5\u30A4\u30BA\u30FB\u30AF\u30ED\u30C3\u30D7", "item-visible": "\u8868\u793A / \u975E\u8868\u793A", "item-locked": "\u30ED\u30C3\u30AF", "membership-order": "\u69CB\u6210\u30FB\u91CD\u306A\u308A\u9806", "added-source-closure": "\u8FFD\u52A0\u30BD\u30FC\u30B9\u3068\u4F9D\u5B58\u95A2\u4FC2", "scene-removal-edit": "\u524A\u9664\u3068\u7DE8\u96C6\u306E\u7AF6\u5408", "item-metadata": "\u30A2\u30A4\u30C6\u30E0\u306E\u30E1\u30BF\u30C7\u30FC\u30BF", "collection-metadata": "\u30B3\u30EC\u30AF\u30B7\u30E7\u30F3\u8A2D\u5B9A", "scene-order": "\u30B7\u30FC\u30F3\u306E\u4E26\u3073\u9806" }
+    },
+    en: {
+      languageLabel: "Language",
+      workflowLabel: "Workflow",
+      modeLabel: "Workspace mode",
+      inputsLabel: "Input collections",
+      filterLabel: "Change filter",
+      skip: "Skip to workspace",
+      local: "Processed in your browser",
+      eyebrow: "PARALLEL EDITS. ONE COLLECTION.",
+      headline: "Two edits.<br><span>One show.</span>",
+      intro: "Edit OBS scenes independently, then bring the changes together. Review what changed, make the important calls, and leave with a record of every decision.",
+      sample: "Explore a sample",
+      profileLink: "See supported profile \u2193",
+      workflow: "YOUR HANDOFF, MADE EXPLICIT",
+      flow1: "Prepare a shared starting point",
+      flow1p: "Create working copies with the same source IDs",
+      flow2: "Edit independently in OBS",
+      flow2p: "Import each copy, edit, then export",
+      flow3: "Compare. Decide. Export.",
+      flow3p: "Review each change and the scenes it affects",
+      privacy: "Your files are never uploaded",
+      workspaceLabel: "WORKSPACE",
+      workspaceTitle: "Where your edits meet",
+      cancel: "Cancel",
+      clear: "Clear all",
+      prepareTab: "Prepare working copies",
+      reconcileTab: "Reconcile edits",
+      prepareTitle: "Start with the same identity.",
+      prepareDescription: "Create a baseline and two working copies from one collection. Their names are different. Their source IDs stay the same.",
+      importWarning: "Open working copies with Scene Collection \u2192 Import in OBS. Do not use Duplicate: it changes source UUIDs.",
+      sourceCollection: "Original collection",
+      chooseFile: "Choose a JSON file",
+      chooseHint: "Click to choose a file \xB7 10 MiB maximum",
+      projectName: "Collection name prefix",
+      prepareAction: "Prepare three copies",
+      inputDescription: "Choose the shared baseline and the two collections exported after editing.",
+      baseline: "Baseline",
+      operator: "Operator",
+      incoming: "Incoming",
+      baselineHint: "The shared, unedited starting point",
+      operatorHint: "Edits from the live-environment owner",
+      incomingHint: "The other collaborator\u2019s edited collection",
+      analyze: "Compare changes",
+      sameStart: "Use copies prepared from the same baseline",
+      awaitingFiles: "Awaiting files",
+      emptyEyebrow: "REVIEW BEFORE YOU RECONCILE",
+      emptyTitle: "Make every change visible.",
+      emptyDescription: "Compare three collections to see which changes can come together and which need your decision.",
+      oneSided: "One-sided edits",
+      conflicts: "Conflicts",
+      impact: "Affected scenes",
+      attention: "Needs attention",
+      allChanges: "All changes",
+      exportTitle: "Make the call. Keep the record.",
+      outputName: "Output collection name",
+      build: "Validate export",
+      downloadCollection: "Collection JSON",
+      downloadReceipt: "Decision receipt JSON",
+      outputHash: "OUTPUT SHA-256",
+      exportReminder: "Import as a new collection in OBS and check it before going live.",
+      profileTitle: "Clear boundaries. Safer handoffs.",
+      profileIntro: "A bounded profile for OBS Studio 32.2.2 on Linux. This is not a universal OBS collection merger.",
+      scopeTitle: "For focused productions",
+      scopeDescription: "Up to 20 scenes, 200 sources, and 1,000 items. Color, Linux FreeType text, and ordinary nested scenes are supported.",
+      identityTitle: "Shared IDs and coordinates",
+      identityDescription: "Open prepared copies with OBS Import. Match resolution and coordinate mode. Never use Duplicate for working copies.",
+      ownershipTitle: "Keep the live environment owned",
+      ownershipDescription: "Capture and media settings remain operator-owned. Unsupported incoming edits need explicit exclusion. Assets are never uploaded or bundled.",
+      limitsTitle: "No silently discarded edits",
+      limitsDescription: "Groups, filters, scripts, custom plugins, source deletion or rename, and multiple canvases are outside this profile. Unresolved decisions block export.",
+      footer: "Compare locally. Decide explicitly. Export with a record.",
+      ready: "Comparison ready",
+      loading: "Reading\u2026",
+      working: "Working\u2026",
+      loaded: "LOADED",
+      prepared: "Three UUID-preserving copies are ready. Save each file, then open the working copies with OBS Import.",
+      preparedHint: "Keep the baseline unedited. Import each working copy separately.",
+      cancelled: "Cancelled. Unfinished reads and exports were discarded.",
+      cleared: "Files, decisions, and exports have been cleared.",
+      replaced: "Inputs changed. Compare again; previous decisions and exports are no longer valid.",
+      invalidFile: "This file could not be read.",
+      invalidPlan: "These collections cannot be compared.",
+      invalidOutput: "The export could not be created. Check the decisions and diagnostic.",
+      sampleUnavailable: "No sample is included in this build. Choose your JSON files instead.",
+      sampleLoaded: "Sample collections loaded. These are demonstration files, not your production data.",
+      analyzed: "Comparison ready. Review the changes that need your decision.",
+      noDecisions: "No decisions are required. Review all changes and validate your export.",
+      missing: "Not present",
+      unitCount: (n) => `${n} change${n === 1 ? "" : "s"}`,
+      pending: (n) => `${n} decision${n === 1 ? "" : "s"} remaining`,
+      completed: "Every decision is made. You can validate the export.",
+      exportReady: "The structurally checked collection and matching receipt are ready. Verify the result in OBS.",
+      changedUnits: "Changed units",
+      pendingUnits: "Undecided",
+      affectedCount: "Affected scenes",
+      noAttention: "No undecided changes",
+      noAttentionHint: "Switch to All changes to review everything that will be retained.",
+      noChanges: "No changes found",
+      noChangesHint: "These collections have no differences within the supported profile.",
+      collection: "Whole collection",
+      item: (n) => `Item ${n}`,
+      choose: "Which edit should be kept?",
+      excludeQuestion: "Acknowledge the unsupported change",
+      keepOperator: "Keep operator",
+      keepIncoming: "Keep incoming",
+      operatorChoice: "Keep the live-environment owner\u2019s value",
+      incomingChoice: "Use the collaborator\u2019s incoming value",
+      exclude: "Exclude incoming change",
+      excludeHint: "Keep the operator value and record the exclusion",
+      values: "Compare the three input values",
+      notApplicable: "Not applicable / whole collection",
+      stats: (s) => `${s.scenes} scenes \xB7 ${s.sources} sources \xB7 ${s.items} items`,
+      downloaded: "File downloaded. Save the matching decision receipt alongside the collection.",
+      nameRequired: "Enter a collection name.",
+      status: { operator: "Operator edit", incoming: "Incoming edit", equal: "Same edit", unchanged: "Unchanged", conflict: "Conflict", unsupported: "Unsupported", resolved: "Decided" },
+      kind: { "source-settings": "Source settings", "source-metadata": "Source metadata", "scene-metadata": "Scene metadata", "item-transform": "Transform & crop", "item-visible": "Visibility", "item-locked": "Lock", "membership-order": "Membership & stacking", "added-source-closure": "Added sources & dependencies", "scene-removal-edit": "Removal vs. edit", "item-metadata": "Item metadata", "collection-metadata": "Collection metadata", "scene-order": "Scene order" }
+    }
+  };
+  var state = { lang: "ja", mode: "reconcile", records: {}, docs: {}, tokens: { baseline: 0, operator: 0, incoming: 0, prepare: 0 }, reading: /* @__PURE__ */ new Set(), revision: 0, processing: false, plan: null, decisions: {}, filter: "attention", cache: null, prepared: null, prepDoc: null, prepRecord: null, notice: null };
+  var t = (key, ...args) => typeof copy[state.lang][key] === "function" ? copy[state.lang][key](...args) : copy[state.lang][key] || key;
+  var tick = () => new Promise((resolve2) => setTimeout(resolve2, 35));
+  var el = (tag, className, text) => {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== void 0) node.textContent = text;
+    return node;
+  };
+  function notify(key, kind = "info", detail = "") {
+    state.notice = { key, kind, detail };
+    renderNotice();
+  }
+  function renderNotice() {
+    const box = $("notice");
+    box.hidden = !state.notice;
+    if (state.notice) {
+      box.className = `notice ${state.notice.kind}`;
+      box.setAttribute("role", state.notice.kind === "error" ? "alert" : "status");
+      box.textContent = `${t(state.notice.key)}${state.notice.detail ? " " + state.notice.detail : ""}`;
+    }
+  }
+  function busy() {
+    return state.processing || state.reading.size > 0;
+  }
+  function pending() {
+    return state.plan ? state.plan.units.filter((u) => u.allowedChoices?.length && !u.allowedChoices.includes(state.decisions[u.id])) : [];
+  }
+  function invalidate() {
+    state.revision++;
+    state.processing = false;
+    state.plan = null;
+    state.decisions = {};
+    state.cache = null;
+    renderReview();
+    renderControls();
+  }
+  function invalidateExport() {
+    state.revision++;
+    state.processing = false;
+    state.cache = null;
+    renderControls();
+    renderExport();
+  }
+  function renderControls() {
+    const active = busy();
+    document.body.setAttribute("aria-busy", String(active));
+    $("cancel-button").hidden = !active;
+    $("analyze-button").disabled = active || !roles.every((role) => state.docs[role]);
+    $("prepare-button").disabled = active || !state.prepDoc || !$("prepare-name").value.trim();
+    $("sample-button").disabled = active;
+    $("input-counter").textContent = `${roles.filter((role) => state.records[role]).length} / 3`;
+    $("build-button").disabled = active || !state.plan || !!state.plan.errors.length || pending().length > 0 || !$("output-name").value.trim();
+    for (const role of [...roles, "prepare"]) {
+      const record = role === "prepare" ? state.prepRecord : state.records[role];
+      const card = $(role + "-file").closest(".file-card");
+      card.classList.toggle("loaded", !!record);
+      card.classList.toggle("loading", state.reading.has(role));
+      $(role + "-file-name").textContent = state.reading.has(role) ? t("loading") : record?.name || t("chooseFile");
+      $(role + "-file-state").textContent = state.reading.has(role) ? "\u2026" : record ? t("loaded") : role === "prepare" ? "JSON" : String(roles.indexOf(role) + 1).padStart(2, "0");
+    }
+  }
+  function setMode(mode, focus = false) {
+    state.mode = mode;
+    for (const choice of ["prepare", "reconcile"]) {
+      const selected = choice === mode;
+      const tab = $("tab-" + choice);
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+      $(choice + "-panel").hidden = !selected;
+      if (selected && focus) tab.focus();
+    }
+    $("export-panel").hidden = mode !== "reconcile" || !state.plan || !!state.plan.errors.length;
+  }
+  function setLanguage(lang) {
+    state.lang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll("[data-i18n]").forEach((node) => node.textContent = t(node.dataset.i18n));
+    document.querySelectorAll("[data-i18n-html]").forEach((node) => node.innerHTML = t(node.dataset.i18nHtml));
+    document.querySelectorAll("[data-i18n-aria]").forEach((node) => node.setAttribute("aria-label", t(node.dataset.i18nAria)));
+    for (const language of ["ja", "en"]) $("lang-" + language).setAttribute("aria-pressed", String(lang === language));
+    renderNotice();
+    renderControls();
+    renderReview();
+    renderPrepared();
+  }
+  function makeSummary() {
+    const units = state.plan.units, affected = new Set(units.flatMap((u) => u.affectedScenes || []));
+    const wrap = $("review-summary");
+    wrap.replaceChildren();
+    [[units.length, "changedUnits", ""], [pending().length, "pendingUnits", "attention"], [affected.size, "affectedCount", ""]].forEach(([number, label, style]) => {
+      const card = el("div", `summary-card ${style}`);
+      card.append(el("strong", "", number), el("span", "", t(label)));
+      wrap.append(card);
+    });
+  }
+  function unitTitle(unit) {
+    const kind = copy[state.lang].kind[unit.kind] || unit.kind;
+    return unit.target?.item ? `${kind} \xB7 ${t("item", unit.target.item.id)}` : kind;
+  }
+  function renderReview() {
+    const open = new Set([...document.querySelectorAll("details.unit[open]")].map((node) => node.dataset.unit));
+    const activeId = document.activeElement?.id;
+    const hasPlan = !!state.plan && !state.plan.errors.length;
+    $("empty-review").hidden = hasPlan;
+    $("review-content").hidden = !hasPlan;
+    $("review-state").textContent = busy() ? t("working") : hasPlan ? t("ready") : t("awaitingFiles");
+    $("review-state").classList.toggle("ready", hasPlan);
+    if (hasPlan) {
+      makeSummary();
+      $("unit-count").textContent = t("unitCount", state.plan.units.length);
+      $("filter-attention").setAttribute("aria-pressed", String(state.filter === "attention"));
+      $("filter-all").setAttribute("aria-pressed", String(state.filter === "all"));
+      const units = state.plan.units.filter((unit) => state.filter === "all" || unit.allowedChoices?.length);
+      const list = $("unit-list");
+      list.replaceChildren();
+      if (!units.length) {
+        const empty = el("div", "review-empty-filter", t(state.plan.units.length ? "noAttention" : "noChanges"));
+        empty.append(el("span", "", t(state.plan.units.length ? "noAttentionHint" : "noChangesHint")));
+        list.append(empty);
+      }
+      units.forEach((unit, index) => {
+        const decision = state.decisions[unit.id];
+        const needs = unit.allowedChoices?.length > 0;
+        const resolved = needs && unit.allowedChoices.includes(decision);
+        const node = el("details", `unit${needs ? " needs-decision" : ""}${resolved ? " decided" : ""}`);
+        node.dataset.unit = unit.id;
+        node.open = open.has(unit.id) || open.size === 0 && needs && index < 3;
+        const summary = el("summary", "unit-summary");
+        const title = el("div", "unit-title-wrap");
+        title.append(el("span", "unit-title", unitTitle(unit)), el("span", "unit-source", unit.sourceName || t("collection")));
+        const status2 = el("span", `status-tag ${resolved ? "resolved" : unit.status}`, copy[state.lang].status[resolved ? "resolved" : unit.status] || unit.status);
+        summary.append(title, status2);
+        node.append(summary);
+        const body = el("div", "unit-body");
+        const impact = el("p", "impact-line");
+        impact.append(el("strong", "", t("impact") + ": "), document.createTextNode(unit.affectedScenes?.length ? unit.affectedScenes.join(" \xB7 ") : t("notApplicable")));
+        body.append(impact);
+        if (needs) {
+          const choices = el("fieldset", "decision-choices");
+          choices.append(el("legend", "", t(unit.status === "unsupported" ? "excludeQuestion" : "choose")));
+          unit.allowedChoices.forEach((choice) => {
+            const label = el("label", `decision-choice${choice === "exclude" ? " single" : ""}`);
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = `decision-${index}`;
+            radio.id = `choice-${state.plan.units.indexOf(unit)}-${choice}`;
+            radio.value = choice;
+            radio.checked = decision === choice;
+            radio.dataset.unit = unit.id;
+            radio.addEventListener("change", () => {
+              state.decisions[unit.id] = choice;
+              invalidateExport();
+              renderReview();
+            });
+            const text = el("span", "", t(choice === "exclude" ? "exclude" : choice === "operator" ? "keepOperator" : "keepIncoming"));
+            text.append(el("small", "", t(choice === "exclude" ? "excludeHint" : choice === "operator" ? "operatorChoice" : "incomingChoice")));
+            label.append(radio, text);
+            choices.append(label);
+          });
+          body.append(choices);
+        }
+        const values = el("details", "value-details");
+        values.append(el("summary", "", t("values")));
+        const grid = el("div", "value-grid");
+        roles.forEach((role) => {
+          const col = el("div", "value-column");
+          col.append(el("h4", "", t(role)), el("pre", "", unit[role] === void 0 ? t("missing") : JSON.stringify(unit[role], null, 2)));
+          grid.append(col);
+        });
+        values.append(grid);
+        body.append(values);
+        node.append(body);
+        list.append(node);
+      });
+      if (activeId && $(activeId)) $(activeId).focus({ preventScroll: true });
+    }
+    renderExport();
+  }
+  function renderExport() {
+    const hasPlan = !!state.plan && !state.plan.errors.length;
+    $("export-panel").hidden = state.mode !== "reconcile" || !hasPlan;
+    if (!hasPlan) {
+      $("download-area").hidden = true;
+      return;
+    }
+    $("export-status").textContent = state.cache ? `${t("exportReady")} ${t("stats", state.cache.result.stats)}` : pending().length ? t("pending", pending().length) : t("completed");
+    $("download-area").hidden = !state.cache;
+    if (state.cache) $("output-hash").textContent = state.cache.receipt.output.sha256;
+    else $("output-hash").textContent = "";
+    renderControls();
+  }
+  function renderPrepared() {
+    const box = $("prepared-files");
+    box.hidden = !state.prepared;
+    if (!state.prepared) {
+      box.replaceChildren();
+      return;
+    }
+    box.replaceChildren();
+    const list = el("div", "prepared-list");
+    roles.forEach((role) => {
+      const button = el("button", "button secondary");
+      button.type = "button";
+      button.id = `download-prepared-${role}`;
+      button.append(el("span", "", t(role)), el("span", "", "\u2193 JSON"));
+      button.addEventListener("click", () => download(state.prepared[role].text, state.prepared[role].filename));
+      list.append(button);
+    });
+    box.append(el("p", "prepared-hint", t("preparedHint")), list);
+  }
+  async function readFile(role, file) {
+    if (!file) return;
+    const token = ++state.tokens[role];
+    if (role === "prepare") {
+      state.prepDoc = null;
+      state.prepRecord = null;
+      state.prepared = null;
+      renderPrepared();
+      state.revision++;
+      state.processing = false;
+    } else {
+      delete state.records[role];
+      delete state.docs[role];
+      invalidate();
+    }
+    state.reading.add(role);
+    notify("replaced");
+    renderControls();
+    try {
+      if (file.size > LIMITS.bytes) throw new Error("FILE_TOO_LARGE: 10 MiB maximum");
+      const bytes = await file.arrayBuffer();
+      if (token !== state.tokens[role]) return;
+      let text;
+      try {
+        text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes);
+      } catch {
+        throw new Error("INVALID_UTF8: choose a UTF-8 JSON file");
+      }
+      await tick();
+      if (token !== state.tokens[role]) return;
+      const doc = parseCollection(text);
+      if (token !== state.tokens[role]) return;
+      const record = { text, name: file.name };
+      if (role === "prepare") {
+        state.prepDoc = doc;
+        state.prepRecord = record;
+        if ($("prepare-name").value === "Studio") $("prepare-name").value = doc.name.slice(0, 100);
+      } else {
+        state.docs[role] = doc;
+        state.records[role] = record;
+      }
+      state.notice = null;
+      renderNotice();
+    } catch (error) {
+      if (token === state.tokens[role]) {
+        notify("invalidFile", "error", error.message);
+        $(role + "-file").value = "";
+      }
+    } finally {
+      if (token === state.tokens[role]) {
+        state.reading.delete(role);
+        renderControls();
+        renderReview();
+      }
+    }
+  }
+  async function compare(options = {}) {
+    if (!roles.every((role) => state.docs[role]) || busy()) return;
+    const revision = ++state.revision;
+    state.processing = true;
+    state.cache = null;
+    state.decisions = {};
+    state.plan = null;
+    state.filter = "attention";
+    renderControls();
+    renderReview();
+    try {
+      await tick();
+      if (revision !== state.revision) return;
+      const plan = analyze(state.docs.baseline, state.docs.operator, state.docs.incoming);
+      if (revision !== state.revision) return;
+      state.plan = plan;
+      state.processing = false;
+      if (plan.errors.length) {
+        notify("invalidPlan", "error", plan.errors.join(" \xB7 "));
+      } else {
+        notify(options.sample ? "sampleLoaded" : pending().length ? "analyzed" : "noDecisions", options.sample ? "info" : "success");
+      }
+      renderReview();
+    } catch (error) {
+      if (revision === state.revision) notify("invalidPlan", "error", error.message);
+    } finally {
+      if (revision === state.revision) {
+        state.processing = false;
+        renderControls();
+        renderReview();
+      }
+    }
+  }
+  async function prepare() {
+    if (!state.prepDoc || busy()) return;
+    const revision = ++state.revision;
+    state.processing = true;
+    state.prepared = null;
+    renderControls();
+    renderPrepared();
+    try {
+      await tick();
+      if (revision !== state.revision) return;
+      const result = prepareCollection(state.prepDoc, { name: $("prepare-name").value.trim() });
+      if (revision !== state.revision) return;
+      state.prepared = Object.fromEntries(roles.map((role) => [role, { text: JSON.stringify(result[role], null, 2) + "\n", filename: safeFilename(result[role].name) + ".json" }]));
+      notify("prepared", "success");
+      renderPrepared();
+    } catch (error) {
+      if (revision === state.revision) notify("invalidFile", "error", error.message);
+    } finally {
+      if (revision === state.revision) {
+        state.processing = false;
+        renderControls();
+      }
+    }
+  }
+  async function build() {
+    if (!state.plan || pending().length || busy()) return;
+    const name = $("output-name").value.trim();
+    if (!name) {
+      notify("nameRequired", "error");
+      return;
+    }
+    const revision = ++state.revision;
+    state.processing = true;
+    state.cache = null;
+    renderControls();
+    renderExport();
+    try {
+      await tick();
+      if (revision !== state.revision) return;
+      const result = resolve(state.plan, { ...state.decisions }, { name });
+      const outputText = JSON.stringify(result.collection, null, 2) + "\n";
+      const receipt = await buildReceipt(state.records, result, outputText);
+      if (revision !== state.revision) return;
+      const receiptText = JSON.stringify(receipt, null, 2) + "\n";
+      state.cache = Object.freeze({ result, receipt, outputText, receiptText, filename: safeFilename(name), revision });
+      notify("exportReady", "success");
+    } catch (error) {
+      if (revision === state.revision) notify("invalidOutput", "error", error.message);
+    } finally {
+      if (revision === state.revision) {
+        state.processing = false;
+        renderControls();
+        renderExport();
+      }
+    }
+  }
+  function safeFilename(name) {
+    return name.replace(/[\x00-\x1f<>:"/\\|?*]/g, "-").replace(/\s+/g, " ").trim().slice(0, 120) || "SceneReconcile";
+  }
+  function download(text, filename) {
+    const url = URL.createObjectURL(new Blob([text], { type: "application/json;charset=utf-8" }));
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = filename;
+    document.body.append(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1e3);
+  }
+  function cancel() {
+    state.revision++;
+    state.processing = false;
+    state.cache = null;
+    state.prepared = null;
+    for (const role of [...roles, "prepare"]) {
+      state.tokens[role]++;
+      if (state.reading.has(role)) $(role + "-file").value = "";
+    }
+    state.reading.clear();
+    notify("cancelled");
+    renderPrepared();
+    renderControls();
+    renderReview();
+  }
+  function clear() {
+    state.revision++;
+    state.processing = false;
+    for (const role of [...roles, "prepare"]) {
+      state.tokens[role]++;
+      $(role + "-file").value = "";
+    }
+    state.reading.clear();
+    state.records = {};
+    state.docs = {};
+    state.prepDoc = null;
+    state.prepRecord = null;
+    state.prepared = null;
+    state.plan = null;
+    state.decisions = {};
+    state.cache = null;
+    state.filter = "attention";
+    $("prepare-name").value = "Studio";
+    $("output-name").value = "Studio \xB7 Reconciled";
+    notify("cleared");
+    renderPrepared();
+    renderControls();
+    renderReview();
+  }
+  async function sample() {
+    if (busy()) return;
+    const data = typeof define_SCENE_SAMPLE_default !== "undefined" ? define_SCENE_SAMPLE_default : globalThis.SCENE_SAMPLE;
+    if (!data || !roles.every((role) => data[role])) {
+      notify("sampleUnavailable", "error");
+      return;
+    }
+    clear();
+    setMode("reconcile");
+    try {
+      for (const role of roles) {
+        const raw = typeof data[role] === "string" ? data[role] : JSON.stringify(data[role], null, 2) + "\n";
+        state.docs[role] = parseCollection(raw);
+        state.records[role] = { text: raw, name: `sample-${role}.json` };
+      }
+      renderControls();
+      await compare({ sample: true });
+      $("workspace").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+    } catch (error) {
+      state.docs = {};
+      state.records = {};
+      notify("invalidFile", "error", error.message);
+      renderControls();
+    }
+  }
+  for (const role of [...roles, "prepare"]) $(role + "-file").addEventListener("change", (event) => readFile(role, event.target.files[0]));
+  for (const lang of ["ja", "en"]) $("lang-" + lang).addEventListener("click", () => setLanguage(lang));
+  for (const mode of ["prepare", "reconcile"]) {
+    $("tab-" + mode).addEventListener("click", () => setMode(mode));
+    $("tab-" + mode).addEventListener("keydown", (event) => {
+      if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+        event.preventDefault();
+        setMode(event.key === "Home" ? "prepare" : event.key === "End" ? "reconcile" : state.mode === "prepare" ? "reconcile" : "prepare", true);
+      }
+    });
+  }
+  $("analyze-button").addEventListener("click", () => compare());
+  $("prepare-button").addEventListener("click", prepare);
+  $("build-button").addEventListener("click", build);
+  $("cancel-button").addEventListener("click", cancel);
+  $("clear-button").addEventListener("click", clear);
+  $("sample-button").addEventListener("click", sample);
+  $("prepare-name").addEventListener("input", () => {
+    state.revision++;
+    state.processing = false;
+    state.prepared = null;
+    renderPrepared();
+    renderControls();
+  });
+  $("output-name").addEventListener("input", () => {
+    invalidateExport();
+  });
+  for (const filter of ["attention", "all"]) $("filter-" + filter).addEventListener("click", () => {
+    state.filter = filter;
+    renderReview();
+  });
+  $("download-collection").addEventListener("click", () => {
+    if (state.cache && !busy()) {
+      download(state.cache.outputText, state.cache.filename + ".json");
+      notify("downloaded", "success");
+    }
+  });
+  $("download-receipt").addEventListener("click", () => {
+    if (state.cache && !busy()) {
+      download(state.cache.receiptText, state.cache.filename + ".receipt.json");
+    }
+  });
+  setLanguage("ja");
+  setMode("reconcile");
+})();
+</script>
+</body>
+</html>

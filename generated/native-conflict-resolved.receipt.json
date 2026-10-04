@@ -1,0 +1,127 @@
+{
+  "format": "SceneReconcile decision receipt",
+  "version": 1,
+  "profile": "OBS Studio 32.2.2 Linux / one canvas / prepared UUID-preserving imports",
+  "inputs": {
+    "baseline": {
+      "name": "baseline.json",
+      "sha256": "961de05f198e245dd43ae3db0c7c1bd3499a88374ec06e089770cec4912e350e"
+    },
+    "operator": {
+      "name": "operator.json",
+      "sha256": "82d6bcc02690f1eda6309e38cffca19ee71f4b38334f58748053efb69635cfeb"
+    },
+    "incoming": {
+      "name": "incoming-conflict.json",
+      "sha256": "bb173461892683d23d4dc7cbcb2bb14d0ebf557ee2b5139e98653bc70b968d00"
+    }
+  },
+  "output": {
+    "name": "SceneReconcile conflict-resolved",
+    "sha256": "b0ef14b83d0725066a9894950288e203dc97ae917c396ef401699ad6df83c037"
+  },
+  "changes": [
+    {
+      "id": "sources:added",
+      "kind": "added-source-closure",
+      "sourceName": null,
+      "status": "incoming",
+      "decision": "incoming",
+      "affectedScenes": []
+    },
+    {
+      "id": "source:ee920227-32db-4b31-8a1b-d051bd704bee:settings",
+      "kind": "source-settings",
+      "sourceName": "Title",
+      "status": "incoming",
+      "decision": "incoming",
+      "affectedScenes": [
+        "Break",
+        "LowerThird",
+        "Main",
+        "Thanks"
+      ]
+    },
+    {
+      "id": "source:dd72dc0e-bdec-41c3-b38e-ba48dede9568:settings",
+      "kind": "source-settings",
+      "sourceName": "Background",
+      "status": "operator",
+      "decision": "operator",
+      "affectedScenes": [
+        "Break",
+        "Main"
+      ]
+    },
+    {
+      "id": "item:bd3e4125-1b2b-4533-a7cb-ca855b38286e:2:transform",
+      "kind": "item-transform",
+      "sourceName": "Main",
+      "status": "conflict",
+      "decision": "operator",
+      "affectedScenes": [
+        "Main"
+      ]
+    },
+    {
+      "id": "item:2d4cf1c8-d60f-4bb7-8270-653c72fcaf73:2:transform",
+      "kind": "item-transform",
+      "sourceName": "Break",
+      "status": "incoming",
+      "decision": "incoming",
+      "affectedScenes": [
+        "Break"
+      ]
+    },
+    {
+      "id": "item:2d4cf1c8-d60f-4bb7-8270-653c72fcaf73:2:visible",
+      "kind": "item-visible",
+      "sourceName": "Break",
+      "status": "operator",
+      "decision": "operator",
+      "affectedScenes": [
+        "Break"
+      ]
+    },
+    {
+      "id": "collection:scene_order",
+      "kind": "scene-order",
+      "sourceName": null,
+      "status": "incoming",
+      "decision": "incoming",
+      "affectedScenes": []
+    }
+  ],
+  "addedSources": [
+    {
+      "uuid": "7f32cbcc-170c-4cc6-b812-9ca117cd2bcd",
+      "name": "ThanksText",
+      "kind": "text_ft2_source",
+      "affectedScenes": [
+        "Thanks"
+      ]
+    },
+    {
+      "uuid": "036c07c6-4d11-4a4b-ba64-7e165e17b4e9",
+      "name": "Thanks",
+      "kind": "scene",
+      "affectedScenes": [
+        "Thanks"
+      ]
+    }
+  ],
+  "excluded": [],
+  "unresolved": [],
+  "stats": {
+    "sources": 8,
+    "scenes": 4,
+    "items": 8
+  },
+  "limits": {
+    "bytes": 10485760,
+    "scenes": 20,
+    "sources": 200,
+    "items": 1000
+  },
+  "warning": "This receipt records the chosen configuration. It does not bundle assets or prove runtime compatibility for other OBS versions/platforms."
+}

@@ -1,0 +1,16 @@
+{
+  "status": "no remaining reproduced blockers",
+  "scope": "Read-only merge semantics, bounded native profile, parser/reference checks, UI state and independent fixture oracle",
+  "coreSha256": "d151cd94d00b1f27d82b21ff7fc41c0c40a49b817262892e0a786e0d58c3f028",
+  "webAppSha256": "6e8f912cadb26f5048727bf6cbbdf81edf2326bda1a43a6351230a4fbe109439",
+  "nodeTestsPassed": 87,
+  "resolvedFindings": [
+    "Explicit metadata exclusions now survive removal/edit structure decisions",
+    "Unsupported new-source/new-item metadata cannot bypass review",
+    "Versioned source IDs and nested transition/global source objects are validated",
+    "Editable settings/fonts/vectors have strict types, bounds and recognized keys",
+    "Dangling/non-main canvas UUIDs are rejected"
+  ],
+  "genuineNativeFixtureOutcome": {"sources": 8, "scenes": 4, "items": 8, "independentManifestAndHashes": "pass"},
+  "limits": "No browser or OBS execution was performed in this semantic review; final hosted browser/native-consumer gates remain required"
+}

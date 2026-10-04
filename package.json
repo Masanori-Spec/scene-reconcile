@@ -1,0 +1,25 @@
+{
+  "name": "scene-reconcile",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Bounded baseline-aware native OBS scene-collection reconciliation",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:oracle": "python3 -m unittest discover -s oracle -p 'test_*.py' -v",
+    "check": "npm test && npm run test:oracle && npm run test:controller && npm run fixture && npm run build",
+    "serve": "node scripts/serve.mjs",
+    "test:browser": "node tests/browser-test.mjs",
+    "package": "python3 scripts/package.py",
+    "test:controller": "python3 -m unittest discover -s native -p 'test_*.py' -v",
+    "fixture": "node scripts/export-example.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.0",
+    "esbuild": "0.25.11"
+  }
+}

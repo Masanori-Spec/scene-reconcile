@@ -1,6 +1,8 @@
 # Verification status
 
-This is an in-progress checkpoint. Native, browser and visual acceptance have not yet passed. Do not read authored harnesses as evidence of execution.
+This is an in-progress checkpoint. The first native fixture/Import/save/reopen gate has passed. Product browser downloads and final native merged-output acceptance remain pending. Do not read authored harnesses as evidence of execution.
+
+First native evidence: [run 37231268860](https://github.com/Masanori-Spec/scene-reconcile/actions/runs/37231268860), exact commit e1510e784c75ed5d02ba4478c15a4b5df1738d4e. Official OBS32.2.2 package digest verified; generated native baseline and all three branches imported/edited/saved/reopened with source UUID identity retained. Artifact SHA-256 bdfa89235a8b7eeb1e325b628a4d556a4c8f65352172e9f5bd864a1d2816c42b. Native previews/import screenshots were reviewed. Targeted source/UUID/load log scan found no semantic failures; optional hardware/rendering and shutdown diagnostics remain recorded for review. This is not a warning-free-log claim.
 
 ## Independent expectation fixed first
 

@@ -1,0 +1,13 @@
+{
+  "source": "genuine OBS32.2.2 UI Import/API edit/native save and reopen",
+  "run": "https://github.com/Masanori-Spec/scene-reconcile/actions/runs/37231268860",
+  "commit": "e1510e784c75ed5d02ba4478c15a4b5df1738d4e",
+  "artifactSha256": "bdfa89235a8b7eeb1e325b628a4d556a4c8f65352172e9f5bd864a1d2816c42b",
+  "files": {
+    "baseline.json": "961de05f198e245dd43ae3db0c7c1bd3499a88374ec06e089770cec4912e350e",
+    "operator.json": "82d6bcc02690f1eda6309e38cffca19ee71f4b38334f58748053efb69635cfeb",
+    "incoming.json": "7e639055d8db1f2567ab8f1891eda5ec5e86575c34bd1a4d5428c4ca0d501101",
+    "incoming-conflict.json": "bb173461892683d23d4dc7cbcb2bb14d0ebf557ee2b5139e98653bc70b968d00",
+    "identities.json": "1694e5246ae3111f6a2a32ef1e164d00b6b88b8ca79b74331cf6e688060670ab"
+  }
+}

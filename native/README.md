@@ -140,3 +140,59 @@ folder is insufficient. Require the exact commit's hosted native job to succeed,
 inspect its logs and PNG artifacts, and run the independent oracle on both
 first-load and reopened observations. Preserve failed-run artifacts for
 reproducibility and fix the actual failed stage rather than weakening the gate.
+
+## Verify the application's prepared downloads
+
+The browser test prepares all three working-copy roles from the same native
+baseline. Each actual prepared download must pass separately:
+
+```sh
+# Run inside the same disposable Xvfb/Openbox session as the other native steps.
+for role in baseline operator incoming; do
+  /usr/bin/python3 native/obs_gate.py prepared \
+    --input "evidence/browser/prepared-${role}.json" \
+    --original tests/fixtures/native/baseline.json \
+    --reference-observation evidence/native-prepare/baseline-reopened.json \
+    --out "evidence/native-prepared-${role}"
+done
+```
+
+This command first checks that only the collection name changed from the
+original native file. It then uses real UI Import and checks runtime source
+settings, UUIDs, item references, ordering, transforms and visibility against the
+original baseline's **previously captured native observation**, before and after
+a clean native reopen. Neither the downloaded file nor the expected native
+observation is rewritten.
+
+## Safety checks and log review
+
+Before native import, the fixed-fixture controller rejects device/media/browser
+source kinds, mismatched versioned source IDs, scripts, filters, global audio
+inputs, groups, extra canvases and file-backed text. This guard is deliberately
+narrower than the application's whole supported profile.
+
+After every graceful close, `*-diagnostics.json` explicitly lists:
+
+- `semanticFailures`: missing scene references, unknown source types, source
+  creation/loading failures, duplicate UUIDs, uncleared sources or a Missing
+  Files diagnostic. Any such diagnostic fails the gate
+- `toleratedEnvironmentDiagnostics`: only the exact matched optional-hardware or
+  renderer diagnostic lines, preserved individually for review
+- `otherDiagnosticsForReview`: every remaining warning/error/failure line. These
+  are not silently discarded or relabeled as expected
+
+Review the actual hosted diagnostic reports and GUI artifacts before claiming
+native acceptance. Missing-file checking remains enabled. No security bypass
+flags are used.
+
+The pure-Python controller checks are safe to run locally:
+
+```sh
+python -m unittest discover -s native -p 'test_*.py' -v
+python -m py_compile native/obs_gate.py
+bash -n native/install-obs.sh
+```
+
+These cover guards, API-contract edge cases, readiness retry, exact-window
+matching and log classification only. They do not execute OBS or prove native
+compatibility.
