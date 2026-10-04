@@ -55,6 +55,11 @@ jobs:
         env:
           REQUIRE_NATIVE_FIXTURES: '1'
       - run: git diff --exit-code -- dist/index.html
+      - name: Install Japanese system font for visual verification
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends fonts-noto-cjk
+          fc-match ':lang=ja'
       - name: Check available system Chrome
         run: google-chrome --version
       - name: Actual uploads, reviews, prepared copies and downloads with browser sandbox enabled
