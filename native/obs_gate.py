@@ -470,8 +470,12 @@ class NativeOBS:
         self.rpc = None
         main = self.wait_window('^OBS ')
         self.focus(main)
-        self.cmd('xdotool', 'key', '--clearmodifiers', 'alt+f')
-        self.cmd('xdotool', 'key', 'x')
+        # A hosted close-failure screenshot showed the main window still idle
+        # after the rapid Alt+F / x sequence. Require rendered menu evidence
+        # before requesting the same genuine native Exit action.
+        self.click_text('File', f'{self.label}-{self.launch_count}-file-menubar')
+        self.click_text('Exit', f'{self.label}-{self.launch_count}-exit-menu', activation='return')
+        progress('native-exit-requested', label=self.label, launch=self.launch_count, route='File > Exit')
         try:
             self.proc.wait(timeout=25)
         except subprocess.TimeoutExpired:

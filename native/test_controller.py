@@ -152,6 +152,47 @@ class ControllerTests(unittest.TestCase):
         self.assertLess(calls.index(('settle', .3)), calls.index(('xdotool', 'key', '--clearmodifiers', 'Return')))
         screenshot.assert_any_call('collection-menu-target-hover')
 
+    def test_graceful_stop_observes_file_then_exit_before_waiting(self):
+        from unittest.mock import MagicMock, call
+        with tempfile.TemporaryDirectory() as folder:
+            app = gate.NativeOBS.__new__(gate.NativeOBS)
+            app.label, app.launch_count = 'consumer', 1
+            app.evidence = Path(folder)
+            app.process_log = Path(folder) / 'process.log'
+            app.process_log.write_text('info: clean shutdown\n')
+            app.log_handle = MagicMock()
+            app.proc = MagicMock()
+            app.proc.poll.return_value = None
+            app.proc.returncode = 0
+            app.rpc = MagicMock()
+            with patch.object(app, 'assert_outputs_off'), patch.object(app, 'wait_window', return_value='99'), \
+                 patch.object(app, 'focus'), patch.object(app, 'click_text') as activate, patch.object(gate, 'progress'):
+                app.stop()
+            self.assertEqual(activate.call_args_list, [
+                call('File', 'consumer-1-file-menubar'),
+                call('Exit', 'consumer-1-exit-menu', activation='return')])
+            app.proc.wait.assert_called_once_with(timeout=25)
+            app.proc.terminate.assert_not_called()
+            app.proc.kill.assert_not_called()
+            self.assertTrue((Path(folder) / 'consumer-1-diagnostics.json').is_file())
+
+    def test_graceful_stop_timeout_remains_failure_without_force_success(self):
+        from unittest.mock import MagicMock
+        app = gate.NativeOBS.__new__(gate.NativeOBS)
+        app.label, app.launch_count = 'consumer', 1
+        app.proc = MagicMock()
+        app.proc.poll.return_value = None
+        app.proc.wait.side_effect = gate.subprocess.TimeoutExpired('obs', 25)
+        app.rpc = MagicMock()
+        with patch.object(app, 'assert_outputs_off'), patch.object(app, 'wait_window', return_value='99'), \
+             patch.object(app, 'focus'), patch.object(app, 'click_text'), patch.object(app, 'desktop') as screenshot, \
+             patch.object(gate, 'progress'):
+            with self.assertRaisesRegex(RuntimeError, 'refusing to count an unsaved roundtrip'):
+                app.stop()
+        app.proc.terminate.assert_not_called()
+        app.proc.kill.assert_not_called()
+        screenshot.assert_called_once_with('consumer-close-failure')
+
     def test_zero_bounds_are_observed_instead_of_invalid_setter(self):
         class FakeRPC:
             def __init__(self):

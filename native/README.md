@@ -204,3 +204,11 @@ leave the correct Import row merely highlighted. Browse and Import dialog
 buttons remain ordinary mouse clicks. Window waits, every external command and
 OCR polling are bounded, with flushed phase progress and a best-effort failure
 screenshot that cannot replace the original exception.
+
+Graceful shutdown likewise selects the rendered **File** menubar and then the
+rendered **Exit** entry, using the same hover/settle/Return menu activation. A
+later hosted screenshot showed OBS still idle after a rapid Alt+F/x sequence;
+that unobserved mnemonic sequence is no longer used. The controller still
+requires native process exit code zero within 25 seconds, inspects the shutdown
+log, and subsequently reopens the saved collection. A timeout remains a failure.
+Process termination is failure cleanup only and is never counted as save proof.

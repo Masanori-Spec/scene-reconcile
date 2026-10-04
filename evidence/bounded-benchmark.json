@@ -3,7 +3,7 @@
   "scenes": 20,
   "items": 1000,
   "conflicts": 1000,
-  "analyzeMs": 319.484063,
+  "analyzeMs": 347.679777,
   "node": "v24.19.0",
   "profile": "synthetic unit benchmark; not native consumer evidence"
 }
