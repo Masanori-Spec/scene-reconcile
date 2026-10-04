@@ -291,8 +291,10 @@ class NativeOBS:
         self.cmd('xdotool', 'windowactivate', '--sync', window)
         time.sleep(.15)
 
-    def click_text(self, text, label):
+    def click_text(self, text, label, activation='click'):
         """Bounded, screenshot-driven polling; click at most once after finding it."""
+        if activation not in ('click', 'return'):
+            raise ValueError('Unsupported native button activation')
         progress('native-button-wait', text=text, label=label, timeoutSeconds=15)
         deadline = time.monotonic() + 15
         attempt = 0
@@ -309,8 +311,17 @@ class NativeOBS:
                 word = max(candidates, key=lambda r: int(r['top']))
                 x = int(word['left']) + int(word['width']) // 2
                 y = int(word['top']) + int(word['height']) // 2
-                self.cmd('xdotool', 'mousemove', '--sync', str(x), str(y), 'click', '1')
-                progress('native-button-clicked', text=text, label=label)
+                # Give Qt time to process hover/focus before activation. A
+                # hosted screenshot showed the correct Import row highlighted
+                # but still open after combined immediate move+click.
+                self.cmd('xdotool', 'mousemove', '--sync', str(x), str(y))
+                time.sleep(.3)
+                self.desktop(f'{label}-target-hover')
+                if activation == 'return':
+                    self.cmd('xdotool', 'key', '--clearmodifiers', 'Return')
+                else:
+                    self.cmd('xdotool', 'click', '1')
+                progress('native-button-activated', text=text, label=label, activation=activation)
                 time.sleep(.3)
                 return
             time.sleep(.3)
@@ -338,7 +349,7 @@ class NativeOBS:
         # skips disabled menu entries (Remove is disabled for one collection).
         self.cmd('xdotool', 'key', '--clearmodifiers', 'alt+s')
         time.sleep(.2)
-        self.click_text('Import', f'{label}-collection-menu')
+        self.click_text('Import', f'{label}-collection-menu', activation='return')
         dialog = self.wait_window('^Import Scene Collection$')
         self.focus(dialog)
         self.click_text('Browse', f'{label}-import-dialog')

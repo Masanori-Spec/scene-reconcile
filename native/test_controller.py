@@ -134,6 +134,24 @@ class ControllerTests(unittest.TestCase):
         app.cleanup.assert_called_once()
         app.desktop.assert_called_once_with('test-exception', timeout=5)
 
+    def test_native_menu_hover_and_activation_are_separate(self):
+        app = gate.NativeOBS.__new__(gate.NativeOBS)
+        calls = []
+        tsv = 'text\tconf\tleft\ttop\twidth\theight\nImport...\t95\t416\t176\t50\t14\n'
+        def command(*args, **kwargs):
+            calls.append(args)
+            return tsv if args[0] == 'tesseract' else ''
+        with patch.object(app, 'cmd', side_effect=command), \
+             patch.object(app, 'desktop', return_value=Path('observed.png')) as screenshot, \
+             patch.object(gate.time, 'sleep', side_effect=lambda seconds: calls.append(('settle', seconds))), patch.object(gate, 'progress'):
+            app.click_text('Import', 'collection-menu', activation='return')
+        self.assertIn(('xdotool', 'mousemove', '--sync', '441', '183'), calls)
+        self.assertIn(('xdotool', 'key', '--clearmodifiers', 'Return'), calls)
+        self.assertFalse(any('click' in call for call in calls))
+        self.assertLess(calls.index(('xdotool', 'mousemove', '--sync', '441', '183')), calls.index(('settle', .3)))
+        self.assertLess(calls.index(('settle', .3)), calls.index(('xdotool', 'key', '--clearmodifiers', 'Return')))
+        screenshot.assert_any_call('collection-menu-target-hover')
+
     def test_zero_bounds_are_observed_instead_of_invalid_setter(self):
         class FakeRPC:
             def __init__(self):

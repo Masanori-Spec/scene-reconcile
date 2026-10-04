@@ -196,3 +196,11 @@ bash -n native/install-obs.sh
 These cover guards, API-contract edge cases, readiness retry, exact-window
 matching and log classification only. They do not execute OBS or prove native
 compatibility.
+
+Menu activation is deliberately split into pointer movement, a short Qt-event
+settle, a retained hover screenshot, then Return on the highlighted Import menu
+row. A hosted failure showed that an immediate combined move-and-click could
+leave the correct Import row merely highlighted. Browse and Import dialog
+buttons remain ordinary mouse clicks. Window waits, every external command and
+OCR polling are bounded, with flushed phase progress and a best-effort failure
+screenshot that cannot replace the original exception.
