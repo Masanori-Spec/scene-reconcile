@@ -1,12 +1,12 @@
-# SceneReconcile · work in progress
+# SceneReconcile
 
-A bounded local-first prototype for reconciling parallel edits to OBS scene collections. **This is a release-candidate checkpoint. The first native fixture/Import/save/reopen gate passed; product browser downloads and final native merged-output acceptance remain pending.**
+A bounded local-first prototype for reconciling parallel edits to OBS scene collections. **Verified bounded prototype for OBS Studio 32.2.2 on Linux.** The full browser/native acceptance run is linked below; this is not a universal OBS merger.
 
 The first hosted gate uses the official SHA-256-pinned OBS Studio 32.2.2 Ubuntu 24.04 package. It creates six native sources, imports prepared copies through the real OBS UI, edits the branches through the official OBS WebSocket API, then saves and reopens them. It never starts streaming, recording, virtual camera, webcam or microphone capture. Each run uses disposable configuration and authenticated ephemeral control.
 
-The [first gate passed](https://github.com/Masanori-Spec/scene-reconcile/actions/runs/37231268860), preserving all baseline UUIDs across native imports and reopened branches. Final acceptance still requires actual application browser downloads, independent Python semantic checks against a pre-authored manifest, fresh native Import and save/reopen, runtime inspection of every scene, and human visual review of native previews.
+The [first gate passed](https://github.com/Masanori-Spec/scene-reconcile/actions/runs/37231268860), preserving all baseline UUIDs across native imports and reopened branches. The [full acceptance run](https://github.com/Masanori-Spec/scene-reconcile/actions/runs/37233092875) also passed: actual browser downloads, independent Python semantic/hash checks, fresh native Import and save/reopen of all five downloads, every-scene runtime inspection, and native preview review. See [verification details](docs/VERIFICATION.md) for the exact tested commit, artifact hashes and diagnostic caveats.
 
-## Early native gate
+## Reproduce the first native gate
 
 Hosted GitHub Actions Ubuntu 24.04 only:
 

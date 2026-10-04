@@ -1,0 +1,29 @@
+{
+  "testedRun": "https://github.com/Masanori-Spec/scene-reconcile/actions/runs/37233092875",
+  "testedCommit": "b313431a1739bb9839f72687e2154f0e60fa1235",
+  "jobs": "all four passed",
+  "nodeTests": 87,
+  "uiStateScenarios": 12,
+  "oracleTests": 16,
+  "controllerTests": 14,
+  "browserGroups": 15,
+  "browserSandbox": true,
+  "externalBrowserRequests": 0,
+  "pageErrors": 0,
+  "nativeDownloads": 5,
+  "preparedImportsAndReopens": 3,
+  "mergedVariants": 2,
+  "runtimePhasesPerVariant": 2,
+  "savedSerializersPerVariant": 2,
+  "nativeSemanticLogFailures": 0,
+  "browserArtifactSha256": "6e7008bf75ba8cdb76aa304a2d2bb2318fc4c9bab5fe739bd97d0374354113e5",
+  "nativeArtifactSha256": "ce6e22c15c85a26c9544a99f4cab344c949f48bb91e53eced103dad5ed57a296",
+  "normalOutputSha256": "a653e6e4cda49f6685dabd885af74b7bf5db0fad6d7ec8e995977ed1a3b5dd96",
+  "conflictOutputSha256": "8e17ec066548b16ccce13c7fd4fde8afed2c5fc47508f5daf2d008e10d93a9c1",
+  "caveats": [
+    "Optional hardware/rendering/portal/shutdown diagnostics retained",
+    "Native fixture profile only: colors, FreeType text, nested scenes",
+    "Capture/media settings preservation tested synthetically",
+    "Decorative symbol changed to inline SVG after tested run; full gate reruns on subsequent commits"
+  ]
+}

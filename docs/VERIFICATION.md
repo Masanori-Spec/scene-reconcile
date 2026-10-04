@@ -1,8 +1,27 @@
 # Verification status
 
-This is an in-progress checkpoint. The first native fixture/Import/save/reopen gate has passed. Product browser downloads and final native merged-output acceptance remain pending. Do not read authored harnesses as evidence of execution.
+The full functional/native acceptance run passed: [run 37233092875](https://github.com/Masanori-Spec/scene-reconcile/actions/runs/37233092875), exact tested commit `b313431a1739bb9839f72687e2154f0e60fa1235`.
 
-First native evidence: [run 37231268860](https://github.com/Masanori-Spec/scene-reconcile/actions/runs/37231268860), exact commit e1510e784c75ed5d02ba4478c15a4b5df1738d4e. Official OBS32.2.2 package digest verified; generated native baseline and all three branches imported/edited/saved/reopened with source UUID identity retained. Artifact SHA-256 bdfa89235a8b7eeb1e325b628a4d556a4c8f65352172e9f5bd864a1d2816c42b. Native previews/import screenshots were reviewed. Targeted source/UUID/load log scan found no semantic failures; optional hardware/rendering and shutdown diagnostics remain recorded for review. This is not a warning-free-log claim.
+- 87 Node tests, including 12 lightweight UI state/integrity scenarios; Node 22 and 24 both passed
+- 16 independent semantic-oracle mutation tests; 14 native-controller tests
+- Deterministic standalone distribution matched the committed file
+- 15 sandboxed Chrome browser groups using genuine native fixtures, actual inputs and actual downloads; zero external requests or page errors
+- Independent hashes/manifests passed for normal and conflict-resolved browser outputs
+- All three actual browser-prepared copies passed fresh native UI Import, UUID/runtime equality, save, close and reopen
+- Actual normal and conflict-resolved downloads each passed fresh native UI Import, all-scene activation, both runtime phases and both native-saved serializer checks
+- Japanese/English desktop/mobile screenshots and native previews were reviewed. One decorative font-dependent symbol was replaced with inline SVG after this run; subsequent commits run the same full gate again
+
+First native fixture evidence: [run 37231268860](https://github.com/Masanori-Spec/scene-reconcile/actions/runs/37231268860), commit `e1510e784c75ed5d02ba4478c15a4b5df1738d4e`. All baseline source UUIDs survived prepared native imports and reopened branches. The fixture files are committed with byte hashes and provenance.
+
+| Artifact | SHA-256 |
+|---|---|
+| First native gate | `bdfa89235a8b7eeb1e325b628a4d556a4c8f65352172e9f5bd864a1d2816c42b` |
+| Corrected browser gate | `6e7008bf75ba8cdb76aa304a2d2bb2318fc4c9bab5fe739bd97d0374354113e5` |
+| Corrected native consumer | `ce6e22c15c85a26c9544a99f4cab344c949f48bb91e53eced103dad5ed57a296` |
+| Actual normal browser output | `a653e6e4cda49f6685dabd885af74b7bf5db0fad6d7ec8e995977ed1a3b5dd96` |
+| Actual conflict-resolved browser output | `8e17ec066548b16ccce13c7fd4fde8afed2c5fc47508f5daf2d008e10d93a9c1` |
+
+All ten final native launch logs had zero targeted source/UUID/load semantic failures. Optional GPU/DeckLink/VLC/portal and shutdown diagnostics remain recorded for review; this is not a warning-free-log claim. Native tests use only colors, FreeType text and nested scenes. Existing capture/media preservation has synthetic coverage, without opening devices or media.
 
 ## Independent expectation fixed first
 
