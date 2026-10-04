@@ -1,0 +1,36 @@
+{
+  "manifestVersion": 1,
+  "authoredBeforeApplication": true,
+  "consumer": "OBS Studio 32.2.2 Ubuntu 24.04 x86_64",
+  "canvas": {"width": 1280, "height": 720},
+  "identityRule": "UUIDs come from the native baseline and incoming exports, never from application output; names below are fixed fixture symbols only",
+  "baselineSourceNames": ["Main", "Break", "LowerThird", "Background", "Banner", "Title"],
+  "addedSourceNames": ["Thanks", "ThanksText"],
+  "expectedSourceCount": 8,
+  "sourceSettings": {
+    "Background": {"color": 4281541135, "width": 1280, "height": 720},
+    "Banner": {"color": 4291669810, "width": 650, "height": 110},
+    "Title": {"text": "Workshop begins at 18:30"},
+    "ThanksText": {"text": "Thanks for joining"}
+  },
+  "sceneItems": {
+    "Main": [{"source": "Background", "id": 1, "x": 0, "y": 0, "visible": true, "locked": false}, {"source": "LowerThird", "id": 2, "x": 240, "y": 80, "visible": true, "locked": false}],
+    "Break": [{"source": "Background", "id": 1, "x": 0, "y": 0, "visible": true, "locked": false}, {"source": "LowerThird", "id": 2, "x": 40, "y": 30, "visible": false, "locked": false}],
+    "LowerThird": [{"source": "Banner", "id": 1, "x": 0, "y": 0, "visible": true, "locked": false}, {"source": "Title", "id": 2, "x": 24, "y": 30, "visible": true, "locked": false}],
+    "Thanks": [{"source": "LowerThird", "id": 1, "x": 100, "y": 100, "visible": true, "locked": false}, {"source": "ThanksText", "id": 2, "x": 100, "y": 280, "visible": true, "locked": false}]
+  },
+  "unchangedTransformDefaults": {"scaleX": 1, "scaleY": 1, "rotation": 0, "alignment": 5, "boundsType": "OBS_BOUNDS_NONE", "boundsAlignment": 0, "boundsWidth": 0, "boundsHeight": 0, "cropLeft": 0, "cropTop": 0, "cropRight": 0, "cropBottom": 0},
+  "transformAtomFields": ["pos", "pos_rel", "scale", "scale_rel", "scale_ref", "bounds", "bounds_rel", "rot", "align", "bounds_type", "bounds_align", "bounds_crop", "crop_left", "crop_top", "crop_right", "crop_bottom"],
+  "winningAtoms": {
+    "source:Background:settings": "operator",
+    "source:Banner:settings": "baseline",
+    "source:Title:settings": "incoming",
+    "scene:Main:item:2:transform": "operator",
+    "scene:Break:item:2:transform": "incoming",
+    "scene:Break:item:2:visible": "operator",
+    "new:Thanks+ThanksText": "incoming"
+  },
+  "titleAffectedScenes": ["Break", "LowerThird", "Main", "Thanks"],
+  "conflictVariant": {"incomingMainLowerThirdPosition": [120, 140], "decision": "operator", "sameExpectedResult": true},
+  "coordinateNote": "Compare every serialized transform atom to its named branch. Runtime absolute pixels must match this handwritten manifest even if OBS emits relative-coordinate fields. Native generation must explicitly set each listed default."
+}
