@@ -1,0 +1,96 @@
+name: Verify SceneReconcile
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  unit-and-oracle:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+        env:
+          REQUIRE_NATIVE_FIXTURES: '1'
+      - name: Committed standalone distribution is deterministic
+        run: git diff --exit-code -- dist/index.html
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scenereconcile-unit-${{ matrix.node }}
+          path: |
+            evidence/bounded-benchmark.json
+  browser-downloads:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.16.0'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+        env:
+          REQUIRE_NATIVE_FIXTURES: '1'
+      - run: git diff --exit-code -- dist/index.html
+      - name: Check available system Chrome
+        run: google-chrome --version
+      - name: Actual uploads, reviews, prepared copies and downloads with browser sandbox enabled
+        run: npm run test:browser
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+      - name: Independent manifest and exact-byte receipt checks
+        run: |
+          python oracle/check.py test-results/browser/merged.json test-results/browser/baseline-input.json test-results/browser/operator-input.json test-results/browser/incoming-input.json --receipt test-results/browser/merged.receipt.json --report test-results/browser/oracle-merged.json
+          python oracle/check.py test-results/browser/conflict-resolved.json test-results/browser/baseline-input.json test-results/browser/operator-input.json test-results/browser/conflict-input.json --receipt test-results/browser/conflict-resolved.receipt.json --report test-results/browser/oracle-conflict.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scenereconcile-browser-downloads
+          path: test-results/browser/
+          if-no-files-found: error
+  native-consumer:
+    needs: browser-downloads
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: scenereconcile-browser-downloads
+          path: test-results/browser
+      - name: Install official hash-pinned OBS 32.2.2
+        run: bash native/install-obs.sh
+      - name: Import every actual prepared copy and merged download, save, close and reopen
+        run: |
+          dbus-run-session -- xvfb-run -a -s '-screen 0 1600x1000x24' bash scripts/native-consume-all.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scenereconcile-native-consumer
+          path: evidence/native-consumer/
+          if-no-files-found: error
